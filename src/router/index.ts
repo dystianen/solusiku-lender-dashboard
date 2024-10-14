@@ -27,17 +27,18 @@ const router = createRouter({
     {
       path: '',
       component: () => import('@/components/templates/layouts/BaseLayout.vue'),
+      redirect: '/login',
       children: [
-        {
-          path: '',
-          name: 'Home',
-          component: HomeView
-        },
-        {
-          path: '/pinjaman',
-          name: 'loan',
-          component: LoanView
-        },
+        // {
+        //   path: '',
+        //   name: 'Home',
+        //   component: HomeView
+        // },
+        // {
+        //   path: '/pinjaman',
+        //   name: 'loan',
+        //   component: LoanView
+        // },
         {
           path: '/registration',
           name: 'registration',

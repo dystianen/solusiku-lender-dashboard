@@ -9,6 +9,7 @@ import App from './App.vue'
 import router from './router'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import { VueQueryPlugin } from '@tanstack/vue-query'
 import { OhVueIcon, addIcons } from 'oh-vue-icons'
 import {
   FaChevronLeft,
@@ -48,5 +49,6 @@ app.use(VueApexCharts)
 app.use(ElementPlus)
 app.use(createPinia())
 app.use(router)
+app.use(VueQueryPlugin)
 
 app.mount('#app')
