@@ -11,9 +11,14 @@ import ForgotPassword from '@/views/ForgotPassword.vue'
 import RegistrationPendanaan from '@/views/registration/RegistrationPendanaan.vue'
 import WaitingView from '@/views/WaitingView.vue'
 import DashboardView from '@/views/DashboardView.vue'
-import PeluangPendanaan from '@/views/management-pendanaan/PeluangPendanaan.vue'
+import FundingOpportunities from '@/views/management-pendanaan/FundingOpportunities.vue'
 import ProfileLender from '@/views/ProfileLender.vue'
 import AccountSetting from '@/views/AccountSetting.vue'
+import Notification from '@/views/Notification.vue'
+import FundingHistory from '@/views/management-pendanaan/FundingHistory.vue'
+import PaymentHistory from '@/views/management-pendanaan/PaymentHistory.vue'
+import Restructuring from '@/views/management-pendanaan/Restructuring.vue'
+import DeleteBookWO from '@/views/management-pendanaan/DeleteBookWO.vue'
 
 const router = createRouter({
   linkActiveClass: 'tw-bg-primary tw-text-white',
@@ -98,7 +103,27 @@ const router = createRouter({
         {
           path: '/funding-opportunities',
           name: 'funding-opportunities',
-          component: PeluangPendanaan
+          component: FundingOpportunities
+        },
+        {
+          path: '/funding-history',
+          name: 'funding-history',
+          component: FundingHistory
+        },
+        {
+          path: '/payment-history',
+          name: 'payment-history',
+          component: PaymentHistory
+        },
+        {
+          path: '/restructuring',
+          name: 'restructuring',
+          component: Restructuring
+        },
+        {
+          path: '/delete-book-wo',
+          name: 'delete-book-wo',
+          component: DeleteBookWO
         },
         {
           path: '/profile-lender',
@@ -111,9 +136,9 @@ const router = createRouter({
           component: AccountSetting
         },
         {
-          path: '/notifikasi',
-          name: 'notifikasi',
-          component: ProfileLender
+          path: '/notification',
+          name: 'notification',
+          component: Notification
         }
       ]
     }

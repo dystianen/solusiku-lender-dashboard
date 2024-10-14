@@ -25,7 +25,7 @@ const form = reactive({
     <div class="tw-flex tw-w-full tw-flex-col tw-gap-6">
       <InputField v-model="form.email" label="Email/No.Telepon" placeholder="Cth: Jhon Due" />
       <InputField v-model="form.fullName" label="Kata Sandi" placeholder="Cth: Jhon Due" />
-      <RouterLink to="/reset-password" class="tw-font-semibold tw-text-primary">
+      <RouterLink to="/forgot-password" class="tw-font-semibold tw-text-primary">
         Lupa Kata Sandi?
       </RouterLink>
     </div>
