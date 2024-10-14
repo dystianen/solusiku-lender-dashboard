@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.tw-layout {
+  @apply tw-z-10 tw-mx-auto tw-max-w-[1300px] tw-overflow-x-hidden tw-p-4;
+}
+
+.tw-section {
+  @apply tw-mt-[150px] tw-flex tw-flex-col tw-items-center tw-justify-center tw-gap-3;
+}
+
+.tw-divider-section {
+  @apply tw-h-2 tw-w-[150px] tw-rounded-md tw-bg-gradient-to-r tw-from-primary-1 tw-to-primary-2;
+}
+
+@layer base {
+  img,
+  video {
+    max-width: 100%;
+    height: revert-layer;
+  }
+}
