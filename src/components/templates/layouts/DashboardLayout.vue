@@ -43,35 +43,35 @@ const menu = [
     label: 'Management Pendanaan',
     children: [
       {
-        path: '/peluang-pendanaan',
+        path: '/funding-opportunities',
         label: 'Peluang Pendanaan'
       },
       {
-        path: '/riwayat-pendanaan',
+        path: '/funding-history',
         label: 'Riwayat Pendanaan'
       },
       {
-        path: '/riwayat-pembayaran',
+        path: '/payment-history',
         label: 'Riwayat Pembayaran'
       },
       {
-        path: '/restrukturisasi',
+        path: '/restructuring',
         label: 'Restrukturisasi'
       },
       {
-        path: '/hapus-buku-wo',
+        path: '/delete-book-wo',
         label: 'Hapus Buku (WO)'
       }
     ]
   },
   {
-    path: '/pengaturan-akun',
+    path: '/account-setting',
     icon: IcUser,
     activeIcon: IcUserWhite,
     label: 'Pengaturan Akun'
   },
   {
-    path: '/notifikasi',
+    path: '/notification',
     icon: IcNotif,
     activeIcon: IcNotifWhite,
     label: 'Notifikasi'

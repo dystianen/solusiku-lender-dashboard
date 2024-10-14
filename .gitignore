@@ -31,7 +31,6 @@ coverage
 
 # local .env files
 .env
-.env.local*
 
 yarn.lock
 /package-lock.json

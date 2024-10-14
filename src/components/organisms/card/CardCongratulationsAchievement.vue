@@ -26,7 +26,7 @@ import AchievementPeople from '@/assets/images/achievement_people.svg'
     </div>
 
     <div class="tw-absolute tw-bottom-0 tw-right-0">
-      <img :src="AchievementPeople" alt="Achievement People" :width="200" />
+      <img :src="AchievementPeople" alt="Achievement People" :width="250" />
     </div>
   </Card>
 </template>
