@@ -18,21 +18,12 @@ const attrs = useAttrs()
 <template>
   <div class="input-container">
     <label :for="props.label" class="input-label">{{ props.label }}</label>
-    <el-input
+    <el-date-picker
       v-bind="attrs"
+      type="date"
       :placeholder="props.placeholder"
       size="large"
-      style="border-radius: 15px"
-    >
-      <template #prefix>
-        <slot name="prefix" />
-      </template>
-    </el-input>
+      style="width: 100%"
+    />
   </div>
 </template>
-
-<style scoped>
-:deep(.ep-input__prefix-inner > :last-child) {
-  margin-right: 0;
-}
-</style>

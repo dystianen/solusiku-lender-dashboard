@@ -3,7 +3,7 @@ import { verificationServices } from './verification-service'
 import type { TReqRegister } from '@/types/verification'
 
 const useVerification = {
-  login() {
+  postLogin() {
     return useMutation({
       mutationFn: () => verificationServices.login()
     })

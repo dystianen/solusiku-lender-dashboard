@@ -23,7 +23,8 @@ import {
   FaChevronUp,
   RiHistoryFill,
   RiDatabase2Fill,
-  MdFileuploadOutlined
+  MdFileuploadOutlined,
+  IoCalendar
 } from 'oh-vue-icons/icons'
 
 addIcons(
@@ -38,7 +39,8 @@ addIcons(
   MdSearch,
   RiHistoryFill,
   RiDatabase2Fill,
-  MdFileuploadOutlined
+  MdFileuploadOutlined,
+  IoCalendar
 )
 
 const app = createApp(App)

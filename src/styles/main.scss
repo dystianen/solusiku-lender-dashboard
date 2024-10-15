@@ -33,3 +33,31 @@ video {
   -ms-border-radius: 8px !important;
   -o-border-radius: 8px !important;
 }
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.input-container {
+  position: relative;
+  width: 100%;
+}
+
+.input-label {
+  position: absolute;
+  font-size: 0.9rem;
+  left: 10px;
+  top: -8px;
+  background-color: white;
+  padding: 0 4px;
+  z-index: 1;
+  line-height: 1.2;
+}

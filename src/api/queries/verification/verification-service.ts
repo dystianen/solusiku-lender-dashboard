@@ -4,7 +4,7 @@ import type { TReqRegister } from '@/types/verification'
 
 export const verificationServices = {
   async login() {
-    const { data } = await api.get(`${LENDER_API}/login`)
+    const { data } = await api.post(`${LENDER_API}/login`)
     return data ?? {}
   },
 

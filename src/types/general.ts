@@ -4,3 +4,10 @@ export interface GeneralResponse<T = unknown> {
   success: boolean
   data: T
 }
+
+export type StringOrNumber = string | number
+
+export type Options = {
+  id: StringOrNumber
+  name: StringOrNumber
+}

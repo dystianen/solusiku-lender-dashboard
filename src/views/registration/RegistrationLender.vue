@@ -5,6 +5,9 @@ import InputField from '@/components/atoms/input/InputField.vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import useUser from '@/api/queries/master/user/useUser'
 import useVerification from '@/api/queries/verification/useVerification'
+import IcFlagIDN from '@/assets/icons/ic_flag_idn.svg'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
 // Queries
 const { data: userType } = useUser.getUserType()
@@ -47,7 +50,7 @@ const validateConfirmPassword = (rule: any, value: any, callback: any) => {
   if (value === '') {
     callback(new Error('Konfirmasi Kata Sandi harus diisi'))
   } else if (value !== form.password) {
-    callback(new Error("Two inputs don't match!"))
+    callback(new Error('Konfirmasi kata sandi tidak cocok'))
   } else {
     callback()
   }
@@ -66,6 +69,11 @@ const rules = reactive<FormRules<RuleForm>>({
       required: true,
       message: 'Email harus diisi',
       trigger: 'change'
+    },
+    {
+      type: 'email',
+      message: 'Harap masukkan alamat email yang benar',
+      trigger: 'blur'
     }
   ],
   phone: [
@@ -103,7 +111,15 @@ const handleSelectedType = (value: string) => {
 const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   await formEl.validate(() => {
-    submitRegister(form)
+    const payload = {
+      ...form,
+      phone: `+62${form.phone}`
+    }
+    submitRegister(payload, {
+      onSuccess: () => {
+        router.push({ name: 'otp' })
+      }
+    })
   })
 }
 
@@ -135,7 +151,7 @@ watch(userType, (value) => {
             v-for="item in userType"
             :key="item.id"
             :class="[
-              'tw-flex tw-max-w-[155px] tw-flex-col tw-items-center tw-justify-center tw-gap-6 tw-rounded-lg tw-px-10 tw-py-3 tw-shadow-medium-orange md:tw-max-w-[240px]',
+              'tw-flex tw-w-[155px] tw-flex-col tw-items-center tw-justify-center tw-gap-6 tw-rounded-lg tw-px-10 tw-py-3 tw-shadow-medium-orange md:tw-w-[240px]',
               form.userTypeId === item.id ? 'tw-border-2 tw-border-primary tw-bg-primary/[.05]' : ''
             ]"
             @click.prevent="handleSelectedType(item.id)"
@@ -164,7 +180,20 @@ watch(userType, (value) => {
         />
       </el-form-item>
       <el-form-item prop="phone">
-        <InputField v-model="form.phone" label="No. Hp/Telepon" placeholder="Cth: 8128 1234 5678" />
+        <InputField
+          v-model="form.phone"
+          type="number"
+          label="No. Hp/Telepon"
+          placeholder="8128 1234 5678"
+        >
+          <template #prefix>
+            <div class="tw-flex tw-items-center tw-gap-1">
+              <img :src="IcFlagIDN" :width="24" :height="20" />
+              <span class="tw-text-black">+62</span>
+              <el-divider direction="vertical" />
+            </div>
+          </template>
+        </InputField>
       </el-form-item>
       <el-form-item prop="password">
         <InputField
@@ -173,6 +202,7 @@ watch(userType, (value) => {
           autocomplete="off"
           label="Kata Sandi"
           placeholder="Masukan Kata Sandi"
+          show-password
         />
       </el-form-item>
       <el-form-item prop="confirmPassword">
@@ -182,6 +212,7 @@ watch(userType, (value) => {
           autocomplete="off"
           label="Konfirmasi Kata Sandi"
           placeholder="Konfirmasi Kata Sandi"
+          show-password
         />
       </el-form-item>
 
@@ -189,6 +220,7 @@ watch(userType, (value) => {
         <el-checkbox
           v-model="form.isAgree"
           size="large"
+          type="success"
           style="height: max-content; margin-top: 5px"
         />
         <p class="tw-text-neutral-desc">
