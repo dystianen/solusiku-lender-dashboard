@@ -26,79 +26,69 @@ export default {
       },
       fontSize: {
         display: [
-          '2.75rem',
+          '2.75rem', //44px
           {
             fontWeight: 600
           }
         ],
         'heading-1': [
-          '2.25rem',
+          '2.25rem', //36px
           {
-            fontWeight: 600,
-            lineHeight: '46.8px'
+            fontWeight: 600
           }
         ],
         'heading-2': [
-          '2rem',
+          '2rem', //32px
           {
-            fontWeight: 600,
-            lineHeight: '41.6px'
+            fontWeight: 600
           }
         ],
         'heading-3': [
-          '1rem',
+          '1rem', //16px
           {
-            fontWeight: 600,
-            lineHeight: '20.8px'
+            fontWeight: 600
           }
         ],
         'body-semibold': [
-          '1rem',
+          '1rem', //16px
           {
-            fontWeight: 600,
-            lineHeight: '27.2px'
+            fontWeight: 600
           }
         ],
         'body-medium': [
-          '1rem',
+          '1rem', //16px
           {
-            fontWeight: 500,
-            lineHeight: '27.2px'
+            fontWeight: 500
           }
         ],
         'body-regular': [
-          '1rem',
+          '1rem', //16px
           {
-            fontWeight: 400,
-            lineHeight: '27.2px'
+            fontWeight: 400
           }
         ],
         'body-light': [
-          '1rem',
+          '1rem', //16px
           {
-            fontWeight: 300,
-            lineHeight: '27.2px'
+            fontWeight: 300
           }
         ],
         'desc-medium': [
-          '0.875rem',
+          '0.875rem', //14px
           {
-            fontWeight: 500,
-            lineHeight: '23.8px'
+            fontWeight: 500
           }
         ],
         'desc-regular': [
-          '0.875rem',
+          '0.875rem', //14px
           {
-            fontWeight: 400,
-            lineHeight: '23.8px'
+            fontWeight: 400
           }
         ],
         'desc-light': [
-          '0.875rem',
+          '0.875rem', //14px
           {
-            fontWeight: 300,
-            lineHeight: '23.8px'
+            fontWeight: 300
           }
         ]
       },

@@ -21,7 +21,7 @@ const { isMobile } = useScreenType()
       <el-col :span="isMobile ? 24 : 12">
         <div class="tw-flex tw-flex-col tw-gap-6">
           <div class="tw-flex tw-items-center tw-gap-4">
-            <p class="tw-text-xs tw-font-medium">
+            <p class="tw-text-xs">
               Berizin & <br />
               Diawasi:
             </p>

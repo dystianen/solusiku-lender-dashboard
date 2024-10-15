@@ -7,7 +7,7 @@ import AchievementPeople from '@/assets/images/achievement_people.svg'
   <Card class="tw-flex tw-justify-between">
     <div class="tw-flex tw-flex-col tw-justify-between tw-gap-4">
       <div>
-        <h5 class="tw-text-xl tw-font-medium tw-text-neutral-1/[.87]">
+        <h5 class="tw-text-xl tw-text-neutral-1/[.87]">
           Congratulations <span class="tw-font-bold">John!</span> 🎉
         </h5>
         <p class="tw-text-neutral-1/[.68]">

@@ -45,9 +45,10 @@ const app = createApp(App)
 
 app.component('v-icon', OhVueIcon)
 
+const pinia = createPinia()
+app.use(pinia)
 app.use(VueApexCharts)
 app.use(ElementPlus)
-app.use(createPinia())
 app.use(router)
 app.use(VueQueryPlugin)
 

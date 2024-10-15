@@ -14,9 +14,7 @@ import IcBarTarget from '@/assets/icons/ic_target_graphic.svg'
     </div>
 
     <div>
-      <h3 class="md:tw-text-md lg:tw-text-md tw-text-base tw-font-medium 2xl:tw-text-lg">
-        Rp 25.453.000
-      </h3>
+      <h3 class="md:tw-text-md lg:tw-text-md tw-text-base 2xl:tw-text-lg">Rp 25.453.000</h3>
       <p class="tw-text-xs tw-text-neutral-1/[.68]">Pembayaran Kembali Pinjaman Pokok</p>
     </div>
   </Card>

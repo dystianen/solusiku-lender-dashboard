@@ -29,7 +29,7 @@ import TableHistoryFunding from '@/components/organisms/table/TableHistoryFundin
     </div>
 
     <Card>
-      <h3 class="tw-text-xl tw-font-medium tw-text-neutral-1/[.87]">Riwayat Pendanaan</h3>
+      <h3 class="tw-text-xl tw-text-neutral-1/[.87]">Riwayat Pendanaan</h3>
       <TableHistoryFunding />
     </Card>
   </div>

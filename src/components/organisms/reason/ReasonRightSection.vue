@@ -64,7 +64,7 @@ const reasonData = [
 
           <div>
             <h1 class="tw-text-2xl tw-font-semibold tw-text-primary">{{ item.title }}</h1>
-            <p class="tw-text-body-regular tw-text-sm tw-font-medium">{{ item.desc }}</p>
+            <p class="tw-text-body-regular tw-text-sm">{{ item.desc }}</p>
           </div>
         </div>
       </div>

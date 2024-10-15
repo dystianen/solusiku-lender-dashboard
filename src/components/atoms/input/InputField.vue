@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { useAttrs } from 'vue'
+
 const props = defineProps({
   label: {
     type: String,
@@ -7,18 +9,21 @@ const props = defineProps({
   placeholder: {
     type: String,
     default: ''
-  },
-  inputType: {
-    type: String as () => 'text' | 'number' | 'date' | 'file',
-    default: 'text'
   }
 })
+
+const attrs = useAttrs()
 </script>
 
 <template>
   <div class="input-container">
     <label :for="props.label" class="input-label">{{ props.label }}</label>
-    <input :type="props.inputType" :placeholder="props.placeholder" class="input-field" />
+    <el-input
+      v-bind="attrs"
+      :placeholder="props.placeholder"
+      size="large"
+      style="border-radius: 15px"
+    />
   </div>
 </template>
 
@@ -32,29 +37,10 @@ const props = defineProps({
   position: absolute;
   font-size: 0.9rem;
   left: 10px;
-  top: -12px;
+  top: -8px;
   background-color: white;
   padding: 0 4px;
-}
-
-.input-field {
-  width: 100%;
-  padding: 0.4rem 0.6rem;
-  font-size: 1rem;
-  border: 1px solid #c0c0c9;
-  border-radius: 8px;
-}
-
-.input-field:focus,
-.input-field:focus-visible {
-  outline: none;
-  border: 1px solid #de4f3f !important;
-}
-
-.input-field::placeholder {
-  color: #c0c0c9;
-  width: max-content;
-  font-weight: 400;
-  font-size: 14px;
+  z-index: 1;
+  line-height: 1.2;
 }
 </style>

@@ -1,6 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '@/views/HomeView.vue'
-import LoanView from '@/views/LoanView.vue'
 import RegistrationView from '@/views/registration/RegistrationView.vue'
 import RegistrationLender from '@/views/registration/RegistrationLender.vue'
 import LoginView from '@/views/LoginView.vue'
@@ -29,16 +27,6 @@ const router = createRouter({
       component: () => import('@/components/templates/layouts/BaseLayout.vue'),
       redirect: '/login',
       children: [
-        // {
-        //   path: '',
-        //   name: 'Home',
-        //   component: HomeView
-        // },
-        // {
-        //   path: '/pinjaman',
-        //   name: 'loan',
-        //   component: LoanView
-        // },
         {
           path: '/registration',
           name: 'registration',

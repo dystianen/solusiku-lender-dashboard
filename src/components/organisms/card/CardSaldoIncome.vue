@@ -35,7 +35,7 @@ const chartOptions = {
 <template>
   <Card>
     <div class="tw-flex tw-justify-between">
-      <h5 class="tw-text-xl tw-font-medium tw-text-neutral-1/[.87]">Saldo Pendapatan</h5>
+      <h5 class="tw-text-xl tw-text-neutral-1/[.87]">Saldo Pendapatan</h5>
       <select></select>
     </div>
 
@@ -43,7 +43,7 @@ const chartOptions = {
       <div class="tw-flex tw-flex-col tw-gap-14">
         <div class="tw-flex tw-flex-col tw-gap-2">
           <p class="tw-text-xs tw-text-neutral-1/[.68]">Bulan ini</p>
-          <h3 class="tw-truncate tw-text-base tw-font-medium">Rp 25.453.000</h3>
+          <h3 class="tw-truncate tw-text-base">Rp 25.453.000</h3>
           <el-tag type="success" style="width: max-content">+42%</el-tag>
           <p class="tw-truncate tw-text-xs tw-text-neutral-1/[.68]">Dari periode sebelumnya</p>
         </div>

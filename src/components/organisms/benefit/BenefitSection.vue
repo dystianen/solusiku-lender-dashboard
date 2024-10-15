@@ -73,7 +73,7 @@ const categoryData = [
               </div>
 
               <div class="tw-flex tw-flex-col">
-                <h1 class="tw-text-lg tw-font-medium tw-text-primary">
+                <h1 class="tw-text-lg tw-text-primary">
                   {{ categoryData[i].label }}
                 </h1>
                 <p>{{ list }}</p>
