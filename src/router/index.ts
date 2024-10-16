@@ -6,7 +6,7 @@ import OtpView from '@/views/OtpView.vue'
 import ChangePassword from '@/views/password/ChangePassword.vue'
 import SuccessUpdatePassword from '@/views/password/SuccessUpdatePassword.vue'
 import ForgotPassword from '@/views/password/ForgotPassword.vue'
-import RegistrationPendanaan from '@/views/registration/RegistrationPendanaan.vue'
+import RegistrationFunding from '@/views/registration/RegistrationFunding.vue'
 import WaitingView from '@/views/WaitingView.vue'
 import DashboardView from '@/views/DashboardView.vue'
 import FundingOpportunities from '@/views/management-pendanaan/FundingOpportunities.vue'
@@ -74,9 +74,9 @@ const router = createRouter({
       component: () => import('@/components/templates/layouts/LenderLayout.vue'),
       children: [
         {
-          path: '/register-pendanaan',
-          name: 'register-pendanaan',
-          component: RegistrationPendanaan
+          path: '/register-funding',
+          name: 'register-funding',
+          component: RegistrationFunding
         },
         {
           path: '/waiting',

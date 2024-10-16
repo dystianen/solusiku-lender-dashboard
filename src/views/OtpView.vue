@@ -50,7 +50,7 @@ const handleSubmitOTP = () => {
     submitOTPRegister(payload, {
       onSuccess: (res) => {
         setAccessToken(res.token)
-        router.push({ name: 'register-pendanaan' })
+        router.push({ name: 'register-funding' })
       }
     })
   }
