@@ -1,14 +1,63 @@
 <script lang="ts" setup>
-import { reactive } from 'vue'
-import { RouterLink } from 'vue-router'
+import { reactive, ref } from 'vue'
+import { RouterLink, useRouter } from 'vue-router'
 import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
 import useScreenType from '@/composables/useScreenType'
+import type { FormInstance, FormRules } from 'element-plus'
+import validatorPassword from '@/helper/password'
+import useVerification from '@/api/queries/verification/useVerification'
+import { setAccessToken } from '@/cookies/accessToken'
 
+const router = useRouter()
 const { isMobile } = useScreenType()
-const form = reactive({
-  email: '',
-  fullName: ''
+
+// Queries
+const { mutate: login, isPending } = useVerification.postLogin()
+
+interface RuleForm {
+  username: string
+  password: string
+}
+const form = reactive<RuleForm>({
+  username: '',
+  password: ''
 })
+const ruleFormRef = ref<FormInstance>()
+const rules = reactive<FormRules<RuleForm>>({
+  username: [
+    {
+      required: true,
+      message: 'Email/No.Telepon harus diisi',
+      trigger: 'blur'
+    },
+    {
+      type: 'email',
+      message: 'Harap masukkan alamat email yang benar',
+      trigger: 'blur'
+    }
+  ],
+  password: [
+    {
+      required: true,
+      trigger: 'blur',
+      validator: validatorPassword
+    }
+  ]
+})
+
+const submitForm = async (formEl: FormInstance | undefined) => {
+  if (!formEl) return
+  await formEl.validate((valid) => {
+    if (valid) {
+      login(form, {
+        onSuccess: (res) => {
+          setAccessToken(res.token)
+          router.push({ name: 'dashboard' })
+        }
+      })
+    }
+  })
+}
 </script>
 
 <template>
@@ -22,18 +71,48 @@ const form = reactive({
       yang sudah pernah terdaftar.
     </p>
 
-    <div class="tw-flex tw-w-full tw-flex-col tw-gap-6">
-      <InputField v-model="form.email" label="Email/No.Telepon" placeholder="Cth: Jhon Due" />
-      <InputField v-model="form.fullName" label="Kata Sandi" placeholder="Cth: Jhon Due" />
+    <el-form
+      ref="ruleFormRef"
+      label-width="auto"
+      class="tw-flex tw-w-full tw-flex-col tw-gap-4"
+      status-icon
+      :model="form"
+      :rules="rules"
+    >
+      <el-form-item prop="username">
+        <InputField
+          v-model="form.username"
+          label="Email/No.Telepon"
+          placeholder="Cth: JhonDue@example.com"
+        />
+      </el-form-item>
+      <el-form-item prop="password">
+        <InputField
+          v-model="form.password"
+          type="password"
+          label="Kata Sandi"
+          placeholder="•••••••••••••••"
+          show-password
+        />
+      </el-form-item>
       <RouterLink to="/forgot-password" class="tw-font-semibold tw-text-primary">
         Lupa Kata Sandi?
       </RouterLink>
-    </div>
+    </el-form>
+    <el-button
+      round
+      type="primary"
+      size="large"
+      style="width: 100%"
+      :loading="isPending"
+      @click="submitForm(ruleFormRef)"
+    >
+      Masuk
+    </el-button>
 
-    <el-button round type="primary" size="large" style="width: 100%"> Masuk </el-button>
     <p class="tw-w-full tw-text-center">
       Belum Punya Akun?
-      <RouterLink to="/registration" class="tw-font-semibold tw-text-primary"> Daftar </RouterLink>
+      <RouterLink to="/register-type" class="tw-font-semibold tw-text-primary"> Daftar </RouterLink>
     </p>
   </VerificationLayout>
 </template>

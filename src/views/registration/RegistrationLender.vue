@@ -6,12 +6,17 @@ import type { FormInstance, FormRules } from 'element-plus'
 import useUser from '@/api/queries/master/user/useUser'
 import useVerification from '@/api/queries/verification/useVerification'
 import IcFlagIDN from '@/assets/icons/ic_flag_idn.svg'
+import useEmailStore from '@/stores/email'
+import { setAccessToken } from '@/cookies/accessToken'
+import { setTimerCookies } from '@/cookies/timer'
 import { useRouter } from 'vue-router'
+
 const router = useRouter()
+const emailStore = useEmailStore()
 
 // Queries
 const { data: userType } = useUser.getUserType()
-const { mutate: submitRegister } = useVerification.postRegister()
+const { mutate: submitRegister, isPending } = useVerification.postRegister()
 
 interface RuleForm {
   userTypeId: number
@@ -35,25 +40,41 @@ const form = reactive({
 })
 
 const validatePassword = (rule: any, value: any, callback: any) => {
-  if (value === '') {
+  if (!value) {
     callback(new Error('Kata Sandi harus diisi'))
-  } else {
-    if (form.confirmPassword !== '') {
-      if (!ruleFormRef.value) return
-      ruleFormRef.value.validateField('confirmPassword')
-    }
-    callback()
   }
+
+  if (value.length < 6 || value.length > 20) {
+    return callback(new Error('Password harus terdiri dari 6-20 karakter'))
+  }
+  if (!/[A-Z]/.test(value) || !/\d/.test(value)) {
+    return callback(new Error('Password harus mengandung 1 huruf besar dan 1 angka'))
+  }
+
+  if (form.confirmPassword !== '') {
+    if (!ruleFormRef.value) return
+    ruleFormRef.value.validateField('confirmPassword')
+  }
+
+  callback()
 }
 
 const validateConfirmPassword = (rule: any, value: any, callback: any) => {
   if (value === '') {
     callback(new Error('Konfirmasi Kata Sandi harus diisi'))
-  } else if (value !== form.password) {
-    callback(new Error('Konfirmasi kata sandi tidak cocok'))
-  } else {
-    callback()
   }
+  if (value !== form.password) {
+    callback(new Error('Konfirmasi kata sandi tidak cocok'))
+  }
+
+  if (value.length < 6 || value.length > 20) {
+    return callback(new Error('Password harus terdiri dari 6-20 karakter'))
+  }
+  if (!/[A-Z]/.test(value) || !/\d/.test(value)) {
+    return callback(new Error('Password harus mengandung 1 huruf besar dan 1 angka'))
+  }
+
+  callback()
 }
 
 const rules = reactive<FormRules<RuleForm>>({
@@ -68,7 +89,7 @@ const rules = reactive<FormRules<RuleForm>>({
     {
       required: true,
       message: 'Email harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     },
     {
       type: 'email',
@@ -80,20 +101,20 @@ const rules = reactive<FormRules<RuleForm>>({
     {
       required: true,
       message: 'No. Hp/Telepon harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   password: [
     {
       required: true,
-      trigger: 'blur',
+      trigger: ['blur', 'change'],
       validator: validatePassword
     }
   ],
   confirmPassword: [
     {
       required: true,
-      trigger: 'blur',
+      trigger: ['blur', 'change'],
       validator: validateConfirmPassword
     }
   ],
@@ -110,16 +131,21 @@ const handleSelectedType = (value: string) => {
 
 const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
-  await formEl.validate(() => {
-    const payload = {
-      ...form,
-      phone: `+62${form.phone}`
-    }
-    submitRegister(payload, {
-      onSuccess: () => {
-        router.push({ name: 'otp' })
+  await formEl.validate((valid) => {
+    if (valid) {
+      const payload = {
+        ...form,
+        phone: `+62${form.phone}`
       }
-    })
+      submitRegister(payload, {
+        onSuccess: (res) => {
+          setTimerCookies()
+          setAccessToken(res.token)
+          emailStore.setEmail(form.email)
+          router.push({ name: 'register-otp' })
+        }
+      })
+    }
   })
 }
 
@@ -234,6 +260,7 @@ watch(userType, (value) => {
         type="primary"
         size="large"
         style="width: 100%"
+        :loading="isPending"
         @click="submitForm(ruleFormRef)"
       >
         Daftar Sekarang

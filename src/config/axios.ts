@@ -1,4 +1,3 @@
-import { useAccessTokenStore } from '@/stores/accessToken'
 import axios, { AxiosError, type AxiosInstance, type AxiosResponse } from 'axios'
 
 const api = axios.create({

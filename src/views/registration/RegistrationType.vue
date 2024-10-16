@@ -54,7 +54,7 @@ const handleSelectedType = (value: string) => {
       type="primary"
       size="large"
       style="width: 100%"
-      @click="$router.push({ name: 'registration-lender' })"
+      @click="$router.push({ name: 'register' })"
     >
       Daftar Sebagai {{ selectedType }}
     </el-button>

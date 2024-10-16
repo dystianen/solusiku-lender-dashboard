@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import RegistrationView from '@/views/registration/RegistrationView.vue'
+import RegistrationType from '@/views/registration/RegistrationType.vue'
 import RegistrationLender from '@/views/registration/RegistrationLender.vue'
 import LoginView from '@/views/LoginView.vue'
 import OtpView from '@/views/OtpView.vue'
-import NewPassword from '@/views/NewPassword.vue'
-import SuccessUpdatePassword from '@/views/SuccessUpdatePassword.vue'
-import ForgotPassword from '@/views/ForgotPassword.vue'
+import ChangePassword from '@/views/password/ChangePassword.vue'
+import SuccessUpdatePassword from '@/views/password/SuccessUpdatePassword.vue'
+import ForgotPassword from '@/views/password/ForgotPassword.vue'
 import RegistrationPendanaan from '@/views/registration/RegistrationPendanaan.vue'
 import WaitingView from '@/views/WaitingView.vue'
 import DashboardView from '@/views/DashboardView.vue'
@@ -28,14 +28,19 @@ const router = createRouter({
       redirect: '/login',
       children: [
         {
-          path: '/registration',
-          name: 'registration',
-          component: RegistrationView
+          path: '/register-type',
+          name: 'register-type',
+          component: RegistrationType
         },
         {
-          path: '/registration-lender',
-          name: 'registration-lender',
+          path: '/register',
+          name: 'register',
           component: RegistrationLender
+        },
+        {
+          path: '/register/otp',
+          name: 'register-otp',
+          component: OtpView
         },
         {
           path: '/login',
@@ -48,14 +53,14 @@ const router = createRouter({
           component: ForgotPassword
         },
         {
-          path: '/otp',
-          name: 'otp',
+          path: '/forgot-password/otp',
+          name: 'forgot-password-otp',
           component: OtpView
         },
         {
-          path: '/new-password',
-          name: 'new-password',
-          component: NewPassword
+          path: '/change-password',
+          name: 'change-password',
+          component: ChangePassword
         },
         {
           path: '/success-update-password',
@@ -69,8 +74,8 @@ const router = createRouter({
       component: () => import('@/components/templates/layouts/LenderLayout.vue'),
       children: [
         {
-          path: '/registration-pendanaan',
-          name: 'registration-pendanaan',
+          path: '/register-pendanaan',
+          name: 'register-pendanaan',
           component: RegistrationPendanaan
         },
         {
