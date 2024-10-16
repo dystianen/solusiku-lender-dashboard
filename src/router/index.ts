@@ -17,6 +17,7 @@ import FundingHistory from '@/views/management-pendanaan/FundingHistory.vue'
 import PaymentHistory from '@/views/management-pendanaan/PaymentHistory.vue'
 import Restructuring from '@/views/management-pendanaan/Restructuring.vue'
 import DeleteBookWO from '@/views/management-pendanaan/DeleteBookWO.vue'
+import RegistrationBorrower from '@/views/registration/RegistrationBorrower.vue'
 
 const router = createRouter({
   linkActiveClass: 'tw-bg-primary tw-text-white',
@@ -77,6 +78,11 @@ const router = createRouter({
           path: '/register-funding',
           name: 'register-funding',
           component: RegistrationFunding
+        },
+        {
+          path: '/register-borrower',
+          name: 'register-borrower',
+          component: RegistrationBorrower
         },
         {
           path: '/waiting',

@@ -3,6 +3,9 @@ import { ref } from 'vue'
 import IcInvest from '@/assets/icons/ic_invest.svg'
 import IcBribe from '@/assets/icons/ic_bribe.svg'
 import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const selectedType = ref('Pemberi Dana')
 
@@ -21,6 +24,14 @@ const typeUser = [
 
 const handleSelectedType = (value: string) => {
   selectedType.value = value
+}
+
+const handleRedirect = () => {
+  if (selectedType.value === 'Pemberi Dana') {
+    router.push({ name: 'register' })
+  } else {
+    router.push({ name: 'register-borrower' })
+  }
 }
 </script>
 
@@ -49,13 +60,7 @@ const handleSelectedType = (value: string) => {
       </button>
     </div>
 
-    <el-button
-      round
-      type="primary"
-      size="large"
-      style="width: 100%"
-      @click="$router.push({ name: 'register' })"
-    >
+    <el-button round type="primary" size="large" style="width: 100%" @click="handleRedirect">
       Daftar Sebagai {{ selectedType }}
     </el-button>
   </VerificationLayout>

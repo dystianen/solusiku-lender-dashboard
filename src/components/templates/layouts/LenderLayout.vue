@@ -11,7 +11,7 @@ const { isMobile } = useScreenType()
     <el-header
       :height="isMobile ? '60px' : '90px'"
       class="tw-fixed tw-top-0 tw-z-20 tw-flex tw-items-center tw-bg-white"
-      style="width: 100%"
+      style="width: 100%; padding: 0"
     >
       <HeaderSection />
     </el-header>
