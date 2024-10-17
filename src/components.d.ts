@@ -70,7 +70,7 @@ declare module 'vue' {
     LoanProcess: typeof import('./components/organisms/loan/LoanProcess.vue')['default']
     ModalConfirmation: typeof import('./components/organisms/modal/ModalConfirmation.vue')['default']
     PartnerSection: typeof import('./components/organisms/partner/PartnerSection.vue')['default']
-    PopupConfirmation: typeof import('./components/organisms/modal/PopupConfirmation.vue')['default']
+    PopupConfirmation: typeof import('./components/organisms/popup/PopupConfirmation.vue')['default']
     ProductSolution: typeof import('./components/organisms/solution/ProductSolution.vue')['default']
     ReasonRightSection: typeof import('./components/organisms/reason/ReasonRightSection.vue')['default']
     ReasonSection: typeof import('./components/organisms/reason/ReasonSection.vue')['default']

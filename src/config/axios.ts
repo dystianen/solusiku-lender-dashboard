@@ -1,3 +1,4 @@
+import { accessToken } from '@/cookies/accessToken'
 import axios, { AxiosError, type AxiosInstance, type AxiosResponse } from 'axios'
 
 const api = axios.create({
@@ -12,14 +13,11 @@ const api = axios.create({
 })
 
 const addAuthInterceptor = (instance: AxiosInstance) => {
-  // const store = useAccessTokenStore()
-
   instance.interceptors.request.use(
     (config) => {
-      // const token = store.accessToken
-      // if (token) {
-      //   config.headers.Authorization = `Bearer ${token}`
-      // }
+      if (accessToken) {
+        config.headers.Authorization = `Bearer ${accessToken}`
+      }
       return config
     },
     (error) => {
