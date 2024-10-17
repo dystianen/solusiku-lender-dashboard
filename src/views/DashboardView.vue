@@ -1,20 +1,46 @@
 <script setup lang="ts">
-import CardActiveFunding from '@/components/organisms/card/CardActiveFunding.vue'
-import CardTotalFunding from '@/components/organisms/card/CardTotalFunding.vue'
-import CardTotalReturnLoan from '@/components/organisms/card/CardTotalReturnLoan.vue'
-import CardTotalGivenLoan from '@/components/organisms/card/CardTotalGivenLoan.vue'
 import CardSaldoIncome from '@/components/organisms/card/CardSaldoIncome.vue'
 import TableHistoryFunding from '@/components/organisms/table/TableHistoryFunding.vue'
+import IcBarChart from '@/assets/icons/ic_bar_chart.svg'
+import IcPendanaan from '@/assets/icons/ic_pendanaan.svg'
+import IcDolar from '@/assets/icons/ic_dolar.svg'
+import IcDownChart from '@/assets/icons/ic_down_chart.svg'
+
+const summary = [
+  {
+    icon: IcBarChart,
+    title: 'Total Pendanaan',
+    total: 25453000
+  },
+  {
+    icon: IcPendanaan,
+    title: 'Pendanaan Aktif',
+    total: 25453000
+  },
+  {
+    icon: IcDolar,
+    title: 'Total Biaya Pemberi Pinjaman',
+    total: 25453000
+  },
+  {
+    icon: IcDownChart,
+    title: 'Pembayaran Kembali Pinjaman Pokok',
+    total: 25453000
+  }
+]
 </script>
 
 <template>
   <div class="tw-flex tw-flex-col tw-gap-4">
     <div class="tw-col-span-4 lg:tw-col-span-2">
       <div class="tw-grid tw-grid-cols-4 tw-gap-4">
-        <CardTotalFunding />
-        <CardActiveFunding />
-        <CardTotalGivenLoan />
-        <CardTotalReturnLoan />
+        <CardSummary
+          v-for="(item, i) in summary"
+          :key="i"
+          :icon="item.icon"
+          :title="item.title"
+          :total="item.total"
+        />
       </div>
     </div>
 
