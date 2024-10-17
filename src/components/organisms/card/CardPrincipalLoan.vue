@@ -20,7 +20,7 @@
         <p class="tw-text-neutral-1/[.87]">Rp 24.453.000</p>
       </div>
 
-      <el-progress :percentage="50" :stroke-width="8" color="#666CFF" :show-text="false" />
+      <el-progress :percentage="90" :stroke-width="8" color="#666CFF" :show-text="false" />
     </div>
     <div class="tw-flex tw-flex-col tw-gap-1">
       <div class="tw-flex tw-justify-between">
@@ -28,7 +28,7 @@
         <p class="tw-text-neutral-1/[.87]">Rp 24.453.000</p>
       </div>
 
-      <el-progress :percentage="50" :stroke-width="8" color="#72E128" :show-text="false" />
+      <el-progress :percentage="40" :stroke-width="8" color="#72E128" :show-text="false" />
     </div>
     <div class="tw-flex tw-flex-col tw-gap-1">
       <div class="tw-flex tw-justify-between">
@@ -36,7 +36,7 @@
         <p class="tw-text-neutral-1/[.87]">Rp 24.453.000</p>
       </div>
 
-      <el-progress :percentage="50" :stroke-width="8" color="#FF4D49" :show-text="false" />
+      <el-progress :percentage="70" :stroke-width="8" color="#FF4D49" :show-text="false" />
     </div>
   </Card>
 </template>

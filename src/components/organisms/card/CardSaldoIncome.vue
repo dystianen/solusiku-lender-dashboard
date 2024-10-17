@@ -60,7 +60,7 @@ const chartOptions = {
           :height="250"
           :series="series"
           style="width: 100%"
-        ></apexchart>
+        />
       </div>
     </div>
   </Card>
