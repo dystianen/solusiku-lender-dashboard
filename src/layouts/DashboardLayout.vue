@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { RouterView, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import LogoSolusiku from '@/assets/images/logo_solusiku.svg'
 import IcCategory from '@/assets/icons/ic_category.svg'
 import IcCategoryWhite from '@/assets/icons/ic_category_white.svg'
@@ -232,7 +232,7 @@ const isActiveMenu = (path: string) => {
 
       <!-- Main content -->
       <main class="tw-max-h-full tw-flex-1 tw-overflow-hidden tw-overflow-y-scroll tw-p-5">
-        <RouterView />
+        <slot />
       </main>
     </div>
   </div>

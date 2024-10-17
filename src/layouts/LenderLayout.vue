@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
 import useScreenType from '@/composables/useScreenType'
 import HeaderSection from '@/components/organisms/header/HeaderSection.vue'
 
@@ -17,7 +16,7 @@ const { isMobile } = useScreenType()
     </el-header>
     <el-main>
       <div class="tw-layout">
-        <RouterView />
+        <slot />
       </div>
     </el-main>
   </el-container>

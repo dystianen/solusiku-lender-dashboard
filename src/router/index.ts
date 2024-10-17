@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { BaseLayout, DashboardLayout } from '@/layouts/layouts'
 import RegistrationType from '@/views/registration/RegistrationType.vue'
 import RegistrationLender from '@/views/registration/RegistrationLender.vue'
 import LoginView from '@/views/LoginView.vue'
@@ -24,123 +25,176 @@ const router = createRouter({
   linkActiveClass: 'tw-bg-primary tw-text-white',
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    // BASE LAYOUT
     {
-      path: '',
-      component: () => import('@/components/templates/layouts/BaseLayout.vue'),
-      redirect: '/login',
-      children: [
-        {
-          path: '/register-type',
-          name: 'register-type',
-          component: RegistrationType
-        },
-        {
-          path: '/register',
-          name: 'register',
-          component: RegistrationLender
-        },
-        {
-          path: '/register/otp',
-          name: 'register-otp',
-          component: OtpView
-        },
-        {
-          path: '/login',
-          name: 'login',
-          component: LoginView
-        },
-        {
-          path: '/forgot-password',
-          name: 'forgot-password',
-          component: ForgotPassword
-        },
-        {
-          path: '/forgot-password/otp',
-          name: 'forgot-password-otp',
-          component: OtpView
-        },
-        {
-          path: '/change-password',
-          name: 'change-password',
-          component: ChangePassword
-        },
-        {
-          path: '/success-update-password',
-          name: 'success-update-password',
-          component: SuccessUpdatePassword
-        }
-      ]
+      path: '/register-type',
+      name: 'register-type',
+      meta: {
+        layout: BaseLayout
+      },
+      component: RegistrationType
     },
     {
-      path: '',
-      component: () => import('@/components/templates/layouts/DashboardLayout.vue'),
-      children: [
-        {
-          path: '/dashboard',
-          name: 'dashboard',
-          component: DashboardView
-        },
-        {
-          path: '/register-funding-personal',
-          name: 'register-funding-personal',
-          component: RegistrationFundingPersonal
-        },
-        {
-          path: '/register-funding-company',
-          name: 'register-funding-company',
-          component: RegistrationFundingCompany
-        },
-        {
-          path: '/register-borrower',
-          name: 'register-borrower',
-          component: RegistrationBorrower
-        },
-        {
-          path: '/waiting',
-          name: 'waiting',
-          component: WaitingView
-        },
-        {
-          path: '/funding-opportunities',
-          name: 'funding-opportunities',
-          component: FundingOpportunities
-        },
-        {
-          path: '/funding-history',
-          name: 'funding-history',
-          component: FundingHistory
-        },
-        {
-          path: '/payment-history',
-          name: 'payment-history',
-          component: PaymentHistory
-        },
-        {
-          path: '/restructuring',
-          name: 'restructuring',
-          component: Restructuring
-        },
-        {
-          path: '/delete-book-wo',
-          name: 'delete-book-wo',
-          component: DeleteBookWO
-        },
-        {
-          path: '/profile-lender',
-          name: 'profile-lender',
-          component: ProfileLender
-        },
-        {
-          path: '/account-setting',
-          name: 'account-setting',
-          component: AccountSetting
-        },
-        {
-          path: '/notification',
-          name: 'notification',
-          component: Notification
-        }
-      ]
+      path: '/register',
+      name: 'register',
+      meta: {
+        layout: BaseLayout
+      },
+      component: RegistrationLender
+    },
+    {
+      path: '/register/otp',
+      name: 'register-otp',
+      meta: {
+        layout: BaseLayout
+      },
+      component: OtpView
+    },
+    {
+      path: '/login',
+      name: 'login',
+      meta: {
+        layout: BaseLayout
+      },
+      component: LoginView
+    },
+    {
+      path: '/forgot-password',
+      name: 'forgot-password',
+      meta: {
+        layout: BaseLayout
+      },
+      component: ForgotPassword
+    },
+    {
+      path: '/forgot-password/otp',
+      name: 'forgot-password-otp',
+      meta: {
+        layout: BaseLayout
+      },
+      component: OtpView
+    },
+    {
+      path: '/change-password',
+      name: 'change-password',
+      meta: {
+        layout: BaseLayout
+      },
+      component: ChangePassword
+    },
+    {
+      path: '/success-update-password',
+      name: 'success-update-password',
+      meta: {
+        layout: BaseLayout
+      },
+      component: SuccessUpdatePassword
+    },
+
+    // DASHBOARD LAYOUT
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      meta: {
+        layout: DashboardLayout
+      },
+      component: DashboardView
+    },
+    {
+      path: '/register-funding-personal',
+      name: 'register-funding-personal',
+      meta: {
+        layout: DashboardLayout
+      },
+      component: RegistrationFundingPersonal
+    },
+    {
+      path: '/register-funding-company',
+      name: 'register-funding-company',
+      meta: {
+        layout: DashboardLayout
+      },
+      component: RegistrationFundingCompany
+    },
+    {
+      path: '/register-borrower',
+      name: 'register-borrower',
+      meta: {
+        layout: DashboardLayout
+      },
+      component: RegistrationBorrower
+    },
+    {
+      path: '/waiting',
+      name: 'waiting',
+      meta: {
+        layout: DashboardLayout
+      },
+      component: WaitingView
+    },
+    {
+      path: '/funding-opportunities',
+      name: 'funding-opportunities',
+      meta: {
+        layout: DashboardLayout
+      },
+      component: FundingOpportunities
+    },
+    {
+      path: '/funding-history',
+      name: 'funding-history',
+      meta: {
+        layout: DashboardLayout
+      },
+      component: FundingHistory
+    },
+    {
+      path: '/payment-history',
+      name: 'payment-history',
+      meta: {
+        layout: DashboardLayout
+      },
+      component: PaymentHistory
+    },
+    {
+      path: '/restructuring',
+      name: 'restructuring',
+      meta: {
+        layout: DashboardLayout
+      },
+      component: Restructuring
+    },
+    {
+      path: '/delete-book-wo',
+      name: 'delete-book-wo',
+      meta: {
+        layout: DashboardLayout
+      },
+      component: DeleteBookWO
+    },
+    {
+      path: '/profile-lender',
+      name: 'profile-lender',
+      meta: {
+        layout: DashboardLayout
+      },
+      component: ProfileLender
+    },
+    {
+      path: '/account-setting',
+      name: 'account-setting',
+      meta: {
+        layout: DashboardLayout
+      },
+      component: AccountSetting
+    },
+    {
+      path: '/notification',
+      name: 'notification',
+      meta: {
+        layout: DashboardLayout
+      },
+      component: Notification
     }
   ]
 })

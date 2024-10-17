@@ -80,7 +80,6 @@ declare module 'vue' {
     SolusiKawan: typeof import('./components/organisms/solution/SolusiKawan.vue')['default']
     SolusiKini: typeof import('./components/organisms/solution/SolusiKini.vue')['default']
     StatistikSection: typeof import('./components/organisms/statistik/StatistikSection.vue')['default']
-    CardSummary: typeof import('./components/organisms/card/CardSummary.vue')['default']
     TableHistoryFunding: typeof import('./components/organisms/table/TableHistoryFunding.vue')['default']
     TableHistoryTopup: typeof import('./components/organisms/table/TableHistoryTopup.vue')['default']
     TablePeluangPendanaan: typeof import('./components/organisms/table/TablePeluangPendanaan.vue')['default']
