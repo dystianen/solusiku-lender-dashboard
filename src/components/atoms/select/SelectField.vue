@@ -33,9 +33,3 @@ const attrs = useAttrs()
     </el-select>
   </div>
 </template>
-
-<style>
-.ep-select__wrapper {
-  border-radius: 8px;
-}
-</style>

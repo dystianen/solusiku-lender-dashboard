@@ -34,6 +34,22 @@ video {
   -o-border-radius: 8px !important;
 }
 
+.ep-input--large .ep-input__wrapper {
+  padding: 4px 16px !important;
+}
+
+.ep-select__wrapper {
+  border-radius: 8px !important;
+  -webkit-border-radius: 8px !important;
+  -moz-border-radius: 8px !important;
+  -ms-border-radius: 8px !important;
+  -o-border-radius: 8px !important;
+}
+
+.ep-select--large .ep-select__wrapper {
+  padding: 16px !important;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

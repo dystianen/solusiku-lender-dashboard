@@ -6,7 +6,7 @@ import OtpView from '@/views/OtpView.vue'
 import ChangePassword from '@/views/password/ChangePassword.vue'
 import SuccessUpdatePassword from '@/views/password/SuccessUpdatePassword.vue'
 import ForgotPassword from '@/views/password/ForgotPassword.vue'
-import RegistrationFunding from '@/views/registration/RegistrationFunding.vue'
+import RegistrationFundingPersonal from '@/views/registration/RegistrationFundingPersonal.vue'
 import WaitingView from '@/views/WaitingView.vue'
 import DashboardView from '@/views/DashboardView.vue'
 import FundingOpportunities from '@/views/management-pendanaan/FundingOpportunities.vue'
@@ -18,6 +18,7 @@ import PaymentHistory from '@/views/management-pendanaan/PaymentHistory.vue'
 import Restructuring from '@/views/management-pendanaan/Restructuring.vue'
 import DeleteBookWO from '@/views/management-pendanaan/DeleteBookWO.vue'
 import RegistrationBorrower from '@/views/registration/RegistrationBorrower.vue'
+import RegistrationFundingCompany from '@/views/registration/RegistrationFundingCompany.vue'
 
 const router = createRouter({
   linkActiveClass: 'tw-bg-primary tw-text-white',
@@ -72,12 +73,22 @@ const router = createRouter({
     },
     {
       path: '',
-      component: () => import('@/components/templates/layouts/LenderLayout.vue'),
+      component: () => import('@/components/templates/layouts/DashboardLayout.vue'),
       children: [
         {
-          path: '/register-funding',
-          name: 'register-funding',
-          component: RegistrationFunding
+          path: '/dashboard',
+          name: 'dashboard',
+          component: DashboardView
+        },
+        {
+          path: '/register-funding-personal',
+          name: 'register-funding-personal',
+          component: RegistrationFundingPersonal
+        },
+        {
+          path: '/register-funding-company',
+          name: 'register-funding-company',
+          component: RegistrationFundingCompany
         },
         {
           path: '/register-borrower',
@@ -88,17 +99,6 @@ const router = createRouter({
           path: '/waiting',
           name: 'waiting',
           component: WaitingView
-        }
-      ]
-    },
-    {
-      path: '',
-      component: () => import('@/components/templates/layouts/DashboardLayout.vue'),
-      children: [
-        {
-          path: '/dashboard',
-          name: 'dashboard',
-          component: DashboardView
         },
         {
           path: '/funding-opportunities',

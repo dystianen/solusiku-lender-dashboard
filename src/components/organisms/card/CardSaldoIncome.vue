@@ -36,25 +36,31 @@ const chartOptions = {
   <Card>
     <div class="tw-flex tw-justify-between">
       <h5 class="tw-text-xl tw-text-neutral-1/[.87]">Saldo Pendapatan</h5>
-      <select></select>
+      <el-select style="width: 100px" />
     </div>
 
-    <div class="tw-flex tw-flex-col tw-gap-4 md:tw-flex-row">
-      <div class="tw-flex tw-flex-col tw-gap-14">
+    <div class="tw-mt-6 tw-flex tw-w-full tw-flex-grow tw-flex-col tw-gap-4 md:tw-flex-row">
+      <div class="tw-flex tw-flex-col tw-gap-20">
         <div class="tw-flex tw-flex-col tw-gap-2">
-          <p class="tw-text-xs tw-text-neutral-1/[.68]">Bulan ini</p>
-          <h3 class="tw-truncate tw-text-base">Rp 25.453.000</h3>
+          <p class="tw-text-neutral-1/[.68]">Bulan ini</p>
+          <h3 class="tw-truncate tw-text-2xl tw-font-semibold">Rp 25.453.000</h3>
           <el-tag type="success" style="width: max-content">+42%</el-tag>
-          <p class="tw-truncate tw-text-xs tw-text-neutral-1/[.68]">Dari periode sebelumnya</p>
+          <p class="tw-truncate tw-text-neutral-1/[.68]">Dari periode sebelumnya</p>
         </div>
         <div>
-          <p class="tw-text-xs tw-text-neutral-1/[.68]">Bulan Lalu</p>
-          <p class="tw-text-[16px] tw-font-semibold tw-text-neutral-1/[.87]">Rp 220.234.21</p>
+          <p class="tw-text-neutral-1/[.68]">Bulan Lalu</p>
+          <p class="tw-text-xl tw-font-semibold tw-text-neutral-1/[.87]">Rp 220.234.21</p>
         </div>
       </div>
 
-      <div class="tw-w-full">
-        <apexchart type="area" :options="chartOptions" :height="220" :series="series"></apexchart>
+      <div class="tw-relative tw-w-full tw-overflow-hidden">
+        <apexchart
+          type="area"
+          :options="chartOptions"
+          :height="250"
+          :series="series"
+          style="width: 100%"
+        ></apexchart>
       </div>
     </div>
   </Card>

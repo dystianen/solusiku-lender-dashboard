@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { useAttrs } from 'vue'
+import { h, shallowRef, useAttrs } from 'vue'
+import IcCalendar from '@/assets/icons/ic_calander2.svg'
 
 const props = defineProps({
   label: {
@@ -13,6 +14,15 @@ const props = defineProps({
 })
 
 const attrs = useAttrs()
+
+const customPrefix = shallowRef({
+  render() {
+    return h('img', {
+      src: IcCalendar,
+      alt: 'Calendar Icon'
+    })
+  }
+})
 </script>
 
 <template>
@@ -23,7 +33,15 @@ const attrs = useAttrs()
       type="date"
       :placeholder="props.placeholder"
       size="large"
+      class="custom-date"
       style="width: 100%"
+      :prefix-icon="customPrefix"
     />
   </div>
 </template>
+
+<style scoped>
+:deep(.custom-date) {
+  height: 100%;
+}
+</style>
