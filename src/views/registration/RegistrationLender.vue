@@ -211,7 +211,7 @@ watch(userType, (value) => {
       <el-form-item prop="phone">
         <InputField
           v-model="form.phone"
-          type="number"
+          v-maska="'### #### #### ####'"
           label="No. Hp/Telepon"
           placeholder="8128 1234 5678"
         >

@@ -12,6 +12,7 @@ import VueCookies from 'vue3-cookies'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { VueQueryPlugin } from '@tanstack/vue-query'
+import { vMaska } from 'maska/vue'
 import { OhVueIcon, addIcons } from 'oh-vue-icons'
 import {
   FaChevronLeft,
@@ -59,4 +60,5 @@ app.use(router)
 app.use(VueQueryPlugin)
 app.use(VueCookies)
 
+app.directive('maska', vMaska)
 app.mount('#app')
