@@ -2,7 +2,7 @@
 import { reactive, ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
-import { type FormInstance, type FormRules } from 'element-plus'
+import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import useVerification from '@/api/queries/verification/useVerification'
 import { setAccessToken } from '@/cookies/accessToken'
 import { setTimerCookies } from '@/cookies/timer'
@@ -42,6 +42,9 @@ const submitForm = async (formEl: FormInstance | undefined) => {
           setTimerCookies()
           setAccessToken(res.token)
           router.push({ name: 'forgot-password-otp' })
+        },
+        onError: (res: any) => {
+          ElMessage.error(res.data.error)
         }
       })
     }

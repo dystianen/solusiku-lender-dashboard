@@ -7,6 +7,7 @@ import useVerification from '@/api/queries/verification/useVerification'
 import { getTimerCookies, removeTimerCookies, setTimerCookies } from '@/cookies/timer'
 import { useRoute, useRouter } from 'vue-router'
 import { accessToken, setAccessToken } from '@/cookies/accessToken'
+import { ElMessage } from 'element-plus'
 
 const router = useRouter()
 const route = useRoute()
@@ -45,6 +46,9 @@ const handleSubmitOTP = () => {
         removeTimerCookies()
         setAccessToken(res.token)
         router.push({ name: 'success-update-password' })
+      },
+      onError: (res: any) => {
+        ElMessage.error(res.data.error)
       }
     })
   } else {
@@ -53,6 +57,9 @@ const handleSubmitOTP = () => {
         removeTimerCookies()
         setAccessToken(res.token)
         router.push({ name: 'register-funding-personal' })
+      },
+      onError: (res: any) => {
+        ElMessage.error(res.data.error)
       }
     })
   }

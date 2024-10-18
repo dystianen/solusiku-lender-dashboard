@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { reactive, ref, watch } from 'vue'
 import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
-import type { FormInstance, FormRules } from 'element-plus'
+import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import useVerification from '@/api/queries/verification/useVerification'
 import { accessToken } from '@/cookies/accessToken'
 import { useRouter } from 'vue-router'
@@ -43,6 +43,9 @@ const submitForm = async (formEl: FormInstance | undefined) => {
       submitChangePassword(payload, {
         onSuccess: () => {
           router.push({ name: 'success-update-password' })
+        },
+        onError: (res: any) => {
+          ElMessage.error(res.data.error)
         }
       })
     }

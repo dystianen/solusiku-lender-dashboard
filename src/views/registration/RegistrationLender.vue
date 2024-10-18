@@ -2,7 +2,7 @@
 import { reactive, ref, watch } from 'vue'
 import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
 import InputField from '@/components/atoms/input/InputField.vue'
-import type { FormInstance, FormRules } from 'element-plus'
+import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import useUser from '@/api/queries/master/user/useUser'
 import useVerification from '@/api/queries/verification/useVerification'
 import IcFlagIDN from '@/assets/icons/ic_flag_idn.svg'
@@ -143,6 +143,9 @@ const submitForm = async (formEl: FormInstance | undefined) => {
           setAccessToken(res.token)
           emailStore.setEmail(form.email)
           router.push({ name: 'register-otp' })
+        },
+        onError: (res: any) => {
+          ElMessage.error(res.data.error)
         }
       })
     }

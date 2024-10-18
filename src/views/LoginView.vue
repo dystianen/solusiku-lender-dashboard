@@ -3,10 +3,10 @@ import { reactive, ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
 import useScreenType from '@/composables/useScreenType'
-import type { FormInstance, FormRules } from 'element-plus'
-import validatorPassword from '@/helper/password'
+import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import useVerification from '@/api/queries/verification/useVerification'
 import { setAccessToken } from '@/cookies/accessToken'
+import type { TResError } from '@/types/general'
 
 const router = useRouter()
 const { isMobile } = useScreenType()
@@ -39,8 +39,8 @@ const rules = reactive<FormRules<RuleForm>>({
   password: [
     {
       required: true,
-      trigger: 'blur',
-      validator: validatorPassword
+      message: 'Password harus diisi',
+      trigger: 'blur'
     }
   ]
 })
@@ -53,6 +53,9 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         onSuccess: (res) => {
           setAccessToken(res.token)
           router.push({ name: 'dashboard' })
+        },
+        onError: (res: any) => {
+          ElMessage.error(res.data.error)
         }
       })
     }

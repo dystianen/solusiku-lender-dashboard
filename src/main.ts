@@ -3,9 +3,7 @@ import '@/styles/main.scss'
 import '@/styles/tailwind.css'
 import 'vue3-carousel/dist/carousel.css'
 import 'element-plus/dist/index.css'
-import 'element-plus/es/components/message/style/css'
 
-import ElementPlus from 'element-plus'
 import VueApexCharts from 'vue3-apexcharts'
 import App from './App.vue'
 import router from './router'
@@ -57,7 +55,6 @@ app.component('v-countdown', VueCountdown)
 const pinia = createPinia()
 app.use(pinia)
 app.use(VueApexCharts)
-app.use(ElementPlus)
 app.use(router)
 app.use(VueQueryPlugin)
 app.use(VueCookies)
