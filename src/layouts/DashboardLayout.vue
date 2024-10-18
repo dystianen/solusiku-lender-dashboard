@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import LogoSolusiku from '@/assets/images/logo_solusiku.svg'
 import IcCategory from '@/assets/icons/ic_category.svg'
 import IcCategoryWhite from '@/assets/icons/ic_category_white.svg'
@@ -9,7 +9,11 @@ import IcUser from '@/assets/icons/ic_user.svg'
 import IcUserWhite from '@/assets/icons/ic_user_white.svg'
 import IcNotif from '@/assets/icons/ic_notif.svg'
 import IcNotifWhite from '@/assets/icons/ic_notif_white.svg'
+import IcLogout from '@/assets/icons/ic_logout.svg'
+import { removeAccessToken } from '@/cookies/accessToken'
+
 const route = useRoute()
+const router = useRouter()
 
 const isSidebarOpen = ref(true)
 const openMenuIndex = ref<number | null>(null)
@@ -82,6 +86,11 @@ const isActiveMenu = (path: string) => {
   const currentPath = route.path
   const isActive = currentPath === path
   return isActive
+}
+
+const handleLogout = () => {
+  removeAccessToken()
+  router.push({ name: 'login' })
 }
 </script>
 
@@ -206,12 +215,19 @@ const isActiveMenu = (path: string) => {
             <button>
               <v-icon name="fa-regular-bell" :scale="1.2" />
             </button>
-            <button>
+            <el-dropdown placement="bottom-end" trigger="click">
               <el-avatar
                 :size="40"
                 src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
               />
-            </button>
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <el-dropdown-item @click="handleLogout">
+                    <img :src="IcLogout" alt="IcLogout" class="tw-mr-2" /> Keluar
+                  </el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
           </div>
         </div>
 

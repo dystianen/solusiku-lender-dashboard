@@ -10,3 +10,7 @@ export const setAccessToken = (value: string): void => {
   cookies.set('access-token', value)
   accessToken.value = value
 }
+
+export const removeAccessToken = () => {
+  cookies.remove('access-token')
+}
