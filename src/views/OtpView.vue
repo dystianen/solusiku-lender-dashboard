@@ -4,7 +4,7 @@ import VerificationLayout from '@/components/templates/verification/Verification
 import VOtpInput from 'vue3-otp-input'
 import useEmailStore from '@/stores/email'
 import useVerification from '@/api/queries/verification/useVerification'
-import { getTimerCookies, setTimerCookies } from '@/cookies/timer'
+import { getTimerCookies, removeTimerCookies, setTimerCookies } from '@/cookies/timer'
 import { useRoute, useRouter } from 'vue-router'
 import { accessToken, setAccessToken } from '@/cookies/accessToken'
 
@@ -42,6 +42,7 @@ const handleSubmitOTP = () => {
   if (isForgotPassword) {
     submitOTPForgotPassword(payload, {
       onSuccess: (res) => {
+        removeTimerCookies()
         setAccessToken(res.token)
         router.push({ name: 'success-update-password' })
       }
@@ -49,6 +50,7 @@ const handleSubmitOTP = () => {
   } else {
     submitOTPRegister(payload, {
       onSuccess: (res) => {
+        removeTimerCookies()
         setAccessToken(res.token)
         router.push({ name: 'register-funding-personal' })
       }
