@@ -98,7 +98,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
           show-password
         />
       </el-form-item>
-      <RouterLink to="/forgot-password" class="tw-font-semibold tw-text-primary">
+      <RouterLink to="forgot-password" class="tw-font-semibold tw-text-primary">
         Lupa Kata Sandi?
       </RouterLink>
     </el-form>
@@ -115,7 +115,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 
     <p class="tw-w-full tw-text-center">
       Belum Punya Akun?
-      <RouterLink to="/register-type" class="tw-font-semibold tw-text-primary"> Daftar </RouterLink>
+      <RouterLink to="register-type" class="tw-font-semibold tw-text-primary"> Daftar </RouterLink>
     </p>
   </VerificationLayout>
 </template>

@@ -271,7 +271,7 @@ watch(userType, (value) => {
 
       <p class="tw-w-full tw-text-center tw-text-lg tw-text-neutral-desc">
         Sudah Punya Akun?
-        <RouterLink to="/login" class="tw-font-semibold tw-text-primary"> Masuk </RouterLink>
+        <RouterLink to="login" class="tw-font-semibold tw-text-primary"> Masuk </RouterLink>
       </p>
     </el-form>
   </VerificationLayout>

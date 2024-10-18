@@ -87,10 +87,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         Kirim Email
       </el-button>
     </el-form>
-    <RouterLink
-      to="/registration"
-      class="tw-w-full tw-text-center tw-font-semibold tw-text-primary"
-    >
+    <RouterLink to="login" class="tw-w-full tw-text-center tw-font-semibold tw-text-primary">
       Kembali ke Halaman Login
     </RouterLink>
   </VerificationLayout>
