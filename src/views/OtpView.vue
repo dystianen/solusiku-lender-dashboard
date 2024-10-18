@@ -45,7 +45,7 @@ const handleSubmitOTP = () => {
       onSuccess: (res) => {
         removeTimerCookies()
         setAccessToken(res.token)
-        router.push({ name: 'success-update-password' })
+        router.push({ name: 'change-password' })
       },
       onError: (res: any) => {
         ElMessage.error(res.data.error)

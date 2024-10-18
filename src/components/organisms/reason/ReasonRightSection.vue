@@ -58,8 +58,10 @@ const reasonData = [
             class="tw-flex tw-h-[111px] tw-w-[430px] tw-items-center tw-gap-4 tw-rounded-xl tw-bg-white tw-px-5 tw-py-2"
           >
             <div>
-              <div class="tw-flex tw-items-center tw-rounded-full tw-bg-primary tw-p-2">
-                <img :src="item.icon" :width="40" :height="40" alt="icon" style="color: white" />
+              <div
+                class="tw-flex tw-h-16 tw-w-16 tw-items-center tw-justify-center tw-rounded-full tw-bg-primary tw-p-2"
+              >
+                <img :src="item.icon" :width="40" :height="40" alt="icon" />
               </div>
             </div>
 
