@@ -63,7 +63,7 @@ const dialogVisible = ref(false)
       <div
         v-for="item in 2"
         :key="item"
-        class="tw-border-neutral-3 tw-flex tw-justify-between tw-rounded-lg tw-border tw-p-3"
+        class="tw-flex tw-justify-between tw-rounded-lg tw-border tw-border-neutral-3 tw-p-3"
       >
         <div class="tw-flex tw-gap-4">
           <img :src="IcFile" alt="IcFile" />
@@ -75,7 +75,7 @@ const dialogVisible = ref(false)
         </div>
 
         <el-button link>
-          <img :src="IcDelete" />
+          <img :src="IcDelete" alt="IcDelete" />
         </el-button>
       </div>
     </div>

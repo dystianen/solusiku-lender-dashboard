@@ -217,7 +217,7 @@ watch(userType, (value) => {
         >
           <template #prefix>
             <div class="tw-flex tw-items-center tw-gap-1">
-              <img :src="IcFlagIDN" :width="24" :height="20" />
+              <img :src="IcFlagIDN" :width="24" :height="20" alt="IcFlagIDN" />
               <span class="tw-text-black">+62</span>
               <el-divider direction="vertical" />
             </div>
