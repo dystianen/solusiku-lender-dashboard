@@ -68,6 +68,7 @@ declare module 'vue' {
     InputField: typeof import('./components/atoms/input/InputField.vue')['default']
     LenderLayout: typeof import('./components/templates/layouts/LenderLayout.vue')['default']
     LoanProcess: typeof import('./components/organisms/loan/LoanProcess.vue')['default']
+    Pagination: typeof import('./components/organisms/pagination/Pagination.vue')['default']
     PartnerSection: typeof import('./components/organisms/partner/PartnerSection.vue')['default']
     PopupConfirmation: typeof import('./components/organisms/popup/PopupConfirmation.vue')['default']
     ProductSolution: typeof import('./components/organisms/solution/ProductSolution.vue')['default']

@@ -16,7 +16,7 @@ const addAuthInterceptor = (instance: AxiosInstance) => {
   instance.interceptors.request.use(
     (config) => {
       if (accessToken) {
-        config.headers.Authorization = `Bearer ${accessToken}`
+        config.headers.Authorization = `Bearer ${accessToken.value}`
       }
       return config
     },

@@ -28,7 +28,8 @@ import {
   RiHistoryFill,
   RiDatabase2Fill,
   MdFileuploadOutlined,
-  IoCalendar
+  IoCalendar,
+  IoCaretDownSharp
 } from 'oh-vue-icons/icons'
 
 addIcons(
@@ -44,7 +45,8 @@ addIcons(
   RiHistoryFill,
   RiDatabase2Fill,
   MdFileuploadOutlined,
-  IoCalendar
+  IoCalendar,
+  IoCaretDownSharp
 )
 
 const app = createApp(App)
