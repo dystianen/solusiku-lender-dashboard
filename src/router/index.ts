@@ -20,12 +20,17 @@ import Restructuring from '@/views/management-pendanaan/Restructuring.vue'
 import DeleteBookWO from '@/views/management-pendanaan/DeleteBookWO.vue'
 import RegistrationBorrower from '@/views/registration/RegistrationBorrower.vue'
 import RegistrationFundingCompany from '@/views/registration/RegistrationFundingCompany.vue'
+import { accessToken } from '@/cookies/accessToken'
 
 const router = createRouter({
   linkActiveClass: 'tw-bg-primary tw-text-white',
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     // BASE LAYOUT
+    {
+      path: '/',
+      redirect: { name: 'login' }
+    },
     {
       path: '/register-type',
       name: 'register-type',
@@ -90,6 +95,14 @@ const router = createRouter({
       },
       component: SuccessUpdatePassword
     },
+    {
+      path: '/register-borrower',
+      name: 'register-borrower',
+      meta: {
+        layout: BaseLayout
+      },
+      component: RegistrationBorrower
+    },
 
     // DASHBOARD LAYOUT
     {
@@ -104,7 +117,8 @@ const router = createRouter({
       path: '/register-funding-personal',
       name: 'register-funding-personal',
       meta: {
-        layout: DashboardLayout
+        layout: DashboardLayout,
+        requiresAuth: true
       },
       component: RegistrationFundingPersonal
     },
@@ -112,23 +126,17 @@ const router = createRouter({
       path: '/register-funding-company',
       name: 'register-funding-company',
       meta: {
-        layout: DashboardLayout
+        layout: DashboardLayout,
+        requiresAuth: true
       },
       component: RegistrationFundingCompany
-    },
-    {
-      path: '/register-borrower',
-      name: 'register-borrower',
-      meta: {
-        layout: DashboardLayout
-      },
-      component: RegistrationBorrower
     },
     {
       path: '/waiting',
       name: 'waiting',
       meta: {
-        layout: DashboardLayout
+        layout: DashboardLayout,
+        requiresAuth: true
       },
       component: WaitingView
     },
@@ -136,7 +144,8 @@ const router = createRouter({
       path: '/funding-opportunities',
       name: 'funding-opportunities',
       meta: {
-        layout: DashboardLayout
+        layout: DashboardLayout,
+        requiresAuth: true
       },
       component: FundingOpportunities
     },
@@ -144,7 +153,8 @@ const router = createRouter({
       path: '/funding-history',
       name: 'funding-history',
       meta: {
-        layout: DashboardLayout
+        layout: DashboardLayout,
+        requiresAuth: true
       },
       component: FundingHistory
     },
@@ -152,7 +162,8 @@ const router = createRouter({
       path: '/payment-history',
       name: 'payment-history',
       meta: {
-        layout: DashboardLayout
+        layout: DashboardLayout,
+        requiresAuth: true
       },
       component: PaymentHistory
     },
@@ -160,7 +171,8 @@ const router = createRouter({
       path: '/restructuring',
       name: 'restructuring',
       meta: {
-        layout: DashboardLayout
+        layout: DashboardLayout,
+        requiresAuth: true
       },
       component: Restructuring
     },
@@ -168,7 +180,8 @@ const router = createRouter({
       path: '/delete-book-wo',
       name: 'delete-book-wo',
       meta: {
-        layout: DashboardLayout
+        layout: DashboardLayout,
+        requiresAuth: true
       },
       component: DeleteBookWO
     },
@@ -176,7 +189,8 @@ const router = createRouter({
       path: '/profile-lender',
       name: 'profile-lender',
       meta: {
-        layout: DashboardLayout
+        layout: DashboardLayout,
+        requiresAuth: true
       },
       component: ProfileLender
     },
@@ -184,7 +198,8 @@ const router = createRouter({
       path: '/account-setting',
       name: 'account-setting',
       meta: {
-        layout: DashboardLayout
+        layout: DashboardLayout,
+        requiresAuth: true
       },
       component: AccountSetting
     },
@@ -192,11 +207,27 @@ const router = createRouter({
       path: '/notification',
       name: 'notification',
       meta: {
-        layout: DashboardLayout
+        layout: DashboardLayout,
+        requiresAuth: true
       },
       component: Notification
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth) {
+    if (accessToken.value) {
+      // User is authenticated, proceed to the route
+      next()
+    } else {
+      // User is not authenticated, redirect to login
+      next('/login')
+    }
+  } else {
+    // Non-protected route, allow access
+    next()
+  }
 })
 
 export default router
