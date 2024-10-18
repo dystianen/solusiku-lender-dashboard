@@ -10,6 +10,7 @@ import useEmailStore from '@/stores/email'
 import { setAccessToken } from '@/cookies/accessToken'
 import { setTimerCookies } from '@/cookies/timer'
 import { useRouter } from 'vue-router'
+import type { TReqRegister } from '@/types/verification'
 
 const router = useRouter()
 const emailStore = useEmailStore()
@@ -18,18 +19,8 @@ const emailStore = useEmailStore()
 const { data: userType } = useUser.getUserType()
 const { mutate: submitRegister, isPending } = useVerification.postRegister()
 
-interface RuleForm {
-  userTypeId: number
-  fullName: string
-  email: string
-  phone: string
-  password: string
-  confirmPassword: string
-  isAgree: boolean
-}
-
 const ruleFormRef = ref<FormInstance>()
-const form = reactive({
+const form = reactive<TReqRegister>({
   userTypeId: '',
   fullName: '',
   email: '',
@@ -77,7 +68,13 @@ const validateConfirmPassword = (rule: any, value: any, callback: any) => {
   callback()
 }
 
-const rules = reactive<FormRules<RuleForm>>({
+const validateCheckbox = (rule: any, value: any, callback: any) => {
+  if (value === false) {
+    callback(new Error('Harap centang kotak persetujuan untuk melanjutkan'))
+  }
+}
+
+const rules = reactive<FormRules<TReqRegister>>({
   fullName: [
     {
       required: true,
@@ -120,7 +117,9 @@ const rules = reactive<FormRules<RuleForm>>({
   ],
   isAgree: [
     {
-      required: true
+      required: true,
+      trigger: 'blur',
+      validator: validateCheckbox
     }
   ]
 })
@@ -245,19 +244,22 @@ watch(userType, (value) => {
         />
       </el-form-item>
 
-      <div class="tw-flex tw-items-start tw-gap-2">
-        <el-checkbox
-          v-model="form.isAgree"
-          size="large"
-          type="success"
-          style="height: max-content; margin-top: 5px"
-        />
-        <p class="tw-text-neutral-desc">
-          Dengan mendaftar, Saya menyetujui
-          <span class="tw-text-primary">Syarat dan Ketentuan </span> serta
-          <span class="tw-text-primary">Kebijakan Privasi</span> dari Solusiku.
-        </p>
-      </div>
+      <el-form-item prop="isAgree">
+        <div class="tw-flex tw-items-start tw-gap-2">
+          <el-checkbox
+            v-model="form.isAgree"
+            size="large"
+            type="success"
+            style="height: max-content; margin-top: 5px"
+          />
+          <p class="tw-leading-normal tw-text-neutral-desc">
+            Dengan mendaftar, Saya menyetujui
+            <span class="tw-text-primary">Syarat dan Ketentuan </span> serta
+            <span class="tw-text-primary">Kebijakan Privasi</span> dari Solusiku.
+          </p>
+        </div>
+      </el-form-item>
+
       <el-button
         round
         type="primary"
