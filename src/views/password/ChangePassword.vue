@@ -5,7 +5,7 @@ import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import useVerification from '@/api/queries/verification/useVerification'
 import { accessToken } from '@/cookies/accessToken'
 import { useRouter } from 'vue-router'
-import validatorPassword from '@/helper/password'
+import validatorPassword from '@/helpers/password'
 const router = useRouter()
 
 const isLengthValid = ref(false)

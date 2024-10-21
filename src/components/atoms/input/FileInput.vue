@@ -26,7 +26,7 @@ const dialogVisible = ref(false)
       v-bind="attrs"
       :placeholder="props.placeholder"
       size="large"
-      style="border-radius: 15px"
+      style="border-radius: 0.938rem"
       disabled
     >
       <template #suffix>

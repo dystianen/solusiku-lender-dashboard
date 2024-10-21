@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Card from '@/components/atoms/card/Card.vue'
+import filters from '@/helpers/filters'
 
 const series = [
   {
@@ -36,14 +37,16 @@ const chartOptions = {
   <Card>
     <div class="tw-flex tw-justify-between">
       <h5 class="tw-text-xl tw-text-neutral-1/[.87]">Saldo Pendapatan</h5>
-      <el-select style="width: 100px" />
+      <SelectField size="default" style="width: 6.25rem" placeholder="Select" />
     </div>
 
     <div class="tw-mt-6 tw-flex tw-w-full tw-flex-grow tw-flex-col tw-gap-4 md:tw-flex-row">
       <div class="tw-flex tw-flex-col tw-gap-20">
         <div class="tw-flex tw-flex-col tw-gap-2">
           <p class="tw-text-neutral-1/[.68]">Bulan ini</p>
-          <h3 class="tw-truncate tw-text-2xl tw-font-semibold">Rp 25.453.000</h3>
+          <h3 class="tw-truncate tw-text-2xl tw-font-semibold">
+            {{ filters.currency(25453000) }}
+          </h3>
           <el-tag type="success" style="width: max-content">+42%</el-tag>
           <p class="tw-truncate tw-text-neutral-1/[.68]">Dari periode sebelumnya</p>
         </div>

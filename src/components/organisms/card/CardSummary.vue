@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Card from '@/components/atoms/card/Card.vue'
+import filters from '@/helpers/filters'
 
 const props = defineProps({
   icon: {
@@ -22,7 +23,7 @@ const props = defineProps({
     </div>
 
     <h3 class="md:tw-text-md lg:tw-text-md tw-text-base tw-font-semibold 2xl:tw-text-2xl">
-      {{ props.total }}
+      {{ filters.currency(props.total ?? 0) }}
     </h3>
   </Card>
 </template>

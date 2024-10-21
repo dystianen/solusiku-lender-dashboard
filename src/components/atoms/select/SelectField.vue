@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Options } from '@/types/general'
-import { useAttrs } from 'vue'
+import { useAttrs, type PropType } from 'vue'
 
 const props = defineProps({
   label: {
@@ -14,6 +14,10 @@ const props = defineProps({
   options: {
     type: Array<Options>,
     default: () => ['']
+  },
+  size: {
+    type: String as PropType<'default' | 'small' | 'large'>,
+    default: 'large'
   }
 })
 
@@ -26,7 +30,7 @@ const attrs = useAttrs()
     <el-select
       v-bind="attrs"
       :placeholder="props.placeholder"
-      size="large"
+      :size="props.size"
       style="border-radius: 15px"
     >
       <el-option v-for="item in props.options" :key="item.id" :label="item.name" :value="item.id" />
