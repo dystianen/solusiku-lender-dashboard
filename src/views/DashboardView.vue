@@ -33,7 +33,7 @@ const summary = [
 <template>
   <div class="tw-flex tw-flex-col tw-gap-4">
     <div class="tw-col-span-4 lg:tw-col-span-2">
-      <div class="tw-grid tw-grid-cols-4 tw-gap-4">
+      <div class="tw-grid tw-grid-cols-1 tw-gap-4 lg:tw-grid-cols-4">
         <CardSummary
           v-for="(item, i) in summary"
           :key="i"
@@ -46,7 +46,7 @@ const summary = [
 
     <div class="tw-row-span-2 tw-grid tw-grid-cols-4 tw-gap-4 lg:tw-grid-cols-5">
       <CardSaldoIncome class="tw-col-span-4 lg:tw-col-span-3" />
-      <CardPrincipalLoan class="tw-col-span-2" />
+      <CardPrincipalLoan class="tw-col-span-4 lg:tw-col-span-2" />
     </div>
 
     <Card>

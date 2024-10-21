@@ -98,7 +98,7 @@ const handleLogout = () => {
   <div class="tw-flex tw-h-screen tw-overflow-y-hidden tw-bg-white">
     <!-- Sidebar -->
     <aside
-      class="tw-fixed tw-z-10 tw-flex tw-h-screen tw-w-[300px] tw-flex-shrink-0 tw-transform tw-flex-col tw-overflow-hidden tw-bg-white tw-p-4 tw-shadow-lg tw-transition-all lg:tw-static lg:tw-z-auto lg:tw-shadow-none"
+      class="tw-fixed tw-z-10 tw-flex tw-h-screen tw-w-[340px] tw-flex-shrink-0 tw-transform tw-flex-col tw-overflow-hidden tw-bg-white tw-p-4 tw-shadow-lg tw-transition-all lg:tw-static lg:tw-z-auto lg:tw-shadow-none"
       :class="{ '-tw-translate-x-full lg:tw-w-40 lg:tw-translate-x-0': !isSidebarOpen }"
     >
       <!-- sidebar header -->
@@ -156,6 +156,7 @@ const handleLogout = () => {
                 :is="item.path ? 'RouterLink' : 'div'"
                 v-bind="item.path ? { to: item.path } : {}"
                 class="tw-flex tw-cursor-pointer tw-items-center tw-space-x-2 tw-rounded-md tw-p-2 tw-text-neutral-desc"
+                :class="[isSidebarOpen ? 'tw-w-full' : 'tw-w-max']"
                 @click="toggleMenu(i)"
               >
                 <img
@@ -170,16 +171,12 @@ const handleLogout = () => {
                   <v-icon
                     :name="isMenuOpen(i) ? 'fa-chevron-up' : 'fa-chevron-down'"
                     color="grey"
-                  ></v-icon>
+                  />
                 </span>
               </component>
 
               <!-- Children menu -->
-              <ul
-                v-if="item.children && isMenuOpen(i)"
-                class="tw-ml-2 tw-w-full tw-transform tw-transition-all tw-duration-150"
-                :class="{ '-tw-translate-x-full lg:tw-translate-x-0': isMenuOpen(i) }"
-              >
+              <ul v-if="item.children && isMenuOpen(i)" class="tw-ml-2 tw-mt-2 tw-w-full">
                 <li v-for="(child, j) in item.children" :key="j">
                   <RouterLink
                     :to="child.path"

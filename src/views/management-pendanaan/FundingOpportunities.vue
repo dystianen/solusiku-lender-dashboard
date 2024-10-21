@@ -1,20 +1,31 @@
 <script setup lang="ts">
 import useOffering from '@/api/queries/offering/useOffering'
-
+import useScreenType from '@/composables/useScreenType'
+const { isMobile } = useScreenType()
 const { data } = useOffering.getOffering()
 </script>
 
 <template>
   <Card>
-    <div class="tw-mb-6 tw-flex tw-items-center tw-justify-between">
-      <el-button size="large">
+    <div
+      class="tw-mb-6 tw-flex tw-flex-col tw-items-center tw-justify-between tw-gap-4 md:tw-flex-row"
+    >
+      <el-button size="large" class="tw-w-full md:tw-w-max" v-show="!isMobile">
         <v-icon name="md-fileupload-outlined" class="tw-mr-2" />Export
       </el-button>
+      <InputField placeholder="Search Borrower" v-show="isMobile" />
 
-      <div class="tw-flex tw-items-center tw-gap-4">
-        <InputField placeholder="Search Borrower" />
-        <el-button type="primary" size="large">PENDANAAN</el-button>
-        <el-button type="success" size="large">PENDANAAN (ASURANSI)</el-button>
+      <div
+        class="tw-flex tw-w-full tw-flex-col tw-items-center tw-gap-4 md:tw-w-max md:tw-flex-row"
+      >
+        <InputField placeholder="Search Borrower" v-show="!isMobile" />
+        <el-button size="large" class="tw-w-full md:tw-w-max" v-show="isMobile">
+          <v-icon name="md-fileupload-outlined" class="tw-mr-2" />Export
+        </el-button>
+        <el-button type="primary" size="large" class="tw-w-full md:tw-w-max">PENDANAAN</el-button>
+        <el-button type="success" size="large" class="tw-w-full md:tw-w-max">
+          PENDANAAN (ASURANSI)
+        </el-button>
       </div>
     </div>
 

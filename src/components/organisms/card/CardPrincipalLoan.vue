@@ -4,7 +4,7 @@ import filters from '@/helpers/filters'
 
 <template>
   <Card class="tw-flex tw-flex-col tw-gap-4">
-    <h5 class="tw-text-lg tw-text-neutral-1/[.87]">
+    <h5 class="tw-text-xl tw-text-neutral-1/[.87]">
       Pembayaran Kembali <br />
       Pinjaman Pokok
     </h5>

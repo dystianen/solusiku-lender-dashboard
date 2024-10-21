@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useAttrs } from 'vue'
+import { useAttrs, type PropType } from 'vue'
 
 const props = defineProps({
   label: {
@@ -9,6 +9,10 @@ const props = defineProps({
   placeholder: {
     type: String,
     default: ''
+  },
+  size: {
+    type: String as PropType<'default' | 'small' | 'large'>,
+    default: 'large'
   }
 })
 
@@ -21,7 +25,7 @@ const attrs = useAttrs()
     <el-input
       v-bind="attrs"
       :placeholder="props.placeholder"
-      size="large"
+      :size="props.size"
       style="border-radius: 15px"
     >
       <template #prefix>
