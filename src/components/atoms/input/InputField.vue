@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { TSize } from '@/types/general'
 import { useAttrs, type PropType } from 'vue'
 
 const props = defineProps({
@@ -11,7 +12,7 @@ const props = defineProps({
     default: ''
   },
   size: {
-    type: String as PropType<'default' | 'small' | 'large'>,
+    type: String as PropType<TSize>,
     default: 'large'
   }
 })

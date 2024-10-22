@@ -21,11 +21,13 @@
     "maska": "^3.0.3",
     "oh-vue-icons": "^1.0.0-rc3",
     "pinia": "^2.1.7",
+    "tiny-emitter": "^2.1.0",
     "vue": "^3.4.29",
     "vue-router": "^4.3.3",
     "vue3-apexcharts": "^1.7.0",
     "vue3-carousel": "^0.3.4",
     "vue3-cookies": "^1.0.6",
+    "vue3-dropzone": "^2.2.1",
     "vue3-otp-input": "^0.5.21"
   },
   "devDependencies": {

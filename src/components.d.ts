@@ -7,12 +7,14 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AutoComplete: typeof import('./components/atoms/autocomplete/AutoComplete.vue')['default']
     BaseLayout: typeof import('./components/templates/layouts/BaseLayout.vue')['default']
     BenefitSection: typeof import('./components/organisms/benefit/BenefitSection.vue')['default']
     Card: typeof import('./components/atoms/card/Card.vue')['default']
     CardActiveFunding: typeof import('./components/organisms/card/CardActiveFunding.vue')['default']
     CardCongratulationsAchievement: typeof import('./components/organisms/card/CardCongratulationsAchievement.vue')['default']
     CardCongratulationsTarget: typeof import('./components/organisms/card/CardCongratulationsTarget.vue')['default']
+    CardFile: typeof import('./components/atoms/input/CardFile.vue')['default']
     CardPrincipalLoan: typeof import('./components/organisms/card/CardPrincipalLoan.vue')['default']
     CardSaldoIncome: typeof import('./components/organisms/card/CardSaldoIncome.vue')['default']
     CardSummary: typeof import('./components/organisms/card/CardSummary.vue')['default']
@@ -23,6 +25,7 @@ declare module 'vue' {
     CustomButton: typeof import('./components/atoms/button/CustomButton.vue')['default']
     DashboardLayout: typeof import('./components/templates/layouts/DashboardLayout.vue')['default']
     DatePicker: typeof import('./components/atoms/datepicker/DatePicker.vue')['default']
+    ElAutocomplete: typeof import('element-plus/es')['ElAutocomplete']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
@@ -91,5 +94,8 @@ declare module 'vue' {
     TitleSection: typeof import('./components/organisms/title/TitleSection.vue')['default']
     VerificationLayout: typeof import('./components/templates/verification/VerificationLayout.vue')['default']
     WhySection: typeof import('./components/organisms/loan/WhySection.vue')['default']
+  }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }

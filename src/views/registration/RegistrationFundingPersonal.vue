@@ -1,65 +1,283 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { reactive, ref, watch } from 'vue'
 import DatePicker from '@/components/atoms/datepicker/DatePicker.vue'
 import InputField from '@/components/atoms/input/InputField.vue'
-import type { FormInstance, FormRules } from 'element-plus'
 import SelectField from '@/components/atoms/select/SelectField.vue'
 import useMaster from '@/api/queries/master/useMaster'
+import useRegistration from '@/api/queries/registration/useRegistration'
+import { useRouter } from 'vue-router'
+import { dayjs, type FormInstance, type FormRules } from 'element-plus'
+import type { Option } from '@/types/general'
+import type { TReqRegisterIndividual } from '@/types/registration'
+
+const router = useRouter()
 
 // Queries
 const { data: gender } = useMaster.getGender()
 const { data: province } = useMaster.getProvince()
+const { data: sourceOfFound } = useMaster.getSourceOfFound()
+const { data: monthlyIncome } = useMaster.getMonthlyIncome()
+const { data: bank } = useMaster.getBank()
 const { mutate: city } = useMaster.getCity()
+const { mutate: district } = useMaster.getDistrict()
+const { mutate: subDistrict } = useMaster.getSubDistrict()
+const { mutate: registerIndividual } = useRegistration.patchRegisterIndividual()
 
-interface RuleForm {
-  userTypeId: number
-  fullName: string
-  email: string
-  phone: string
-  password: string
-  confirmPassword: string
-  isAgree: boolean
-}
+const optionsCity = ref<Option[]>([])
+const optionsDistrict = ref<Option[]>([])
+const optionsSubDistrict = ref<Option[]>([])
 
 const ruleFormRef = ref<FormInstance>()
 const form = reactive({
-  userTypeId: '',
-  fullName: '',
-  email: '',
-  phone: '',
-  password: '',
-  confirmPassword: '',
-  isAgree: false
+  idCardNumber: '',
+  taxNumber: '',
+  genderId: '',
+  birthPlace: '',
+  birthDate: '',
+  sourceOfFoundId: '',
+  monthlyIncomeId: '',
+  bankId: '',
+  bankAccountNumber: '',
+  provinceId: '',
+  cityId: '',
+  districtId: '',
+  subDistrictId: '',
+  address: '',
+  postalCode: '',
+
+  // only used for validation
+  idCardNumberFile: '',
+  selfiePhotoFile: '',
+  taxNumberFile: '',
+  proofOfIncomeFile: ''
 })
 
-const rules = reactive<FormRules<RuleForm>>({
-  fullName: [
+const rules = reactive<FormRules<TReqRegisterIndividual>>({
+  idCardNumber: [
     {
       required: true,
-      message: 'Nama Lengkap Sesuai KTP harus diisi',
+      message: 'Nomor KTP harus diisi',
       trigger: 'change'
     }
   ],
-  email: [
+  taxNumber: [
     {
       required: true,
-      message: 'Email harus diisi',
+      message: 'Nomor NPWP harus diisi',
       trigger: 'change'
-    },
+    }
+  ],
+  genderId: [
     {
-      type: 'email',
-      message: 'Harap masukkan alamat email yang benar',
+      required: true,
+      message: 'Jenis Kelamin harus diisi',
+      trigger: 'change'
+    }
+  ],
+  birthPlace: [
+    {
+      required: true,
+      message: 'Tampat Lahir harus diisi',
+      trigger: 'change'
+    }
+  ],
+  birthDate: [
+    {
+      required: true,
+      message: 'Tanggal Lahir harus diisi',
+      trigger: 'change'
+    }
+  ],
+  provinceId: [
+    {
+      required: true,
+      message: 'Provinsi harus diisi',
+      trigger: 'change'
+    }
+  ],
+  cityId: [
+    {
+      required: true,
+      message: 'Kota harus diisi',
+      trigger: 'change'
+    }
+  ],
+  districtId: [
+    {
+      required: true,
+      message: 'Kecamatan harus diisi',
+      trigger: 'change'
+    }
+  ],
+  subDistrictId: [
+    {
+      required: true,
+      message: 'Kelurahan harus diisi',
+      trigger: 'change'
+    }
+  ],
+  address: [
+    {
+      required: true,
+      message: 'Alamat Lengkap harus diisi',
+      trigger: 'change'
+    }
+  ],
+  postalCode: [
+    {
+      required: true,
+      message: 'Kode POS harus diisi',
+      trigger: 'change'
+    }
+  ],
+  sourceOfFoundId: [
+    {
+      required: true,
+      message: 'Sumber dana harus diisi',
+      trigger: 'change'
+    }
+  ],
+  monthlyIncomeId: [
+    {
+      required: true,
+      message: 'Penghasilan Perbulan harus diisi',
+      trigger: 'change'
+    }
+  ],
+  bankId: [
+    {
+      required: true,
+      message: 'Nama Rekening Bank harus diisi',
+      trigger: 'change'
+    }
+  ],
+  bankAccountNumber: [
+    {
+      required: true,
+      message: 'Nomor Rekening harus diisi',
+      trigger: 'change'
+    }
+  ],
+  idCardNumberFile: [
+    {
+      required: true,
+      message: 'File KTP harus diisi',
       trigger: 'blur'
     }
   ],
-  phone: [
+  selfiePhotoFile: [
     {
       required: true,
-      message: 'No. Hp/Telepon harus diisi',
+      message: 'Foto Wajah harus diisi',
+      trigger: 'change'
+    }
+  ],
+  taxNumberFile: [
+    {
+      required: true,
+      message: 'NPWP harus diisi',
+      trigger: 'change'
+    }
+  ],
+  proofOfIncomeFile: [
+    {
+      required: true,
+      message: 'Bukti Penghasilan harus diisi',
       trigger: 'change'
     }
   ]
 })
+
+const submitForm = async (formEl: FormInstance | undefined) => {
+  if (!formEl) return
+  await formEl.validate((valid) => {
+    if (valid) {
+      const payload: TReqRegisterIndividual = {
+        ...form,
+        birthDate: dayjs(form.birthDate).format('YYYY-MM-DD'),
+        idCardNumber: form.idCardNumber.replace(/\s/g, '')
+      }
+
+      // Deleting unwanted keys from the cloned object
+      delete payload.idCardNumberFile
+      delete payload.selfiePhotoFile
+      delete payload.taxNumberFile
+      delete payload.proofOfIncomeFile
+      registerIndividual(payload, {
+        onSuccess: () => {
+          router.push({ name: 'waiting-approval' })
+        }
+      })
+    }
+  })
+}
+
+const handleChangeFile = ({ value, field }: { value: string; field: keyof typeof form }) => {
+  form[field] = value
+}
+
+watch(
+  () => form.idCardNumberFile,
+  (value) => {
+    console.log({ value })
+  }
+)
+
+watch(
+  () => form.provinceId,
+  (value) => {
+    if (value) {
+      city(
+        { id: value },
+        {
+          onSuccess: (res) => {
+            optionsCity.value = res
+          }
+        }
+      )
+    }
+  }
+)
+watch(
+  () => form.cityId,
+  (value) => {
+    if (value) {
+      district(
+        { id: value },
+        {
+          onSuccess: (res) => {
+            optionsDistrict.value = res
+          }
+        }
+      )
+    }
+  }
+)
+watch(
+  () => form.districtId,
+  (value) => {
+    if (value) {
+      subDistrict(
+        { id: value },
+        {
+          onSuccess: (res) => {
+            optionsSubDistrict.value = res
+          }
+        }
+      )
+    }
+  }
+)
+watch(
+  () => form.subDistrictId,
+  (value) => {
+    if (value) {
+      const data = optionsSubDistrict.value.find((it) => it.id === value)
+      // @ts-ignore
+      form.postalCode = data.postalCode
+    }
+  }
+)
 </script>
 
 <template>
@@ -81,90 +299,113 @@ const rules = reactive<FormRules<RuleForm>>({
 
         <div class="tw-grid tw-grid-cols-2 tw-gap-x-4 tw-gap-y-2 tw-pt-2 md:tw-grid-cols-4">
           <el-form-item prop="idCardNumber" class="tw-col-span-2">
-            <InputField type="number" label="Nomor KTP" placeholder="Cth: 3674 0412 3456 7890" />
+            <InputField
+              v-model="form.idCardNumber"
+              v-maska="'#### #### #### ####'"
+              label="Nomor KTP"
+              placeholder="Cth: 3674 0412 3456 7890"
+            />
           </el-form-item>
-          <el-form-item prop="taxNumber " class="tw-col-span-2">
-            <InputField type="number" label="No. NPWP" placeholder="Cth: 2941XXXXX" />
-          </el-form-item>
-          <el-form-item prop="birthPlace">
-            <InputField label="Tempat Lahir" placeholder="Cth: Jakarta" />
-          </el-form-item>
-          <el-form-item prop="birthDate">
-            <DatePicker label="Tanggal Lahir" placeholder="11/11/2024" />
+          <el-form-item prop="taxNumber" class="tw-col-span-2">
+            <InputField
+              v-model="form.taxNumber"
+              v-maska="'###############'"
+              type="number"
+              label="No. NPWP"
+              placeholder="Cth: 2941XXXXX"
+            />
           </el-form-item>
           <el-form-item prop="genderId" class="tw-col-span-2">
             <SelectField
+              v-model="form.genderId"
               label="Jenis Kelamin"
               placeholder="Pilih Jenis Kelamin"
               :options="gender"
             />
           </el-form-item>
-          <el-form-item prop="religionId" class="tw-col-span-2">
-            <SelectField label="Agama" placeholder="Pilih Agama" :options="gender" />
+          <el-form-item prop="birthPlace">
+            <InputField v-model="form.birthPlace" label="Tempat Lahir" placeholder="Cth: Jakarta" />
           </el-form-item>
-          <el-form-item prop="maritalStatusId" class="tw-col-span-2">
+          <el-form-item prop="birthDate">
+            <DatePicker v-model="form.birthDate" label="Tanggal Lahir" placeholder="11/11/2024" />
+          </el-form-item>
+          <el-form-item prop="provinceId" class="tw-col-span-2">
             <SelectField
-              label="Status Pernikahan"
-              placeholder="Pilih Status Pernikahan"
-              :options="gender"
-            />
-          </el-form-item>
-          <el-form-item prop="motherMaidenName" class="tw-col-span-2">
-            <InputField label="Nama Ibu Kandung" placeholder="Masukan Nama Ibu Kandung" />
-          </el-form-item>
-          <el-form-item prop="jobId" class="tw-col-span-2">
-            <SelectField
-              label="Jenis Pekerjaan"
-              placeholder="Pilih Jenis Pekerjaan"
+              v-model="form.provinceId"
+              label="Provinsi"
+              placeholder="Pilih Provinsi"
               :options="province"
             />
           </el-form-item>
-          <el-form-item prop="educationId" class="tw-col-span-2">
+          <el-form-item prop="cityId" class="tw-col-span-2">
             <SelectField
-              label="Pendidikan Terakhir"
-              placeholder="Pilih Pendidikan Terakhir"
-              :options="province"
+              v-model="form.cityId"
+              label="Kota"
+              placeholder="Pilih Kota"
+              :options="optionsCity"
             />
           </el-form-item>
-          <el-form-item prop="educationId" class="tw-col-span-2">
+          <el-form-item prop="districtId" class="tw-col-span-2">
             <SelectField
-              label="Tempat Penerbitan KTP"
-              placeholder="Masukan Tempat Penerbitan KTP"
-              :options="province"
+              v-model="form.districtId"
+              label="Kecamatan"
+              placeholder="Pilih Kecamatan"
+              :options="optionsDistrict"
             />
           </el-form-item>
-          <el-form-item prop="provinsi" class="tw-col-span-2">
-            <SelectField label="Provinsi" placeholder="Pilih Provinsi" :options="province" />
+          <el-form-item prop="subDistrictId" class="tw-col-span-2">
+            <SelectField
+              v-model="form.subDistrictId"
+              label="Kelurahan"
+              placeholder="Pilih Kelurahan"
+              :options="optionsSubDistrict"
+            />
           </el-form-item>
-          <el-form-item prop="kota" class="tw-col-span-2">
-            <SelectField label="Kota" placeholder="Pilih Kota" />
+          <el-form-item prop="postalCode" class="tw-col-span-2">
+            <InputField
+              v-model="form.postalCode"
+              label="Kode POS"
+              placeholder="Kode POS"
+              disabled
+            />
           </el-form-item>
-          <el-form-item prop="Kecamatan" class="tw-col-span-2">
-            <SelectField label="Kecamatan" placeholder="Pilih Kecamatan" :options="province" />
+          <el-form-item prop="address" class="tw-col-span-2">
+            <InputField
+              v-model="form.address"
+              label="Alamat Lengkap"
+              placeholder="Cth: Jl. Pasti Beruntung"
+            />
           </el-form-item>
-          <el-form-item prop="Kelurahan" class="tw-col-span-2">
-            <SelectField label="Kelurahan" placeholder="Pilih Kelurahan" :options="province" />
+          <el-form-item prop="sourceOfFoundId" class="tw-col-span-2">
+            <SelectField
+              v-model="form.sourceOfFoundId"
+              label="Sumber Dana"
+              placeholder="Cth: Uang Pribadi"
+              :options="sourceOfFound"
+            />
           </el-form-item>
-          <el-form-item prop="RT/RW" class="tw-col-span-2">
-            <InputField label="RT/RW" placeholder="Cth: 001 / 007" />
+          <el-form-item prop="monthlyIncomeId" class="tw-col-span-2">
+            <SelectField
+              v-model="form.monthlyIncomeId"
+              label="Penghasilan Perbulan"
+              placeholder="Pilih Penghasilan Perbulan"
+              :options="monthlyIncome"
+            />
           </el-form-item>
-          <el-form-item prop="Kode POS" class="tw-col-span-2">
-            <SelectField label="Kode POS" placeholder="Pilih Kode POS" />
+          <el-form-item prop="bankId" class="tw-col-span-2">
+            <SelectField
+              v-model="form.bankId"
+              label="Nama Rekening Bank"
+              placeholder="Pilih Nama Bank"
+              :options="bank"
+            />
           </el-form-item>
-          <el-form-item prop="alamat_lengkap" class="md:tw-col-span-4">
-            <InputField label="Alamat Lengkap" placeholder="Cth: Jl. Pasti Beruntung" />
-          </el-form-item>
-          <el-form-item prop="alamat_lengkap" class="tw-col-span-2">
-            <InputField label="Sumber Dana" placeholder="Cth: Uang Pribadi" />
-          </el-form-item>
-          <el-form-item prop="alamat_lengkap" class="tw-col-span-2">
-            <SelectField label="Penghasilan Perbulan" placeholder="Pilih Penghasilan Perbulan" />
-          </el-form-item>
-          <el-form-item prop="rekening_bank" class="tw-col-span-2">
-            <SelectField label="Nama Rekening Bank" placeholder="Pilih Nama Bank" />
-          </el-form-item>
-          <el-form-item prop="no_rekening" class="tw-col-span-2">
-            <InputField label="No. Rekening Perusahaan" placeholder="Masukan Nomor Rekening" />
+          <el-form-item prop="bankAccountNumber" class="tw-col-span-2">
+            <InputField
+              v-model="form.bankAccountNumber"
+              label="No. Rekening"
+              placeholder="Masukan Nomor Rekening"
+            />
           </el-form-item>
         </div>
       </div>
@@ -176,22 +417,44 @@ const rules = reactive<FormRules<RuleForm>>({
         </p>
 
         <div class="tw-mt-6 tw-grid tw-grid-cols-1 tw-gap-x-4 tw-gap-y-2 tw-pt-2 md:tw-grid-cols-2">
-          <el-form-item prop="file_ktp">
-            <FileInput label="Unggah KTP Bagian Depan" />
+          <el-form-item prop="idCardNumberFile">
+            <FileInput
+              field="idCardNumberFile"
+              file-type="id-card"
+              label="Unggah KTP Bagian Depan"
+              @update:model-value="handleChangeFile"
+            />
           </el-form-item>
-          <el-form-item prop="file_ktp">
-            <FileInput label="Unggah Foto Wajah" />
+          <el-form-item prop="selfiePhotoFile">
+            <FileInput
+              field="selfiePhotoFile"
+              file-type="selfie-photo"
+              label="Unggah Foto Wajah"
+              @update:model-value="handleChangeFile"
+            />
           </el-form-item>
-          <el-form-item prop="file_npwp">
-            <FileInput label="Unggah NPWP" />
+          <el-form-item prop="taxNumberFile">
+            <FileInput
+              field="taxNumberFile"
+              file-type="tax-card"
+              label="Unggah NPWP"
+              @update:model-value="handleChangeFile"
+            />
           </el-form-item>
-          <el-form-item prop="file_income">
-            <FileInput label="Unggah Bukti Penghasilan" />
+          <el-form-item prop="proofOfIncomeFile">
+            <FileInput
+              field="proofOfIncomeFile"
+              file-type="bukti-penghasilan"
+              label="Unggah Bukti Penghasilan"
+              @update:model-value="handleChangeFile"
+            />
           </el-form-item>
         </div>
 
         <div class="tw-mt-6 tw-flex tw-justify-center">
-          <el-button round type="primary" size="large"> Simpan dan Lanjutkan </el-button>
+          <el-button round type="primary" size="large" @click="submitForm(ruleFormRef)">
+            Simpan dan Lanjutkan
+          </el-button>
         </div>
       </div>
     </el-form>

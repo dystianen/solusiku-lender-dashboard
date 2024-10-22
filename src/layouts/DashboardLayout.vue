@@ -176,7 +176,7 @@ const handleLogout = () => {
               </component>
 
               <!-- Children menu -->
-              <ul v-if="item.children && isMenuOpen(i)" class="tw-ml-2 tw-mt-2 tw-w-full">
+              <ul v-if="item.children" class="tw-ml-2 tw-mt-2 tw-w-full">
                 <li v-for="(child, j) in item.children" :key="j">
                   <RouterLink
                     :to="child.path"

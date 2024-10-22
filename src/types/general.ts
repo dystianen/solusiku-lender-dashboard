@@ -7,7 +7,7 @@ export interface GeneralResponse<T = unknown> {
 
 export type StringOrNumber = string | number
 
-export type Options = {
+export type Option = {
   id: StringOrNumber
   name: StringOrNumber
 }
@@ -21,3 +21,29 @@ export type TResError = {
     timestamp: string
   }
 }
+
+export type FileType =
+  | 'id-card'
+  | 'selfie-photo'
+  | 'tax-card'
+  | 'bukti-penghasilan'
+  | 'akta-pendirian'
+  | 'akta-perubahan'
+  | 'sk-kemenkumham-akta-pendirian'
+  | 'sk-kemenkumham-akta-perubahan'
+  | 'nib'
+  | 'rekening-koran'
+  | 'keuangan-perusahaan-inhouse'
+  | 'siup'
+  | 'tdp'
+  | 'keuangan-perusahaan-audited'
+
+export interface TReqFilter {
+  search?: string
+  length?: number
+  start?: number
+  sort?: string
+  isDesc?: boolean
+}
+
+export type TSize = 'default' | 'small' | 'large'

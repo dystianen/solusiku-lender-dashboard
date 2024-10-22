@@ -77,3 +77,7 @@ input[type='number'] {
 .ep-select--large .ep-select__wrapper {
   padding: 14px 16px !important;
 }
+
+.ep-input.is-disabled .ep-input__wrapper {
+  background-color: white !important;
+}

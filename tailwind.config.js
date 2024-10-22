@@ -18,6 +18,7 @@ export default {
         'neutral-1': '#4C4E64',
         'neutral-2': '#73767A',
         'neutral-3': '#D8D8DD',
+        'neutral-4': '#A8ABB2',
         'border-stroke': '#C3C4C7',
         danger: '#FF3B3B',
         warning: '#FFCC00',

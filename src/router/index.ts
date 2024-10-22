@@ -132,8 +132,8 @@ const router = createRouter({
       component: RegistrationFundingCompany
     },
     {
-      path: '/waiting',
-      name: 'waiting',
+      path: '/waiting-approval',
+      name: 'waiting-approval',
       meta: {
         layout: DashboardLayout,
         requiresAuth: true
