@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import IcCurrentSolution from '@/assets/icons/ic_current_solution.svg'
-import IcQuickSolution from '@/assets/icons/ic_quick_solution.svg'
-import IcFriendSolution from '@/assets/icons/ic_friend_solution.svg'
-import IcWalet from '@/assets/icons/ic_walet.svg'
-import IcReceipt from '@/assets/icons/ic_receipt.svg'
 import IcCalendar from '@/assets/icons/ic_calendar.svg'
+import IcCurrentSolution from '@/assets/icons/ic_current_solution.svg'
+import IcFriendSolution from '@/assets/icons/ic_friend_solution.svg'
+import IcQuickSolution from '@/assets/icons/ic_quick_solution.svg'
+import IcReceipt from '@/assets/icons/ic_receipt.svg'
+import IcWalet from '@/assets/icons/ic_walet.svg'
 
 const solutionData = [
   {
@@ -73,7 +73,7 @@ const categoryData = [
               </div>
 
               <div class="tw-flex tw-flex-col">
-                <h1 class="tw-text-lg tw-font-medium tw-text-primary">
+                <h1 class="tw-text-lg tw-text-primary">
                   {{ categoryData[i].label }}
                 </h1>
                 <p>{{ list }}</p>

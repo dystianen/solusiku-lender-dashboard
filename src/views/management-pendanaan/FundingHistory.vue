@@ -1,3 +1,3 @@
 <template>
-  <div>Funding History</div>
+  <WaitingFeature />
 </template>

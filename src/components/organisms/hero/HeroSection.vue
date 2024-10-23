@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import LogoOjk from '@/assets/images/logo_ojk.svg'
-import LogoAfpi from '@/assets/images/logo_afpi.svg'
-import HeroSolusiku from '@/assets/images/mockup_hero.png'
-import LogoGooglePlay from '@/assets/images/logo_google_play.svg'
-import LogoAppStore from '@/assets/images/logo_app_store.svg'
-import BarcodeSolusiku from '@/assets/images/barcode_solusiku.svg'
 import BgHeroClip from '@/assets/backgrounds/bg_hero_clip.svg'
+import BarcodeSolusiku from '@/assets/images/barcode_solusiku.svg'
+import LogoAfpi from '@/assets/images/logo_afpi.svg'
+import LogoAppStore from '@/assets/images/logo_app_store.svg'
+import LogoGooglePlay from '@/assets/images/logo_google_play.svg'
+import LogoOjk from '@/assets/images/logo_ojk.svg'
+import HeroSolusiku from '@/assets/images/mockup_hero.png'
 
 import useScreenType from '@/composables/useScreenType'
 const { isMobile } = useScreenType()
@@ -21,7 +21,7 @@ const { isMobile } = useScreenType()
       <el-col :span="isMobile ? 24 : 12">
         <div class="tw-flex tw-flex-col tw-gap-6">
           <div class="tw-flex tw-items-center tw-gap-4">
-            <p class="tw-text-xs tw-font-medium">
+            <p class="tw-text-xs">
               Berizin & <br />
               Diawasi:
             </p>

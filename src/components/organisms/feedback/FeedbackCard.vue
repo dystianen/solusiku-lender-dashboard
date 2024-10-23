@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
 import IcDoubleQuotes from '@/assets/icons/ic_double_quotes.svg'
+import { ref } from 'vue'
 const props = defineProps({
   feedback: {
     type: String,

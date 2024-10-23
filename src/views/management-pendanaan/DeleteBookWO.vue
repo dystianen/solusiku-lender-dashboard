@@ -1,3 +1,3 @@
 <template>
-  <div>Delete Book WO</div>
+  <WaitingFeature />
 </template>

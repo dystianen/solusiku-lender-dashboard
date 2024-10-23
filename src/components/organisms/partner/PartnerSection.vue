@@ -4,11 +4,11 @@ import LogoAlfamart from '@/assets/images/logo_alfamart.svg'
 import LogoBca from '@/assets/images/logo_bca.svg'
 import LogoBni from '@/assets/images/logo_bni.svg'
 import LogoBrankas from '@/assets/images/logo_brankas.svg'
-import LogoSampoerna from '@/assets/images/logo_sampoerna.svg'
 import LogoIndomaret from '@/assets/images/logo_indomaret.svg'
 import LogoInstamoney from '@/assets/images/logo_instamoney.svg'
 import LogoIntraAsia from '@/assets/images/logo_intra_asia.svg'
 import LogoOcbc from '@/assets/images/logo_ocbc.svg'
+import LogoSampoerna from '@/assets/images/logo_sampoerna.svg'
 const data = [
   LogoAdvance,
   LogoAlfamart,

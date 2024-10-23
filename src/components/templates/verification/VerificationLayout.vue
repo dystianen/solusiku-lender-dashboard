@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import ReasonRightSection from '@/components/organisms/reason/ReasonRightSection.vue'
-import useScreenType from '@/composables/useScreenType'
 import LogoAfpi from '@/assets/images/logo_afpi.svg'
 import LogoAsosiasiFintechGreen from '@/assets/images/logo_asosiasi_fintech_green.svg'
 import LogoIso27001 from '@/assets/images/logo_iso_27001.svg'
+import ReasonRightSection from '@/components/organisms/reason/ReasonRightSection.vue'
+import useScreenType from '@/composables/useScreenType'
 
 const { isDesktop } = useScreenType()
 </script>

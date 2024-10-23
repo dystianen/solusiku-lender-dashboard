@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
-import LogoSolusiku from '@/assets/images/logo_solusiku_primary.svg'
-import IcHelpCircle from '@/assets/icons/ic_help_circle.svg'
-import IcFlagIDN from '@/assets/icons/ic_flag_idn.svg'
 import IcFlagEng from '@/assets/icons/ic_flag_eng.svg'
+import IcFlagIDN from '@/assets/icons/ic_flag_idn.svg'
+import IcHelpCircle from '@/assets/icons/ic_help_circle.svg'
+import LogoSolusiku from '@/assets/images/logo_solusiku_primary.svg'
+import { computed, ref } from 'vue'
 
 const languages = [
   { icon: IcFlagIDN, label: 'Indonesia', value: 'IDN' },
@@ -87,9 +87,30 @@ const handleCommand = (command: string) => {
       </button>
     </div>
 
-    <div class="tw-block sm:tw-hidden">
+    <div class="tw-flex tw-gap-4 sm:tw-hidden">
+      <div
+        class="tw-flex tw-gap-2 tw-rounded-full tw-border-2 tw-border-solid tw-border-primary tw-px-[10px] tw-py-[5px] tw-text-primary"
+      >
+        TKB90: 99.00%
+
+        <el-popover
+          placement="bottom-end"
+          :width="200"
+          trigger="hover"
+          content="Tingkat keberhasilan penyelenggara P2P Lending dalam memfasilitasi penyelesaian kewajiban pinjam meminjam dalam jangka waktu hingga 90 (sembilan puluh) hari sejak tanggal jatuh tempo."
+          :show-arrow="false"
+          popper-style="width: 446px; border-radius: 8px"
+        >
+          <template #reference>
+            <button>
+              <img :src="IcHelpCircle" alt="IcHelpCircle" />
+            </button>
+          </template>
+        </el-popover>
+      </div>
+
       <button @click="drawer = true">
-        <v-icon name="md-menu-round" />
+        <v-icon name="md-menu-round" :scale="1.5" />
       </button>
     </div>
 

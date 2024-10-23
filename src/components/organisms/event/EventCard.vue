@@ -15,7 +15,7 @@ const props = withDefaults(defineProps<TItem>(), {
 
 <template>
   <div class="tw-relative tw-w-[379px] tw-rounded-2xl tw-p-0 tw-text-left tw-shadow-medium-orange">
-    <img :src="props.img" class="tw-h-[217px] tw-w-full" />
+    <img :src="props.img" :alt="props.title" class="tw-h-[217px] tw-w-full" />
 
     <div class="tw-m-5 tw-flex tw-flex-col tw-gap-4">
       <h5 class="tw-text-lg tw-font-semibold">

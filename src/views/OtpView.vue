@@ -1,17 +1,129 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import useVerification from '@/api/queries/verification/useVerification'
 import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
+import { accessToken, setAccessToken } from '@/cookies/accessToken'
+import { getTimerCookies, removeTimerCookies, setTimerCookies } from '@/cookies/timer'
+import useEmailStore from '@/stores/email'
+import { ElMessage } from 'element-plus'
+import { computed, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import VOtpInput from 'vue3-otp-input'
 
+const router = useRouter()
+const route = useRoute()
+const isForgotPassword = route.name === 'forgot-password-otp'
 const otpInput = ref<InstanceType<typeof VOtpInput> | null>(null)
 const bindModal = ref('')
+const otpCode = ref('')
+const isSend = ref(true)
+const isSuccessOtp = ref(false)
+const hasError = ref(false)
+const emailStore = useEmailStore()
 
-const handleOnComplete = (value: string) => {
-  console.log('OTP completed: ', value)
+// Timer
+const timerCookies = computed(() => getTimerCookies())
+const timer = ref(timerCookies.value)
+
+watch(timerCookies, (newValue) => {
+  timer.value = newValue
+})
+
+// Queries
+const { mutate: submitOTPRegister } = useVerification.postConfirmOTPRegister()
+const { mutate: resendOTPRegister } = useVerification.postResendOTPRegister()
+const { mutate: submitOTPForgotPassword } = useVerification.postForgotPasswordConfirmOTP()
+const { mutate: resendOTPForgotPassword } = useVerification.postResendForgotPasswordConfirmOTP()
+
+const handleSubmitOTP = () => {
+  const payload = {
+    token: accessToken.value,
+    otpCode: otpCode.value
+  }
+
+  if (isForgotPassword) {
+    submitOTPForgotPassword(payload, {
+      onSuccess: (res) => {
+        removeTimerCookies()
+        setAccessToken(res.token)
+        router.push({ name: 'change-password' })
+      },
+      onError: (res: any) => {
+        ElMessage.error(res.data.error)
+      }
+    })
+  } else {
+    submitOTPRegister(payload, {
+      onSuccess: (res) => {
+        removeTimerCookies()
+        setAccessToken(res.token)
+        router.push({ name: 'register-funding-personal' })
+      },
+      onError: (res: any) => {
+        ElMessage.error(res.data.error)
+      }
+    })
+  }
 }
 
-const handleOnChange = (value: string) => {
-  console.log('OTP changed: ', value)
+const handleOnComplete = (value: string) => {
+  otpCode.value = value
+}
+
+const handleResendOtp = () => {
+  if (isForgotPassword) {
+    resendOTPForgotPassword(accessToken.value, {
+      onSuccess: () => {
+        isSend.value = true
+        startCountdown()
+      }
+    })
+  } else {
+    resendOTPRegister(accessToken.value, {
+      onSuccess: () => {
+        isSend.value = true
+        startCountdown()
+      }
+    })
+  }
+}
+
+const onProgress = (value: { totalMilliseconds: number }) => {
+  setTimerCookies(value.totalMilliseconds)
+}
+
+const handleTimeoutOtp = () => {
+  isSend.value = false
+}
+
+const startCountdown = () => {
+  isSend.value = true
+  const countdownTime = 180000
+  timer.value = countdownTime
+  setTimerCookies(countdownTime)
+}
+
+watch(timer, (value) => {
+  if (value < 1000) {
+    isSend.value = false
+  }
+})
+
+// handle not error when less then 6 character
+watch(otpCode, (value) => {
+  if (value.length < 4) {
+    hasError.value = false
+    isSuccessOtp.value = false
+  }
+})
+
+const transformSlotProps = (props: Record<string, number>): Record<string, string> => {
+  const formattedProps: Record<string, string> = {}
+
+  Object.entries(props).forEach(([key, value]) => {
+    formattedProps[key] = value < 10 ? `0${value}` : String(value)
+  })
+
+  return formattedProps
 }
 </script>
 
@@ -19,8 +131,8 @@ const handleOnChange = (value: string) => {
   <VerificationLayout>
     <h1 class="tw-text-4xl tw-font-semibold">Masukan Kode OTP</h1>
     <p class="tw-text-neutral-desc">
-      Kami telah mengirim kode OTP via e-mail ke
-      <span class="tw-font-semibold tw-text-primary">Jhondue@example.com</span>
+      Kami telah mengirim kode OTP via e-mail ke <br />
+      <span class="tw-font-semibold tw-text-primary">{{ emailStore.email }}</span>
     </p>
 
     <VOtpInput
@@ -31,14 +143,36 @@ const handleOnChange = (value: string) => {
       :num-inputs="6"
       :should-auto-focus="true"
       :should-focus-order="true"
-      :conditional-class="['one', 'two', 'three', 'four']"
-      @on-change="handleOnChange"
       @on-complete="handleOnComplete"
     />
 
-    <p class="tw-text-neutral-subtle">Kirim ulang setelah 59 detik.</p>
+    <template v-if="!isSend">
+      <p class="tw-text-center">
+        Tidak menerima kode verifikasi?
+        <a href="javascript:void(0)" class="tw-text-primary" @click.prevent="handleResendOtp">
+          Kirim Ulang
+        </a>
+      </p>
+    </template>
 
-    <el-button round type="primary" size="large" style="width: 100%"> Konfirmasi </el-button>
+    <template v-else>
+      <p class="tw-text-center">
+        Kirim ulang setelah
+        <v-countdown
+          v-slot="{ minutes, seconds }"
+          :time="timer"
+          :transform="transformSlotProps"
+          @progress="onProgress"
+          @end="handleTimeoutOtp"
+        >
+          {{ minutes }}:{{ seconds }}
+        </v-countdown>
+      </p>
+    </template>
+
+    <el-button round type="primary" size="large" style="width: 100%" @click="handleSubmitOTP()">
+      Konfirmasi
+    </el-button>
   </VerificationLayout>
 </template>
 

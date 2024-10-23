@@ -1,15 +1,15 @@
 <script lang="ts" setup>
-import LogoSolusiku from '@/assets/images/logo_solusiku_primary_white.svg'
-import IcPhone from '@/assets/icons/ic_phone.svg'
 import IcEmail from '@/assets/icons/ic_email.svg'
 import IcFacebook from '@/assets/icons/ic_facebook.svg'
 import IcInstagram from '@/assets/icons/ic_instagram.svg'
 import IcLinkedln from '@/assets/icons/ic_linkedin.svg'
-import IcYoutube from '@/assets/icons/ic_youtube.svg'
+import IcPhone from '@/assets/icons/ic_phone.svg'
 import IcTiktok from '@/assets/icons/ic_tiktok.svg'
+import IcYoutube from '@/assets/icons/ic_youtube.svg'
 import LogoAfpiWhite from '@/assets/images/logo_afpi_white.svg'
 import LogoAsosiasiFintech from '@/assets/images/logo_asosiasi_fintech.svg'
 import LogoIso27001 from '@/assets/images/logo_iso_27001.svg'
+import LogoSolusiku from '@/assets/images/logo_solusiku_primary_white.svg'
 import { RouterLink } from 'vue-router'
 
 const footer = [
@@ -66,7 +66,7 @@ const sosmed = [
         <div class="tw-col-span-2 tw-flex tw-flex-col tw-gap-6 tw-pr-10">
           <img alt="Logo Solusiku" class="logo" :src="LogoSolusiku" width="146" height="30" />
           <div class="tw-flex tw-flex-col tw-gap-1">
-            <p class="tw-font-medium">PT. Anugerah Digital Indonesia</p>
+            <p>PT. Anugerah Digital Indonesia</p>
             <p class="tw-text-white/80">
               Cyber 2 Tower, Lantai 7D, Jl. HR, Rasuna Said Blok X-5 Kav. 13, Kel. Kuningan Timur,
               Kec. Setiabudi, Kota Adm. Jakarta Selatan, Prov. DKI Jakarta, 12950.
@@ -76,7 +76,7 @@ const sosmed = [
         </div>
 
         <div v-for="(item, i) in footer" :key="i" class="tw-flex tw-flex-col tw-gap-6">
-          <p class="tw-font-medium">{{ item.title }}</p>
+          <p>{{ item.title }}</p>
           <div
             v-for="list in item.list"
             :key="list.label"
@@ -87,7 +87,7 @@ const sosmed = [
         </div>
 
         <div class="tw-flex tw-flex-col tw-gap-6">
-          <p class="tw-font-medium">Hubungi Kami</p>
+          <p>Hubungi Kami</p>
           <div class="tw-flex tw-flex-col tw-gap-1">
             <a href="tel:02150928925" class="tw-flex tw-items-center tw-gap-2 tw-text-white/80">
               <img :src="IcPhone" :width="16" :height="16" alt="Ic Phone" />
@@ -101,7 +101,7 @@ const sosmed = [
               <p>cs@solusi-ku.id</p>
             </a>
           </div>
-          <p class="tw-font-medium">Follow</p>
+          <p>Follow</p>
           <div class="tw-flex tw-gap-4">
             <a v-for="(item, i) in sosmed" :key="i" :href="item.href">
               <img :src="item.icon" :width="24" :height="24" alt="Icon" />
@@ -112,7 +112,7 @@ const sosmed = [
 
       <el-divider />
 
-      <p class="tw-font-medium">Penafian</p>
+      <p>Penafian</p>
       <ol class="tw-list-decimal tw-pl-4 tw-text-xs tw-leading-6 tw-text-white/80">
         <li>
           Layanan Pinjam Meminjam Berbasis Teknologi Informasi merupakan kesepakatan perdata antara

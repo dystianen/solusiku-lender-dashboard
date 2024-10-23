@@ -1,5 +1,7 @@
 <template>
   <el-config-provider namespace="ep">
-    <RouterView />
+    <component :is="$route.meta.layout || 'div'">
+      <RouterView />
+    </component>
   </el-config-provider>
 </template>

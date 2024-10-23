@@ -5,6 +5,7 @@ body {
   color: #303030;
   scroll-behavior: smooth;
   font-size: 14px;
+  font-weight: 500;
 }
 
 img,
@@ -12,15 +13,71 @@ video {
   max-width: 100%;
 }
 
-.button-primary {
-  background: linear-gradient(101.9deg, #fb7b4a 3.62%, #de4f3f 92.8%);
+th {
+  background: #f5f5f7 !important;
 }
 
-.ep-button + .ep-button {
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.input-container {
+  position: relative;
+  width: 100%;
+}
+
+.input-label {
+  position: absolute;
+  font-size: 0.9rem;
+  left: 10px;
+  top: -8px;
+  background-color: white;
+  padding: 0 4px;
+  z-index: 1;
+  line-height: 1.2;
+}
+
+.ep-button {
   margin-left: 0 !important;
 }
 
 .ep-table {
   width: 100%;
   font-size: 12px;
+}
+
+.ep-input__wrapper {
+  border-radius: 8px !important;
+  -webkit-border-radius: 8px !important;
+  -moz-border-radius: 8px !important;
+  -ms-border-radius: 8px !important;
+  -o-border-radius: 8px !important;
+}
+
+.ep-input--large .ep-input__wrapper {
+  padding: 2px 16px !important;
+}
+
+.ep-select__wrapper {
+  border-radius: 8px !important;
+  -webkit-border-radius: 8px !important;
+  -moz-border-radius: 8px !important;
+  -ms-border-radius: 8px !important;
+  -o-border-radius: 8px !important;
+}
+
+.ep-select--large .ep-select__wrapper {
+  padding: 14px 16px !important;
+}
+
+.ep-input.is-disabled .ep-input__wrapper {
+  background-color: white !important;
 }

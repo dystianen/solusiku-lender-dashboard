@@ -1,3 +1,3 @@
 <template>
-  <div>Restructuring</div>
+  <WaitingFeature />
 </template>

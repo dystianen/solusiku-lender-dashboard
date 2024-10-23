@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
 import TableHistoryTopup from '@/components/organisms/table/TableHistoryTopup.vue'
+import { ref } from 'vue'
 
 const activeName = ref('riwayat_hidup')
 
@@ -52,19 +52,19 @@ const dataColumn3 = [
           :size="100"
           src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
         />
-        <h3 class="tw-text-xl tw-font-medium tw-text-neutral-1/[.87]">Seth Hallam</h3>
+        <h3 class="tw-text-xl tw-text-neutral-1/[.87]">Seth Hallam</h3>
       </div>
 
       <div class="tw-col-span-2 tw-flex tw-flex-col tw-gap-2">
         <div v-for="(item, i) in dataColumn2" :key="i" class="tw-grid tw-grid-cols-3">
-          <p class="tw-font-medium tw-text-neutral-1/[.87]">{{ item.key }}</p>
+          <p class="tw-text-neutral-1/[.87]">{{ item.key }}</p>
           <p class="tw-col-span-2 tw-text-neutral-1/[.68]">: {{ item.value }}</p>
         </div>
       </div>
 
       <div class="tw-col-span-2 tw-flex tw-flex-col tw-gap-2">
         <div v-for="(item, i) in dataColumn3" :key="i" class="tw-grid tw-grid-cols-4">
-          <p class="tw-col-span-2 tw-font-medium tw-text-neutral-1/[.87]">{{ item.key }}</p>
+          <p class="tw-col-span-2 tw-text-neutral-1/[.87]">{{ item.key }}</p>
           <p class="tw-col-span-2 tw-text-neutral-1/[.68]">: {{ item.value }}</p>
         </div>
       </div>

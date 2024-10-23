@@ -1,36 +1,68 @@
 <script setup lang="ts">
-import CardActiveFunding from '@/components/organisms/card/CardActiveFunding.vue'
-import CardCongratulationsAchievment from '@/components/organisms/card/CardCongratulationsAchievement.vue'
-import CardCongratulationsTarget from '@/components/organisms/card/CardCongratulationsTarget.vue'
-import CardTotalFunding from '@/components/organisms/card/CardTotalFunding.vue'
-import CardTotalReturnLoan from '@/components/organisms/card/CardTotalReturnLoan.vue'
-import CardTotalGivenLoan from '@/components/organisms/card/CardTotalGivenLoan.vue'
-import CardSaldoIncome from '@/components/organisms/card/CardSaldoIncome.vue'
-import TableHistoryFunding from '@/components/organisms/table/TableHistoryFunding.vue'
+import useRegistration from '@/api/queries/registration/useRegistration'
+import IcBarChart from '@/assets/icons/ic_bar_chart.svg'
+import IcDolar from '@/assets/icons/ic_dolar.svg'
+import IcDownChart from '@/assets/icons/ic_down_chart.svg'
+import IcPendanaan from '@/assets/icons/ic_pendanaan.svg'
+
+// Queries
+const { data: fundingCheck } = useRegistration.getFundingCheck()
+
+const summary = [
+  {
+    icon: IcBarChart,
+    title: 'Total Pendanaan',
+    total: 25453000
+  },
+  {
+    icon: IcPendanaan,
+    title: 'Pendanaan Aktif',
+    total: 25453000
+  },
+  {
+    icon: IcDolar,
+    title: 'Total Biaya Pemberi Pinjaman',
+    total: 25453000
+  },
+  {
+    icon: IcDownChart,
+    title: 'Pembayaran Kembali Pinjaman Pokok',
+    total: 25453000
+  }
+]
 </script>
 
 <template>
-  <div class="tw-flex tw-flex-col tw-gap-4">
-    <div class="tw-grid tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-2">
-      <CardCongratulationsTarget />
-      <CardCongratulationsAchievment />
-    </div>
-
-    <div class="tw-row-span-2 tw-grid tw-grid-cols-4 tw-gap-4 lg:tw-grid-cols-5">
+  <template v-if="fundingCheck?.status === 'completed'">
+    <div class="tw-flex tw-flex-col tw-gap-4">
       <div class="tw-col-span-4 lg:tw-col-span-2">
-        <div class="tw-grid tw-grid-cols-2 tw-gap-4">
-          <CardTotalGivenLoan />
-          <CardActiveFunding />
-          <CardTotalFunding />
-          <CardTotalReturnLoan />
+        <div class="tw-grid tw-grid-cols-2 tw-gap-4 lg:tw-grid-cols-4">
+          <CardSummary
+            v-for="(item, i) in summary"
+            :key="i"
+            :icon="item.icon"
+            :title="item.title"
+            :total="item.total"
+          />
         </div>
       </div>
-      <CardSaldoIncome class="tw-col-span-4 lg:tw-col-span-3" />
-    </div>
 
-    <Card>
-      <h3 class="tw-text-xl tw-font-medium tw-text-neutral-1/[.87]">Riwayat Pendanaan</h3>
-      <TableHistoryFunding />
-    </Card>
-  </div>
+      <div class="tw-row-span-2 tw-grid tw-grid-cols-4 tw-gap-4 lg:tw-grid-cols-5">
+        <CardSaldoIncome class="tw-col-span-4 lg:tw-col-span-3" />
+        <CardPrincipalLoan class="tw-col-span-4 lg:tw-col-span-2" />
+      </div>
+
+      <Card>
+        <h3 class="tw-text-xl tw-text-neutral-1/[.87]">Riwayat Pendanaan</h3>
+        <TableHistoryFunding />
+      </Card>
+    </div>
+  </template>
+  <template v-if="fundingCheck?.status === 'registered'">
+    <RegistrationFundingIndividual v-if="fundingCheck?.userType === 'Pribadi'" />
+    <RegistrationFundingInstitution v-if="fundingCheck?.userType === 'Perusahaan'" />
+  </template>
+  <template v-if="fundingCheck?.status === 'verified'">
+    <WaitingApproval />
+  </template>
 </template>
