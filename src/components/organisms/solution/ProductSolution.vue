@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import IcChecked from '@/assets/icons/ic_checked.svg'
-import CustomButton from '@/components/atoms/button/CustomButton.vue'
 
 const props = defineProps({
   flex: {
@@ -43,7 +42,7 @@ const props = defineProps({
           <p>{{ item }}</p>
         </div>
       </div>
-      <CustomButton class="primary tw-mt-4" label="Ajukan Pinjaman" />
+      <el-button type="primary" round class="tw-mt-4">Ajukan Pinjaman</el-button>
     </div>
   </div>
 </template>

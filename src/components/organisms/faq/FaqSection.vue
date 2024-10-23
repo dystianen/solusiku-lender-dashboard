@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import CustomButton from '@/components/atoms/button/CustomButton.vue'
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 
@@ -44,14 +43,9 @@ const data = [
     />
 
     <div class="tw-my-[50px] tw-flex tw-gap-4">
-      <CustomButton
-        v-for="item in tab"
-        :key="item"
-        :class="item === activeButton ? 'primary' : 'light'"
-        class="!tw-w-[180px]"
-        :label="item"
-        @click="handleTabChange(item)"
-      />
+      <el-button v-for="item in tab" :key="item" type="primary" @click="handleTabChange(item)">
+        {{ item }}
+      </el-button>
     </div>
 
     <div class="tw-rounded-3xl tw-px-8 tw-py-6 tw-shadow-soft-red">

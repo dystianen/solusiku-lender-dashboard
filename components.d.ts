@@ -18,7 +18,6 @@ declare module 'vue' {
     CardTotalGivenLoan: typeof import('./src/components/organisms/card/CardTotalGivenLoan.vue')['default']
     CardTotalReturnLoan: typeof import('./src/components/organisms/card/CardTotalReturnLoan.vue')['default']
     CTALoan: typeof import('./src/components/organisms/cta/CTALoan.vue')['default']
-    CustomButton: typeof import('./src/components/atoms/button/CustomButton.vue')['default']
     DashboardLayout: typeof import('./src/components/templates/layouts/DashboardLayout.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
