@@ -81,6 +81,8 @@ declare module 'vue' {
     ProductSolution: typeof import('./components/organisms/solution/ProductSolution.vue')['default']
     ReasonRightSection: typeof import('./components/organisms/reason/ReasonRightSection.vue')['default']
     ReasonSection: typeof import('./components/organisms/reason/ReasonSection.vue')['default']
+    RegistrationFundingIndividual: typeof import('./components/pages/registration/RegistrationFundingIndividual.vue')['default']
+    RegistrationFundingInstitution: typeof import('./components/pages/registration/RegistrationFundingInstitution.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SelectField: typeof import('./components/atoms/select/SelectField.vue')['default']
@@ -93,6 +95,9 @@ declare module 'vue' {
     TablePeluangPendanaan: typeof import('./components/organisms/table/TablePeluangPendanaan.vue')['default']
     TitleSection: typeof import('./components/organisms/title/TitleSection.vue')['default']
     VerificationLayout: typeof import('./components/templates/verification/VerificationLayout.vue')['default']
+    WaitingApproval: typeof import('./components/pages/waiting/WaitingApproval.vue')['default']
+    WaitingFeature: typeof import('./components/pages/waiting/WaitingFeature.vue')['default']
+    WaitingView: typeof import('./components/pages/waiting/WaitingView.vue')['default']
     WhySection: typeof import('./components/organisms/loan/WhySection.vue')['default']
   }
   export interface ComponentCustomProperties {

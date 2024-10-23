@@ -1,3 +1,3 @@
 <template>
-  <div>Notification</div>
+  <WaitingFeature />
 </template>

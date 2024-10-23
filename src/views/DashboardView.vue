@@ -4,10 +4,6 @@ import IcBarChart from '@/assets/icons/ic_bar_chart.svg'
 import IcDolar from '@/assets/icons/ic_dolar.svg'
 import IcDownChart from '@/assets/icons/ic_down_chart.svg'
 import IcPendanaan from '@/assets/icons/ic_pendanaan.svg'
-import CardSaldoIncome from '@/components/organisms/card/CardSaldoIncome.vue'
-import TableHistoryFunding from '@/components/organisms/table/TableHistoryFunding.vue'
-import WaitingView from './WaitingView.vue'
-import RegistrationFundingIndividual from './registration/RegistrationFundingIndividual.vue'
 
 // Queries
 const { data: fundingCheck } = useRegistration.getFundingCheck()
@@ -64,9 +60,9 @@ const summary = [
   </template>
   <template v-if="fundingCheck?.status === 'registered'">
     <RegistrationFundingIndividual v-if="fundingCheck?.userType === 'Pribadi'" />
-    <RegistrationFundingIndividual v-if="fundingCheck?.userType === 'Perusahaan'" />
+    <RegistrationFundingInstitution v-if="fundingCheck?.userType === 'Perusahaan'" />
   </template>
   <template v-if="fundingCheck?.status === 'verified'">
-    <WaitingView />
+    <WaitingApproval />
   </template>
 </template>

@@ -1,3 +1,3 @@
 <template>
-  <div>Account Setting</div>
+  <WaitingFeature />
 </template>

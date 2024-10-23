@@ -37,10 +37,6 @@ const toggleMenu = (index: number) => {
   }
 }
 
-const isMenuOpen = (index: number) => {
-  return openMenuIndex.value === index
-}
-
 const showAllMenu = computed(() => fundingCheck.value?.status === 'completed')
 
 const menu = reactive([
@@ -217,7 +213,7 @@ watch(isOpen, (newVal) => {
                 </span>
                 <span v-if="item.children" :class="{ 'lg:tw-hidden': !isSidebarOpen }">
                   <v-icon
-                    :name="isMenuOpen(i) ? 'fa-chevron-up' : 'fa-chevron-down'"
+                    :name="openMenuIndex === i ? 'fa-chevron-up' : 'fa-chevron-down'"
                     color="grey"
                   />
                 </span>
@@ -225,7 +221,7 @@ watch(isOpen, (newVal) => {
 
               <!-- Children menu -->
               <div v-if="item.isShow">
-                <ul v-if="item.children && isMenuOpen(i)" class="tw-ml-2 tw-mt-2 tw-w-full">
+                <ul v-if="item.children && openMenuIndex === i" class="tw-ml-2 tw-mt-2 tw-w-full">
                   <li v-for="(child, j) in item.children" :key="j">
                     <RouterLink
                       :to="child.path"
