@@ -1,7 +1,7 @@
-import { api } from '@/config/axios'
 import { LENDER_API } from '@/api/BaseApiUrl'
-import type { TResCity, TResUserType } from '@/types/user'
+import { api } from '@/config/axios'
 import type { TReqIdWithFilter } from '@/types/master'
+import type { TResCity, TResUserType } from '@/types/user'
 
 const masterServices = {
   async gender() {
@@ -69,6 +69,33 @@ const masterServices = {
       }
     })
     return bank?.data ?? []
+  },
+  async legalEntity() {
+    const { data: legalEntity } = await api.get<TResCity>(`${LENDER_API}/data/legalEntity`, {
+      params: {
+        length: 100
+      }
+    })
+    return legalEntity?.data ?? []
+  },
+  async businessLicense() {
+    const { data: businessLicense } = await api.get<TResCity>(
+      `${LENDER_API}/data/businessLicence`,
+      {
+        params: {
+          length: 100
+        }
+      }
+    )
+    return businessLicense?.data ?? []
+  },
+  async businessField() {
+    const { data: businessField } = await api.get<TResCity>(`${LENDER_API}/data/businessField`, {
+      params: {
+        length: 100
+      }
+    })
+    return businessField?.data ?? []
   }
 }
 

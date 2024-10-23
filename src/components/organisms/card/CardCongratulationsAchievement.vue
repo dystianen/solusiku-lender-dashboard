@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Card from '@/components/atoms/card/Card.vue'
 import AchievementPeople from '@/assets/images/achievement_people.svg'
+import Card from '@/components/atoms/card/Card.vue'
 </script>
 
 <template>

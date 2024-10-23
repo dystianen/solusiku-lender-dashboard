@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { ref, watch } from 'vue'
-import { Carousel, Slide, Navigation } from 'vue3-carousel'
-import EventCard from '@/components/organisms/event/EventCard.vue'
-import P2pLendingPangkalPinang from '@/assets/images/p2p_lending_pangkalpinang.png'
 import Fineast from '@/assets/images/fineast.png'
+import P2pLendingPangkalPinang from '@/assets/images/p2p_lending_pangkalpinang.png'
 import P2pLendingPekanBaru from '@/assets/images/p2p_lending_pekanbaru.png'
+import EventCard from '@/components/organisms/event/EventCard.vue'
+import { ref } from 'vue'
+import { Carousel, Slide } from 'vue3-carousel'
 
 const data = [
   {

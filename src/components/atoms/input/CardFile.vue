@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import type { TDocument } from '@/types/master'
-import IcFile from '@/assets/icons/ic_file.svg'
-import IcDelete from '@/assets/icons/ic_delete.svg'
 import useRegistration from '@/api/queries/registration/useRegistration'
+import IcDelete from '@/assets/icons/ic_delete.svg'
+import IcFile from '@/assets/icons/ic_file.svg'
+import type { TDocument } from '@/types/master'
 import { useQueryClient } from '@tanstack/vue-query'
 const queryClient = useQueryClient()
 

@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import LogoSolusikuLight from '@/assets/images/logo_solusiku_light.svg'
+import IcReceiptLight from '@/assets/icons/ic_receipt_light.svg'
+import IcSafetyLight from '@/assets/icons/ic_safety_light.svg'
+import IcThunderboltLight from '@/assets/icons/ic_thunderbolt_light.svg'
+import IcWalletLight from '@/assets/icons/ic_wallet_light.svg'
 import LogoAfpi from '@/assets/images/logo_afpi.svg'
 import LogoAsosiasiFintechGreen from '@/assets/images/logo_asosiasi_fintech_green.svg'
 import LogoIso27001 from '@/assets/images/logo_iso_27001.svg'
-import IcThunderboltLight from '@/assets/icons/ic_thunderbolt_light.svg'
-import IcReceiptLight from '@/assets/icons/ic_receipt_light.svg'
-import IcSafetyLight from '@/assets/icons/ic_safety_light.svg'
-import IcWalletLight from '@/assets/icons/ic_wallet_light.svg'
-import ParticleWay from '@/assets/particles/particle_way.svg'
+import LogoSolusikuLight from '@/assets/images/logo_solusiku_light.svg'
 import ParticleDot from '@/assets/particles/particle_dot.svg'
+import ParticleWay from '@/assets/particles/particle_way.svg'
 
 const reasonData = [
   {

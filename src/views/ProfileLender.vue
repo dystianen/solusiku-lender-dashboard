@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
 import TableHistoryTopup from '@/components/organisms/table/TableHistoryTopup.vue'
+import { ref } from 'vue'
 
 const activeName = ref('riwayat_hidup')
 

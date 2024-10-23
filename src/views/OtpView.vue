@@ -1,13 +1,13 @@
 <script lang="ts" setup>
-import { computed, ref, watch } from 'vue'
-import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
-import VOtpInput from 'vue3-otp-input'
-import useEmailStore from '@/stores/email'
 import useVerification from '@/api/queries/verification/useVerification'
-import { getTimerCookies, removeTimerCookies, setTimerCookies } from '@/cookies/timer'
-import { useRoute, useRouter } from 'vue-router'
+import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
 import { accessToken, setAccessToken } from '@/cookies/accessToken'
+import { getTimerCookies, removeTimerCookies, setTimerCookies } from '@/cookies/timer'
+import useEmailStore from '@/stores/email'
 import { ElMessage } from 'element-plus'
+import { computed, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import VOtpInput from 'vue3-otp-input'
 
 const router = useRouter()
 const route = useRoute()

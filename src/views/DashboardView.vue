@@ -1,10 +1,14 @@
 <script setup lang="ts">
-import CardSaldoIncome from '@/components/organisms/card/CardSaldoIncome.vue'
-import TableHistoryFunding from '@/components/organisms/table/TableHistoryFunding.vue'
 import IcBarChart from '@/assets/icons/ic_bar_chart.svg'
-import IcPendanaan from '@/assets/icons/ic_pendanaan.svg'
 import IcDolar from '@/assets/icons/ic_dolar.svg'
 import IcDownChart from '@/assets/icons/ic_down_chart.svg'
+import IcPendanaan from '@/assets/icons/ic_pendanaan.svg'
+import CardSaldoIncome from '@/components/organisms/card/CardSaldoIncome.vue'
+import TableHistoryFunding from '@/components/organisms/table/TableHistoryFunding.vue'
+
+// Queries
+// const { data: fundingCheck } = useRegistration.getFundingCheck()
+// console.log('🚀 ~ fundingCheck:', fundingCheck)
 
 const summary = [
   {

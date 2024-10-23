@@ -1,9 +1,9 @@
 <script lang="ts" setup>
+import Barcode from '@/assets/images/barcode_solusiku.svg'
+import LogoAppStore from '@/assets/images/logo_app_store.svg'
+import LogoGooglePlay from '@/assets/images/logo_google_play.svg'
 import MockupCTA from '@/assets/images/mockup_cta.png'
 import MockupCTAMobile from '@/assets/images/mockup_cta_mobile.png'
-import Barcode from '@/assets/images/barcode_solusiku.svg'
-import LogoGooglePlay from '@/assets/images/logo_google_play.svg'
-import LogoAppStore from '@/assets/images/logo_app_store.svg'
 import useScreenType from '@/composables/useScreenType'
 
 const { isMobile } = useScreenType()

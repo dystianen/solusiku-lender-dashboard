@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { reactive, ref, watch } from 'vue'
-import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
-import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import useVerification from '@/api/queries/verification/useVerification'
+import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
 import { accessToken } from '@/cookies/accessToken'
-import { useRouter } from 'vue-router'
 import validatorPassword from '@/helpers/password'
+import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
+import { reactive, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 const router = useRouter()
 
 const isLengthValid = ref(false)

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Card from '@/components/atoms/card/Card.vue'
 import Thropy from '@/assets/images/thropy.svg'
+import Card from '@/components/atoms/card/Card.vue'
 </script>
 
 <template>

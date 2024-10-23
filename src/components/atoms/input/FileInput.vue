@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { ref, type PropType, computed, watch, onMounted, nextTick } from 'vue'
-import { useDropzone } from 'vue3-dropzone'
 import useRegistration from '@/api/queries/registration/useRegistration'
 import IcFileSaved from '@/assets/icons/ic_file_saved.svg'
 import type { FileType } from '@/types/general'
 import type { TReqUploadDocument } from '@/types/master'
+import { computed, nextTick, onMounted, ref, type PropType } from 'vue'
+import { useDropzone } from 'vue3-dropzone'
 
 import { useQueryClient } from '@tanstack/vue-query'
 const queryClient = useQueryClient()
@@ -26,7 +26,7 @@ const props = defineProps({
   },
   fileType: {
     type: String as PropType<FileType>,
-    default: 'large'
+    default: ''
   }
 })
 
@@ -84,7 +84,9 @@ onMounted(async () => {
 
 <template>
   <div class="input-container">
-    <label :for="props.label" class="input-label">{{ props.label }}</label>
+    <label :for="props.label" class="input-label tw-max-w-48 tw-truncate md:tw-max-w-full">
+      {{ props.label }}
+    </label>
     <div
       class="tw-flex tw-h-[42px] tw-justify-between tw-rounded-lg tw-border tw-border-gray-200 tw-px-4 tw-py-1"
     >

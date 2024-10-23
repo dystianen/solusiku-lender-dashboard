@@ -1,26 +1,26 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { accessToken } from '@/cookies/accessToken'
 import { BaseLayout, DashboardLayout } from '@/layouts/layouts'
-import RegistrationType from '@/views/registration/RegistrationType.vue'
-import RegistrationLender from '@/views/registration/RegistrationLender.vue'
-import LoginView from '@/views/LoginView.vue'
-import OtpView from '@/views/OtpView.vue'
-import ChangePassword from '@/views/password/ChangePassword.vue'
-import SuccessUpdatePassword from '@/views/password/SuccessUpdatePassword.vue'
-import ForgotPassword from '@/views/password/ForgotPassword.vue'
-import RegistrationFundingPersonal from '@/views/registration/RegistrationFundingPersonal.vue'
-import WaitingView from '@/views/WaitingView.vue'
-import DashboardView from '@/views/DashboardView.vue'
-import FundingOpportunities from '@/views/management-pendanaan/FundingOpportunities.vue'
-import ProfileLender from '@/views/ProfileLender.vue'
 import AccountSetting from '@/views/AccountSetting.vue'
+import DashboardView from '@/views/DashboardView.vue'
+import LoginView from '@/views/LoginView.vue'
 import Notification from '@/views/Notification.vue'
+import OtpView from '@/views/OtpView.vue'
+import ProfileLender from '@/views/ProfileLender.vue'
+import WaitingView from '@/views/WaitingView.vue'
+import DeleteBookWO from '@/views/management-pendanaan/DeleteBookWO.vue'
 import FundingHistory from '@/views/management-pendanaan/FundingHistory.vue'
+import FundingOpportunities from '@/views/management-pendanaan/FundingOpportunities.vue'
 import PaymentHistory from '@/views/management-pendanaan/PaymentHistory.vue'
 import Restructuring from '@/views/management-pendanaan/Restructuring.vue'
-import DeleteBookWO from '@/views/management-pendanaan/DeleteBookWO.vue'
+import ChangePassword from '@/views/password/ChangePassword.vue'
+import ForgotPassword from '@/views/password/ForgotPassword.vue'
+import SuccessUpdatePassword from '@/views/password/SuccessUpdatePassword.vue'
 import RegistrationBorrower from '@/views/registration/RegistrationBorrower.vue'
-import RegistrationFundingCompany from '@/views/registration/RegistrationFundingCompany.vue'
-import { accessToken } from '@/cookies/accessToken'
+import RegistrationFundingIndividual from '@/views/registration/RegistrationFundingIndividual.vue'
+import RegistrationFundingInstitution from '@/views/registration/RegistrationFundingInstitution.vue'
+import RegistrationLender from '@/views/registration/RegistrationLender.vue'
+import RegistrationType from '@/views/registration/RegistrationType.vue'
+import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
   linkActiveClass: 'tw-bg-primary tw-text-white',
@@ -114,22 +114,22 @@ const router = createRouter({
       component: DashboardView
     },
     {
-      path: '/register-funding-personal',
-      name: 'register-funding-personal',
+      path: '/register-funding-individual',
+      name: 'register-funding-individual',
       meta: {
         layout: DashboardLayout,
         requiresAuth: true
       },
-      component: RegistrationFundingPersonal
+      component: RegistrationFundingIndividual
     },
     {
-      path: '/register-funding-company',
-      name: 'register-funding-company',
+      path: '/register-funding-institution',
+      name: 'register-funding-institution',
       meta: {
         layout: DashboardLayout,
         requiresAuth: true
       },
-      component: RegistrationFundingCompany
+      component: RegistrationFundingInstitution
     },
     {
       path: '/waiting-approval',

@@ -1,16 +1,18 @@
 <script setup lang="ts">
-import { reactive, ref, watch } from 'vue'
+import useMaster from '@/api/queries/master/useMaster'
+import useRegistration from '@/api/queries/registration/useRegistration'
 import DatePicker from '@/components/atoms/datepicker/DatePicker.vue'
 import InputField from '@/components/atoms/input/InputField.vue'
 import SelectField from '@/components/atoms/select/SelectField.vue'
-import useMaster from '@/api/queries/master/useMaster'
-import useRegistration from '@/api/queries/registration/useRegistration'
-import { useRouter } from 'vue-router'
-import { dayjs, type FormInstance, type FormRules } from 'element-plus'
+import useScreenType from '@/composables/useScreenType'
 import type { Option } from '@/types/general'
 import type { TReqRegisterIndividual } from '@/types/registration'
+import { dayjs, type FormInstance, type FormRules } from 'element-plus'
+import { reactive, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 
 const router = useRouter()
+const { isMobile } = useScreenType()
 
 // Queries
 const { data: gender } = useMaster.getGender()
@@ -217,13 +219,6 @@ const handleChangeFile = ({ value, field }: { value: string; field: keyof typeof
 }
 
 watch(
-  () => form.idCardNumberFile,
-  (value) => {
-    console.log({ value })
-  }
-)
-
-watch(
   () => form.provinceId,
   (value) => {
     if (value) {
@@ -283,7 +278,9 @@ watch(
 <template>
   <div class="tw-relative tw-m-2 tw-rounded-3xl tw-shadow-highlight">
     <div class="tw-rounded-t-3xl tw-bg-primary tw-px-5 tw-py-4">
-      <h1 class="tw-text-2xl tw-font-semibold tw-text-white">Registrasi Pendanaan - Pribadi</h1>
+      <h1 class="tw-text-xl tw-font-semibold tw-text-white md:tw-text-2xl">
+        Registrasi Pendanaan - Pribadi
+      </h1>
     </div>
 
     <el-form
@@ -295,7 +292,7 @@ watch(
       :rules="rules"
     >
       <div class="tw-flex tw-flex-col tw-gap-5 tw-p-5">
-        <h5 class="tw-text-xl tw-font-semibold tw-text-primary">Informasi Dasar</h5>
+        <h5 class="tw-text-lg tw-font-semibold tw-text-primary md:tw-text-xl">Informasi Dasar</h5>
 
         <div class="tw-grid tw-grid-cols-2 tw-gap-x-4 tw-gap-y-2 tw-pt-2 md:tw-grid-cols-4">
           <el-form-item prop="idCardNumber" class="tw-col-span-2">
@@ -380,7 +377,7 @@ watch(
             <SelectField
               v-model="form.sourceOfFoundId"
               label="Sumber Dana"
-              placeholder="Cth: Uang Pribadi"
+              placeholder="Pilih Sumber Dana"
               :options="sourceOfFound"
             />
           </el-form-item>
@@ -403,6 +400,7 @@ watch(
           <el-form-item prop="bankAccountNumber" class="tw-col-span-2">
             <InputField
               v-model="form.bankAccountNumber"
+              type="number"
               label="No. Rekening"
               placeholder="Masukan Nomor Rekening"
             />
@@ -411,7 +409,7 @@ watch(
       </div>
 
       <div class="tw-p-5 tw-pt-0">
-        <h5 class="tw-text-xl tw-font-semibold tw-text-primary">Unggah Dokumen</h5>
+        <h5 class="tw-text-lg tw-font-semibold tw-text-primary md:tw-text-xl">Unggah Dokumen</h5>
         <p class="tw-text-neutral-desc">
           Format yang disarankan zip, pdf, jpg, jpeg dan png. (Maks.20mb)
         </p>
@@ -452,7 +450,13 @@ watch(
         </div>
 
         <div class="tw-mt-6 tw-flex tw-justify-center">
-          <el-button round type="primary" size="large" @click="submitForm(ruleFormRef)">
+          <el-button
+            round
+            type="primary"
+            size="large"
+            @click="submitForm(ruleFormRef)"
+            :style="!isMobile ? { paddingLeft: '100px', paddingRight: '100px' } : { width: '100%' }"
+          >
             Simpan dan Lanjutkan
           </el-button>
         </div>

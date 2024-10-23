@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
-import IcInvest from '@/assets/icons/ic_invest.svg'
 import IcBribe from '@/assets/icons/ic_bribe.svg'
+import IcInvest from '@/assets/icons/ic_invest.svg'
 import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()

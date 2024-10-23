@@ -1,15 +1,15 @@
 <script lang="ts" setup>
-import LogoSolusiku from '@/assets/images/logo_solusiku_primary_white.svg'
-import IcPhone from '@/assets/icons/ic_phone.svg'
 import IcEmail from '@/assets/icons/ic_email.svg'
 import IcFacebook from '@/assets/icons/ic_facebook.svg'
 import IcInstagram from '@/assets/icons/ic_instagram.svg'
 import IcLinkedln from '@/assets/icons/ic_linkedin.svg'
-import IcYoutube from '@/assets/icons/ic_youtube.svg'
+import IcPhone from '@/assets/icons/ic_phone.svg'
 import IcTiktok from '@/assets/icons/ic_tiktok.svg'
+import IcYoutube from '@/assets/icons/ic_youtube.svg'
 import LogoAfpiWhite from '@/assets/images/logo_afpi_white.svg'
 import LogoAsosiasiFintech from '@/assets/images/logo_asosiasi_fintech.svg'
 import LogoIso27001 from '@/assets/images/logo_iso_27001.svg'
+import LogoSolusiku from '@/assets/images/logo_solusiku_primary_white.svg'
 import { RouterLink } from 'vue-router'
 
 const footer = [

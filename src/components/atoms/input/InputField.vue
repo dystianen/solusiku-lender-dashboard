@@ -22,7 +22,9 @@ const attrs = useAttrs()
 
 <template>
   <div class="input-container">
-    <label :for="props.label" class="input-label">{{ props.label }}</label>
+    <label :for="props.label" class="input-label tw-max-w-48 tw-truncate md:tw-max-w-full">
+      {{ props.label }}
+    </label>
     <el-input
       v-bind="attrs"
       :placeholder="props.placeholder"

@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
-import LogoSolusiku from '@/assets/images/logo_solusiku_primary.svg'
-import IcHelpCircle from '@/assets/icons/ic_help_circle.svg'
-import IcFlagIDN from '@/assets/icons/ic_flag_idn.svg'
 import IcFlagEng from '@/assets/icons/ic_flag_eng.svg'
+import IcFlagIDN from '@/assets/icons/ic_flag_idn.svg'
+import IcHelpCircle from '@/assets/icons/ic_help_circle.svg'
+import LogoSolusiku from '@/assets/images/logo_solusiku_primary.svg'
+import { computed, ref } from 'vue'
 
 const languages = [
   { icon: IcFlagIDN, label: 'Indonesia', value: 'IDN' },

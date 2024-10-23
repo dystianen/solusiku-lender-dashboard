@@ -1,21 +1,23 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import LogoSolusiku from '@/assets/images/logo_solusiku.svg'
 import IcCategory from '@/assets/icons/ic_category.svg'
 import IcCategoryWhite from '@/assets/icons/ic_category_white.svg'
 import IcChart from '@/assets/icons/ic_chart.svg'
-import IcUser from '@/assets/icons/ic_user.svg'
-import IcUserWhite from '@/assets/icons/ic_user_white.svg'
+import IcLogout from '@/assets/icons/ic_logout.svg'
 import IcNotif from '@/assets/icons/ic_notif.svg'
 import IcNotifWhite from '@/assets/icons/ic_notif_white.svg'
-import IcLogout from '@/assets/icons/ic_logout.svg'
+import IcUser from '@/assets/icons/ic_user.svg'
+import IcUserWhite from '@/assets/icons/ic_user_white.svg'
+import LogoSolusiku from '@/assets/images/logo_solusiku.svg'
+import useScreenType from '@/composables/useScreenType'
 import { removeAccessToken } from '@/cookies/accessToken'
+import { ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
 const router = useRouter()
+const { isMobile } = useScreenType()
 
-const isSidebarOpen = ref(true)
+const isSidebarOpen = ref(!isMobile)
 const openMenuIndex = ref<number | null>(null)
 
 const toggleSidbarMenu = () => {

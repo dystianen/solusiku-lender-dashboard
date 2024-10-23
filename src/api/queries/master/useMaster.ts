@@ -1,7 +1,6 @@
+import type { TReqIdWithFilter } from '@/types/master'
 import { useMutation, useQuery } from '@tanstack/vue-query'
 import masterServices from './master-service'
-import type { TReqIdWithFilter } from '@/types/master'
-import type { TReqFilter } from '@/types/general'
 
 const useMaster = {
   getGender() {
@@ -47,6 +46,24 @@ const useMaster = {
     return useQuery({
       queryKey: ['BANK'],
       queryFn: () => masterServices.bank()
+    })
+  },
+  getLegalEntity() {
+    return useQuery({
+      queryKey: ['LEGAL_ENTITY'],
+      queryFn: () => masterServices.legalEntity()
+    })
+  },
+  getBusinessLicense() {
+    return useQuery({
+      queryKey: ['BUSINESS_LICENSE'],
+      queryFn: () => masterServices.businessLicense()
+    })
+  },
+  getBusinessField() {
+    return useQuery({
+      queryKey: ['BUSINESS_FIELD'],
+      queryFn: () => masterServices.businessField()
     })
   }
 }

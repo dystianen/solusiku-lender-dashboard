@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import LogoOjk from '@/assets/images/logo_ojk.svg'
-import LogoAfpi from '@/assets/images/logo_afpi.svg'
-import HeroSolusiku from '@/assets/images/mockup_hero.png'
-import LogoGooglePlay from '@/assets/images/logo_google_play.svg'
-import LogoAppStore from '@/assets/images/logo_app_store.svg'
-import BarcodeSolusiku from '@/assets/images/barcode_solusiku.svg'
 import BgHeroClip from '@/assets/backgrounds/bg_hero_clip.svg'
+import BarcodeSolusiku from '@/assets/images/barcode_solusiku.svg'
+import LogoAfpi from '@/assets/images/logo_afpi.svg'
+import LogoAppStore from '@/assets/images/logo_app_store.svg'
+import LogoGooglePlay from '@/assets/images/logo_google_play.svg'
+import LogoOjk from '@/assets/images/logo_ojk.svg'
+import HeroSolusiku from '@/assets/images/mockup_hero.png'
 
 import useScreenType from '@/composables/useScreenType'
 const { isMobile } = useScreenType()

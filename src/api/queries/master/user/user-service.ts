@@ -1,5 +1,5 @@
-import { api } from '@/config/axios'
 import { LENDER_API } from '@/api/BaseApiUrl'
+import { api } from '@/config/axios'
 import type { TResUserType } from '@/types/user'
 
 export const userServices = {

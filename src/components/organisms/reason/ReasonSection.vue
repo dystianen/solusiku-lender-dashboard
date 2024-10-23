@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import MockupReason from '@/assets/images/mockup_reason.png'
-import IcThunderbolt from '@/assets/icons/ic_thunderbolt.svg'
+import IcClock from '@/assets/icons/ic_clock.svg'
+import IcEasyPayment from '@/assets/icons/ic_easy_payment.svg'
 import IcLegal from '@/assets/icons/ic_legal.svg'
 import IcReceipt from '@/assets/icons/ic_receipt.svg'
-import IcEasyPayment from '@/assets/icons/ic_easy_payment.svg'
 import IcSafety from '@/assets/icons/ic_safety.svg'
-import IcClock from '@/assets/icons/ic_clock.svg'
+import IcThunderbolt from '@/assets/icons/ic_thunderbolt.svg'
+import MockupReason from '@/assets/images/mockup_reason.png'
 
 const reasonData = [
   {

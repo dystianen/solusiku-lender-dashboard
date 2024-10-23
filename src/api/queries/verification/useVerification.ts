@@ -1,5 +1,3 @@
-import { useMutation } from '@tanstack/vue-query'
-import { verificationServices } from './verification-service'
 import type {
   TReqChangePassword,
   TReqConfirmOTP,
@@ -7,6 +5,8 @@ import type {
   TReqLogin,
   TReqRegister
 } from '@/types/verification'
+import { useMutation } from '@tanstack/vue-query'
+import { verificationServices } from './verification-service'
 
 const useVerification = {
   postLogin() {

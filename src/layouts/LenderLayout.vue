@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import useScreenType from '@/composables/useScreenType'
 import HeaderSection from '@/components/organisms/header/HeaderSection.vue'
+import useScreenType from '@/composables/useScreenType'
 
 const { isMobile } = useScreenType()
 </script>

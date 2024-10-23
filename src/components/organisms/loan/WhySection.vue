@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import IcFleksibel from '@/assets/icons/ic_search_dollar.svg'
-import IcCircleOjk from '@/assets/icons/ic_circle_ojk.svg'
 import IcAlarm from '@/assets/icons/ic_alarm.svg'
 import IcCheque from '@/assets/icons/ic_cheque.svg'
+import IcCircleOjk from '@/assets/icons/ic_circle_ojk.svg'
+import IcFleksibel from '@/assets/icons/ic_search_dollar.svg'
 
 const data = [
   {

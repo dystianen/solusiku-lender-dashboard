@@ -1,8 +1,8 @@
 <script lang="ts" setup>
+import IcChecked2 from '@/assets/icons/ic_checked2.svg'
+import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
-import IcChecked2 from '@/assets/icons/ic_checked2.svg'
 
 const router = useRouter()
 

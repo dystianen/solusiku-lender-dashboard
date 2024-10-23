@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import TitleSection from '@/components/organisms/title/TitleSection.vue'
-import MockupDaftar from '@/assets/images/mockup_daftar.png'
 import MockupAjukanPinjaman from '@/assets/images/mockup_ajukan_pinjaman.png'
-import MockupTungguPersetujuan from '@/assets/images/mockup_tunggu_persetujuan.png'
-import MockupTerimaDana from '@/assets/images/mockup_terima_dana.png'
+import MockupDaftar from '@/assets/images/mockup_daftar.png'
 import MockupKembalikanPinjaman from '@/assets/images/mockup_kembalikan_pinjaman.png'
+import MockupTerimaDana from '@/assets/images/mockup_terima_dana.png'
+import MockupTungguPersetujuan from '@/assets/images/mockup_tunggu_persetujuan.png'
+import TitleSection from '@/components/organisms/title/TitleSection.vue'
+import { computed, ref } from 'vue'
 
 const activeProcess = ref('Daftar')
 

@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import FeedbackCard from '@/components/organisms/feedback/FeedbackCard.vue'
-import EnyPurnawati from '@/assets/images/eny_purnawati.png'
 import AlmaisonHaykal from '@/assets/images/almaison_haykal.png'
+import EnyPurnawati from '@/assets/images/eny_purnawati.png'
 import NovisaTeteh from '@/assets/images/novisa_teteh.png'
-import { Carousel, Slide, Navigation } from 'vue3-carousel'
+import FeedbackCard from '@/components/organisms/feedback/FeedbackCard.vue'
+import { Carousel, Navigation, Slide } from 'vue3-carousel'
 const data = [
   {
     feedback:

@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
-import { RouterLink, useRouter } from 'vue-router'
-import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
-import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import useVerification from '@/api/queries/verification/useVerification'
+import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
 import { setAccessToken } from '@/cookies/accessToken'
 import { setTimerCookies } from '@/cookies/timer'
+import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
+import { reactive, ref } from 'vue'
+import { RouterLink, useRouter } from 'vue-router'
 const router = useRouter()
 
 // Queries

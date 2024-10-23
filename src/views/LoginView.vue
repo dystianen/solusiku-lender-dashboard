@@ -1,12 +1,11 @@
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
-import { RouterLink, useRouter } from 'vue-router'
+import useVerification from '@/api/queries/verification/useVerification'
 import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
 import useScreenType from '@/composables/useScreenType'
-import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
-import useVerification from '@/api/queries/verification/useVerification'
 import { setAccessToken } from '@/cookies/accessToken'
-import type { TResError } from '@/types/general'
+import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
+import { reactive, ref } from 'vue'
+import { RouterLink, useRouter } from 'vue-router'
 
 const router = useRouter()
 const { isMobile } = useScreenType()

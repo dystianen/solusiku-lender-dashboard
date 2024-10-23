@@ -1,16 +1,16 @@
 <script lang="ts" setup>
-import { reactive, ref, watch } from 'vue'
-import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
-import InputField from '@/components/atoms/input/InputField.vue'
-import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import useUser from '@/api/queries/master/user/useUser'
 import useVerification from '@/api/queries/verification/useVerification'
 import IcFlagIDN from '@/assets/icons/ic_flag_idn.svg'
-import useEmailStore from '@/stores/email'
+import InputField from '@/components/atoms/input/InputField.vue'
+import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
 import { setAccessToken } from '@/cookies/accessToken'
 import { setTimerCookies } from '@/cookies/timer'
-import { useRouter } from 'vue-router'
+import useEmailStore from '@/stores/email'
 import type { TReqRegister } from '@/types/verification'
+import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
+import { reactive, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const emailStore = useEmailStore()

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { h, shallowRef, useAttrs } from 'vue'
 import IcCalendar from '@/assets/icons/ic_calander2.svg'
+import { h, shallowRef, useAttrs } from 'vue'
 
 const props = defineProps({
   label: {

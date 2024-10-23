@@ -1,35 +1,35 @@
 // Styles
 import '@/styles/main.scss'
 import '@/styles/tailwind.css'
-import 'vue3-carousel/dist/carousel.css'
 import 'element-plus/dist/index.css'
+import 'vue3-carousel/dist/carousel.css'
 
-import VueApexCharts from 'vue3-apexcharts'
-import App from './App.vue'
-import router from './router'
 import VueCountdown from '@chenfengyuan/vue-countdown'
-import VueCookies from 'vue3-cookies'
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
 import { VueQueryPlugin } from '@tanstack/vue-query'
 import { vMaska } from 'maska/vue'
 import { OhVueIcon, addIcons } from 'oh-vue-icons'
 import {
+  FaChevronDown,
   FaChevronLeft,
   FaChevronRight,
-  MdArrowdropdownRound,
-  MdMenuRound,
-  PrMoon,
-  FaRegularBell,
-  MdSearch,
-  FaChevronDown,
   FaChevronUp,
-  RiHistoryFill,
-  RiDatabase2Fill,
-  MdFileuploadOutlined,
+  FaRegularBell,
   IoCalendar,
-  IoCaretDownSharp
+  IoCaretDownSharp,
+  MdArrowdropdownRound,
+  MdFileuploadOutlined,
+  MdMenuRound,
+  MdSearch,
+  PrMoon,
+  RiDatabase2Fill,
+  RiHistoryFill
 } from 'oh-vue-icons/icons'
+import { createPinia } from 'pinia'
+import { createApp } from 'vue'
+import VueApexCharts from 'vue3-apexcharts'
+import VueCookies from 'vue3-cookies'
+import App from './App.vue'
+import router from './router'
 
 addIcons(
   FaChevronLeft,

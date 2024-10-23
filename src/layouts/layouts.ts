@@ -1,5 +1,5 @@
 import BaseLayout from './BaseLayout.vue'
-import LenderLayout from './LenderLayout.vue'
 import DashboardLayout from './DashboardLayout.vue'
+import LenderLayout from './LenderLayout.vue'
 
-export { BaseLayout, LenderLayout, DashboardLayout }
+export { BaseLayout, DashboardLayout, LenderLayout }
