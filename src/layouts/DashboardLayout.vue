@@ -9,17 +9,20 @@ import IcNotifWhite from '@/assets/icons/ic_notif_white.svg'
 import IcUser from '@/assets/icons/ic_user.svg'
 import IcUserWhite from '@/assets/icons/ic_user_white.svg'
 import LogoSolusiku from '@/assets/images/logo_solusiku.svg'
+import useScreenType from '@/composables/useScreenType'
 import { removeAccessToken } from '@/cookies/accessToken'
 import { computed, onBeforeUnmount, reactive, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
 const router = useRouter()
+const { isDesktop } = useScreenType()
+const isOpen = computed(() => isDesktop.value)
 
 // Query
-const { data: fundingCheck, isPending, refetch } = useRegistration.getFundingCheck()
+const { data: fundingCheck, refetch } = useRegistration.getFundingCheck()
 
-const isSidebarOpen = ref(true)
+const isSidebarOpen = ref(isOpen.value)
 const openMenuIndex = ref<number | null>(null)
 
 const toggleSidbarMenu = () => {
@@ -132,10 +135,14 @@ watch(
 onBeforeUnmount(() => {
   clearRunningInterval()
 })
+
+watch(isOpen, (newVal) => {
+  isSidebarOpen.value = newVal
+})
 </script>
 
 <template>
-  <div v-loading="isPending" class="tw-flex tw-h-screen tw-overflow-y-hidden tw-bg-white">
+  <div class="tw-flex tw-h-screen tw-overflow-y-hidden tw-bg-white">
     <!-- Sidebar -->
     <aside
       class="tw-fixed tw-z-10 tw-flex tw-h-screen tw-w-[340px] tw-flex-shrink-0 tw-transform tw-flex-col tw-overflow-hidden tw-bg-white tw-p-4 tw-shadow-lg tw-transition-all lg:tw-static lg:tw-z-auto lg:tw-shadow-none"
