@@ -36,15 +36,15 @@ const { data } = useOffering.getOffering()
           <el-button size="small" type="primary" round> Detail </el-button>
         </template>
       </el-table-column>
-      <el-table-column property="produk_name" label="NAMA PRODUK" :width="175" />
-      <el-table-column property="borrower_id" label="ID PEMINJAM" :width="175" />
-      <el-table-column property="transaction_date" label="TANGGAL TRANSAKSI" :width="175" />
-      <el-table-column property="loan_value" label="NO. Pengajuan" :width="175" />
-      <el-table-column property="loan_period" label="TINGKAT RESIKO" :width="175" />
-      <el-table-column property="loan_value" label="NILAI PINJAMAN" :width="175" />
-      <el-table-column property="loan_period" label="PERIODE PINJAMAN" :width="175" />
-      <el-table-column property="loan_tenor" label="TENOR PINJAMAN" :width="175" />
-      <el-table-column property="status" label="STATUS" :width="175" />
+      <el-table-column property="productName" label="NAMA PRODUK" :width="175" />
+      <el-table-column property="borrowerId" label="ID PEMINJAM" :width="175" />
+      <el-table-column property="createdOn" label="TANGGAL TRANSAKSI" :width="175" />
+      <el-table-column property="riskLevel" label="NO. Pengajuan" :width="175" />
+      <el-table-column property="riskLevel" label="TINGKAT RESIKO" :width="175" />
+      <el-table-column property="amountRequested" label="NILAI PINJAMAN" :width="175" />
+      <el-table-column property="loanPeriod" label="PERIODE PINJAMAN" :width="175" />
+      <el-table-column property="loanTenor" label="TENOR PINJAMAN" :width="175" />
+      <el-table-column property="statusId" label="STATUS" :width="175" />
     </el-table>
 
     <Pagination />
