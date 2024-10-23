@@ -106,7 +106,8 @@ const router = createRouter({
       path: '/dashboard',
       name: 'dashboard',
       meta: {
-        layout: DashboardLayout
+        layout: DashboardLayout,
+        requiresAuth: true
       },
       component: DashboardView
     },

@@ -13,4 +13,5 @@ export const setAccessToken = (value: string): void => {
 
 export const removeAccessToken = () => {
   cookies.remove('access-token')
+  accessToken.value = ''
 }
