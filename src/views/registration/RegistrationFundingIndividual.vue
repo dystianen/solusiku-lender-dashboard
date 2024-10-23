@@ -5,13 +5,13 @@ import DatePicker from '@/components/atoms/datepicker/DatePicker.vue'
 import InputField from '@/components/atoms/input/InputField.vue'
 import SelectField from '@/components/atoms/select/SelectField.vue'
 import useScreenType from '@/composables/useScreenType'
-import type { Option } from '@/types/general'
+import type { FileType, Option } from '@/types/general'
 import type { TReqRegisterIndividual } from '@/types/registration'
-import { dayjs, type FormInstance, type FormRules } from 'element-plus'
-import { reactive, ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
+import { useQueryClient } from '@tanstack/vue-query'
+import { ElNotification, dayjs, type FormInstance, type FormRules } from 'element-plus'
+import { h, reactive, ref, watch } from 'vue'
 
-const router = useRouter()
+const queryClient = useQueryClient()
 const { isMobile } = useScreenType()
 
 // Queries
@@ -20,6 +20,7 @@ const { data: province } = useMaster.getProvince()
 const { data: sourceOfFound } = useMaster.getSourceOfFound()
 const { data: monthlyIncome } = useMaster.getMonthlyIncome()
 const { data: bank } = useMaster.getBank()
+const { data: documents } = useRegistration.getAllDocument()
 const { mutate: city } = useMaster.getCity()
 const { mutate: district } = useMaster.getDistrict()
 const { mutate: subDistrict } = useMaster.getSubDistrict()
@@ -45,13 +46,7 @@ const form = reactive({
   districtId: '',
   subDistrictId: '',
   address: '',
-  postalCode: '',
-
-  // only used for validation
-  idCardNumberFile: '',
-  selfiePhotoFile: '',
-  taxNumberFile: '',
-  proofOfIncomeFile: ''
+  postalCode: ''
 })
 
 const rules = reactive<FormRules<TReqRegisterIndividual>>({
@@ -159,40 +154,62 @@ const rules = reactive<FormRules<TReqRegisterIndividual>>({
       message: 'Nomor Rekening harus diisi',
       trigger: 'change'
     }
-  ],
-  idCardNumberFile: [
-    {
-      required: true,
-      message: 'File KTP harus diisi',
-      trigger: 'blur'
-    }
-  ],
-  selfiePhotoFile: [
-    {
-      required: true,
-      message: 'Foto Wajah harus diisi',
-      trigger: 'change'
-    }
-  ],
-  taxNumberFile: [
-    {
-      required: true,
-      message: 'NPWP harus diisi',
-      trigger: 'change'
-    }
-  ],
-  proofOfIncomeFile: [
-    {
-      required: true,
-      message: 'Bukti Penghasilan harus diisi',
-      trigger: 'change'
-    }
   ]
 })
+
+const fieldFile: { key: FileType; label: string; desc?: string }[] = [
+  {
+    key: 'id-card',
+    label: 'Unggah KTP Bagian Depan'
+  },
+  {
+    key: 'selfie-photo',
+    label: 'Unggah Foto Wajah'
+  },
+  {
+    key: 'tax-card',
+    label: 'Unggah NPWP'
+  },
+  {
+    key: 'bukti-penghasilan',
+    label: 'Unggah Bukti Penghasilan'
+  }
+]
+
+const validateFiles = () => {
+  const errors = []
+  for (const key in documents.value) {
+    const file = fieldFile.find((it) => it.key === key)
+    if (documents.value[key] === '0' && file) {
+      errors.push(key)
+    }
+  }
+
+  if (errors.length > 0) {
+    ElNotification({
+      title: 'Dokumen wajib diisi: ',
+      message: h(
+        'ul',
+        errors.map((error) =>
+          h(
+            'li',
+            { class: 'tw-text-danger' },
+            `• ${fieldFile.find((it) => it.key === error)?.label}`
+          )
+        )
+      ),
+      type: 'error'
+    })
+    return false
+  }
+
+  return true
+}
 
 const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   await formEl.validate((valid) => {
+    if (!validateFiles()) return
     if (valid) {
       const payload: TReqRegisterIndividual = {
         ...form,
@@ -200,14 +217,9 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         idCardNumber: form.idCardNumber.replace(/\s/g, '')
       }
 
-      // Deleting unwanted keys from the cloned object
-      delete payload.idCardNumberFile
-      delete payload.selfiePhotoFile
-      delete payload.taxNumberFile
-      delete payload.proofOfIncomeFile
       registerIndividual(payload, {
         onSuccess: () => {
-          router.push({ name: 'waiting-approval' })
+          queryClient.invalidateQueries({ queryKey: ['FUNDING_CHECK'] })
         }
       })
     }
@@ -307,7 +319,6 @@ watch(
             <InputField
               v-model="form.taxNumber"
               v-maska="'###############'"
-              type="number"
               label="No. NPWP"
               placeholder="Cth: 2941XXXXX"
             />
@@ -415,37 +426,8 @@ watch(
         </p>
 
         <div class="tw-mt-6 tw-grid tw-grid-cols-1 tw-gap-x-4 tw-gap-y-2 tw-pt-2 md:tw-grid-cols-2">
-          <el-form-item prop="idCardNumberFile">
-            <FileInput
-              field="idCardNumberFile"
-              file-type="id-card"
-              label="Unggah KTP Bagian Depan"
-              @update:model-value="handleChangeFile"
-            />
-          </el-form-item>
-          <el-form-item prop="selfiePhotoFile">
-            <FileInput
-              field="selfiePhotoFile"
-              file-type="selfie-photo"
-              label="Unggah Foto Wajah"
-              @update:model-value="handleChangeFile"
-            />
-          </el-form-item>
-          <el-form-item prop="taxNumberFile">
-            <FileInput
-              field="taxNumberFile"
-              file-type="tax-card"
-              label="Unggah NPWP"
-              @update:model-value="handleChangeFile"
-            />
-          </el-form-item>
-          <el-form-item prop="proofOfIncomeFile">
-            <FileInput
-              field="proofOfIncomeFile"
-              file-type="bukti-penghasilan"
-              label="Unggah Bukti Penghasilan"
-              @update:model-value="handleChangeFile"
-            />
+          <el-form-item v-for="(item, i) in fieldFile" :key="i" :prop="item.key">
+            <FileInput :file-type="item.key" :label="item.label" />
           </el-form-item>
         </div>
 

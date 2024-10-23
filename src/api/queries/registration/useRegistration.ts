@@ -1,42 +1,44 @@
 import type { FileType } from '@/types/general'
-import type { TReqUploadDocument } from '@/types/master'
-import type { TReqRegisterIndividual, TReqRegisterInstitution } from '@/types/registration'
 import { useMutation, useQuery } from '@tanstack/vue-query'
 import { registationServices } from './registration-service'
 
 const useRegistration = {
+  getFundingCheck() {
+    return useQuery({
+      queryKey: ['FUNDING_CHECK'],
+      queryFn: registationServices.fundingCheck
+    })
+  },
+  getAllDocument() {
+    return useQuery({
+      queryKey: ['DOCUMENT'],
+      queryFn: registationServices.document
+    })
+  },
   getDocument(fileType: FileType) {
     return useQuery({
-      queryKey: ['DOCUMENT', { fileType }],
-      queryFn: () => registationServices.document(fileType)
+      queryKey: ['DOCUMENT_TYPE', { fileType }],
+      queryFn: () => registationServices.documentPerType(fileType)
     })
   },
   postUploadDocument() {
     return useMutation({
-      mutationFn: (payload: TReqUploadDocument) => registationServices.uploadDocument(payload)
+      mutationFn: registationServices.uploadDocument
     })
   },
   deleteDocument() {
     return useMutation({
-      mutationFn: (id: string) => registationServices.deleteDocument(id)
+      mutationFn: registationServices.deleteDocument
     })
   },
   patchRegisterIndividual() {
     return useMutation({
-      mutationFn: (payload: TReqRegisterIndividual) =>
-        registationServices.registerIndividual(payload)
+      mutationFn: registationServices.registerIndividual
     })
   },
   patchRegisterInstitution() {
     return useMutation({
-      mutationFn: (payload: TReqRegisterInstitution) =>
-        registationServices.registerInstitution(payload)
-    })
-  },
-  getFundingCheck() {
-    return useQuery({
-      queryKey: ['FUNDING_CHECK'],
-      queryFn: () => registationServices.fundingCheck()
+      mutationFn: registationServices.registerInstitution
     })
   }
 }

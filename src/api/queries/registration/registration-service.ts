@@ -1,15 +1,21 @@
 import { LENDER_API } from '@/api/BaseApiUrl'
 import { api } from '@/config/axios'
 import type { FileType } from '@/types/general'
-import type { TReqUploadDocument, TResDocument } from '@/types/master'
+import type { TReqUploadDocument, TResDocument, TResFundingCheck } from '@/types/master'
 import type { TReqRegisterIndividual, TReqRegisterInstitution } from '@/types/registration'
 
 export const registationServices = {
   async fundingCheck() {
-    const { data: document } = await api.get<TResDocument>(`${LENDER_API}/profile/funding/check`)
-    return document.data ?? []
+    const { data: document } = await api.get<TResFundingCheck>(
+      `${LENDER_API}/profile/funding/check`
+    )
+    return document.data ?? {}
   },
-  async document(fileType: FileType) {
+  async document() {
+    const { data: document } = await api.get(`${LENDER_API}/document`)
+    return document.data ?? {}
+  },
+  async documentPerType(fileType: FileType) {
     const { data: document } = await api.get<TResDocument>(`${LENDER_API}/document/${fileType}`)
     return document.data ?? []
   },

@@ -14,10 +14,6 @@ export type TReqRegisterIndividual = {
   subDistrictId: string
   address: string
   postalCode: string
-  idCardNumberFile?: string
-  selfiePhotoFile?: string
-  taxNumberFile?: string
-  proofOfIncomeFile?: string
 }
 
 export type TReqRegisterInstitution = {
@@ -39,6 +35,7 @@ export type TReqRegisterInstitution = {
   cityId: string
   districtId: string
   subDistrictId: string
+  companyAddress: string
   address: string
   postalCode: string
 }

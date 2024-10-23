@@ -3,7 +3,7 @@ import useRegistration from '@/api/queries/registration/useRegistration'
 import IcFileSaved from '@/assets/icons/ic_file_saved.svg'
 import type { FileType } from '@/types/general'
 import type { TReqUploadDocument } from '@/types/master'
-import { computed, nextTick, onMounted, ref, type PropType } from 'vue'
+import { computed, ref, type PropType } from 'vue'
 import { useDropzone } from 'vue3-dropzone'
 
 import { useQueryClient } from '@tanstack/vue-query'
@@ -26,6 +26,10 @@ const props = defineProps({
   },
   fileType: {
     type: String as PropType<FileType>,
+    default: ''
+  },
+  status: {
+    type: String,
     default: ''
   }
 })
@@ -57,6 +61,7 @@ function onDrop(acceptFiles: File[]) {
   uploadDocument(payload, {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['DOCUMENT'] })
+      queryClient.invalidateQueries({ queryKey: ['DOCUMENT_TYPE', { fileType: props.fileType }] })
     }
   })
 }
@@ -64,7 +69,6 @@ function onDrop(acceptFiles: File[]) {
 const { getRootProps, getInputProps } = useDropzone({ onDrop })
 
 const handleSetEmit = (field: string) => {
-  console.log('🚀 ~ handleSetEmit ~ field:', field)
   const value = totalDocument.value !== 0 ? `${totalDocument.value} File Telah di Simpan` : ''
   emit('update:modelValue', { value, field })
 }
@@ -73,19 +77,12 @@ const handleSubmit = () => {
   handleSetEmit(props.field)
   dialogVisible.value = false
 }
-
-const hiddenButton = ref<HTMLButtonElement | null>(null)
-
-onMounted(async () => {
-  await nextTick() // Ensure DOM is rendered
-  hiddenButton.value?.click()
-})
 </script>
 
 <template>
   <div class="input-container">
-    <label :for="props.label" class="input-label tw-max-w-48 tw-truncate md:tw-max-w-full">
-      {{ props.label }}
+    <label :for="label" class="input-label tw-max-w-48 tw-truncate md:tw-max-w-full">
+      {{ label }} <span v-if="status" class="tw-text-neutral-subtle">({{ status }})</span>
     </label>
     <div
       class="tw-flex tw-h-[42px] tw-justify-between tw-rounded-lg tw-border tw-border-gray-200 tw-px-4 tw-py-1"
@@ -97,13 +94,18 @@ onMounted(async () => {
         <span>{{ totalDocument }} File Telah di Simpan</span>
       </div>
 
-      <el-button type="primary" round style="padding: 8px 20px" @click="dialogVisible = true">
+      <el-button
+        v-if="totalDocument === 0"
+        type="primary"
+        round
+        style="padding: 8px 20px"
+        @click="dialogVisible = true"
+      >
         Upload
       </el-button>
+      <el-button v-else type="primary" link @click="dialogVisible = true"> Ubah File </el-button>
     </div>
   </div>
-
-  <!-- <button ref="hiddenButton" @click.prevent="handleSetEmit(props.field)">sdffdf</button> -->
 
   <el-dialog v-model="dialogVisible" class="!tw-w-[590px] !tw-rounded-2xl">
     <template #title>

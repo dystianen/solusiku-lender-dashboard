@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import useRegistration from '@/api/queries/registration/useRegistration'
 import IcCategory from '@/assets/icons/ic_category.svg'
 import IcCategoryWhite from '@/assets/icons/ic_category_white.svg'
 import IcChart from '@/assets/icons/ic_chart.svg'
@@ -8,16 +9,17 @@ import IcNotifWhite from '@/assets/icons/ic_notif_white.svg'
 import IcUser from '@/assets/icons/ic_user.svg'
 import IcUserWhite from '@/assets/icons/ic_user_white.svg'
 import LogoSolusiku from '@/assets/images/logo_solusiku.svg'
-import useScreenType from '@/composables/useScreenType'
 import { removeAccessToken } from '@/cookies/accessToken'
-import { ref } from 'vue'
+import { computed, onBeforeUnmount, reactive, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
 const router = useRouter()
-const { isMobile } = useScreenType()
 
-const isSidebarOpen = ref(!isMobile)
+// Query
+const { data: fundingCheck, isPending, refetch } = useRegistration.getFundingCheck()
+
+const isSidebarOpen = ref(true)
 const openMenuIndex = ref<number | null>(null)
 
 const toggleSidbarMenu = () => {
@@ -36,17 +38,21 @@ const isMenuOpen = (index: number) => {
   return openMenuIndex.value === index
 }
 
-const menu = [
+const showAllMenu = computed(() => fundingCheck.value?.status === 'completed')
+
+const menu = reactive([
   {
     path: '/dashboard',
     icon: IcCategory,
     activeIcon: IcCategoryWhite,
-    label: 'Dashboard'
+    label: 'Dashboard',
+    isShow: true
   },
   {
     path: '',
     icon: IcChart,
     label: 'Management Pendanaan',
+    isShow: showAllMenu,
     children: [
       {
         path: '/funding-opportunities',
@@ -74,15 +80,17 @@ const menu = [
     path: '/account-setting',
     icon: IcUser,
     activeIcon: IcUserWhite,
-    label: 'Pengaturan Akun'
+    label: 'Pengaturan Akun',
+    isShow: showAllMenu
   },
   {
     path: '/notification',
     icon: IcNotif,
     activeIcon: IcNotifWhite,
-    label: 'Notifikasi'
+    label: 'Notifikasi',
+    isShow: showAllMenu
   }
-]
+])
 
 const isActiveMenu = (path: string) => {
   const currentPath = route.path
@@ -94,10 +102,40 @@ const handleLogout = () => {
   removeAccessToken()
   router.push({ name: 'login' })
 }
+
+// Interval
+let intervalId = ref<number | null>(null)
+
+const startInterval = () => {
+  intervalId.value = setInterval(refetch, 5000)
+}
+
+const clearRunningInterval = () => {
+  if (intervalId.value !== null) {
+    clearInterval(intervalId.value)
+    intervalId.value = null
+  }
+}
+
+watch(
+  () => fundingCheck.value?.status,
+  (newStatus) => {
+    if (newStatus === 'verified') {
+      startInterval()
+    } else {
+      clearRunningInterval()
+    }
+  }
+)
+
+// Bersihkan interval ketika komponen di-destroy
+onBeforeUnmount(() => {
+  clearRunningInterval()
+})
 </script>
 
 <template>
-  <div class="tw-flex tw-h-screen tw-overflow-y-hidden tw-bg-white">
+  <div v-loading="isPending" class="tw-flex tw-h-screen tw-overflow-y-hidden tw-bg-white">
     <!-- Sidebar -->
     <aside
       class="tw-fixed tw-z-10 tw-flex tw-h-screen tw-w-[340px] tw-flex-shrink-0 tw-transform tw-flex-col tw-overflow-hidden tw-bg-white tw-p-4 tw-shadow-lg tw-transition-all lg:tw-static lg:tw-z-auto lg:tw-shadow-none"
@@ -155,6 +193,7 @@ const handleLogout = () => {
           <li v-for="(item, i) in menu" :key="i" class="tw-w-full">
             <div>
               <component
+                v-if="item.isShow"
                 :is="item.path ? 'RouterLink' : 'div'"
                 v-bind="item.path ? { to: item.path } : {}"
                 class="tw-flex tw-cursor-pointer tw-items-center tw-space-x-2 tw-rounded-md tw-p-2 tw-text-neutral-desc"
@@ -178,17 +217,19 @@ const handleLogout = () => {
               </component>
 
               <!-- Children menu -->
-              <ul v-if="item.children" class="tw-ml-2 tw-mt-2 tw-w-full">
-                <li v-for="(child, j) in item.children" :key="j">
-                  <RouterLink
-                    :to="child.path"
-                    class="tw-flex tw-w-full tw-items-center tw-truncate tw-rounded-md tw-p-2 tw-text-base tw-text-neutral-desc"
-                    :class="{ 'lg:tw-hidden': !isSidebarOpen }"
-                  >
-                    <span class="tw-mr-2 tw-text-2xl">•</span> {{ child.label }}
-                  </RouterLink>
-                </li>
-              </ul>
+              <div v-if="item.isShow">
+                <ul v-if="item.children && isMenuOpen(i)" class="tw-ml-2 tw-mt-2 tw-w-full">
+                  <li v-for="(child, j) in item.children" :key="j">
+                    <RouterLink
+                      :to="child.path"
+                      class="tw-flex tw-w-full tw-items-center tw-truncate tw-rounded-md tw-p-2 tw-text-base tw-text-neutral-desc"
+                      :class="{ 'lg:tw-hidden': !isSidebarOpen }"
+                    >
+                      <span class="tw-mr-2 tw-text-2xl">•</span> {{ child.label }}
+                    </RouterLink>
+                  </li>
+                </ul>
+              </div>
             </div>
           </li>
         </ul>

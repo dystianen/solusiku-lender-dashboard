@@ -43,3 +43,10 @@ export interface UserType {
   name: string
   description: string
 }
+
+type TFundingCheck = {
+  status: 'registered' | 'verified' | 'completed'
+  userType: 'Pribadi' | 'Perusahaan'
+}
+
+export type TResFundingCheck = GeneralResponse<TFundingCheck>

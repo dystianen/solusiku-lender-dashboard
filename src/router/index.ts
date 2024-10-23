@@ -216,17 +216,23 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuth) {
-    if (accessToken.value) {
-      // User is authenticated, proceed to the route
-      next()
+  const token = accessToken.value
+
+  // Pages that cannot be accessed if logged in
+  const restrictedAfterLogin = ['/login']
+
+  if (token) {
+    if (restrictedAfterLogin.includes(to.path)) {
+      next('/dashboard')
     } else {
-      // User is not authenticated, redirect to login
-      next('/login')
+      next()
     }
   } else {
-    // Non-protected route, allow access
-    next()
+    if (to.meta.requiresAuth) {
+      next('/login')
+    } else {
+      next()
+    }
   }
 })
 

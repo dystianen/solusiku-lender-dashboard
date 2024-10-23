@@ -2,11 +2,13 @@
 import useRegistration from '@/api/queries/registration/useRegistration'
 import IcDelete from '@/assets/icons/ic_delete.svg'
 import IcFile from '@/assets/icons/ic_file.svg'
+import type { FileType } from '@/types/general'
 import type { TDocument } from '@/types/master'
 import { useQueryClient } from '@tanstack/vue-query'
+import type { PropType } from 'vue'
 const queryClient = useQueryClient()
 
-defineProps({
+const props = defineProps({
   id: {
     type: String,
     default: ''
@@ -22,6 +24,10 @@ defineProps({
   data: {
     type: Array<TDocument>,
     default: []
+  },
+  fileType: {
+    type: String as PropType<FileType>,
+    default: ''
   }
 })
 
@@ -32,6 +38,7 @@ const handleDelete = (id: string) => {
   deleteDocument(id, {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['DOCUMENT'] })
+      queryClient.invalidateQueries({ queryKey: ['DOCUMENT_TYPE', { fileType: props.fileType }] })
     }
   })
 }

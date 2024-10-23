@@ -6,12 +6,12 @@ import SelectField from '@/components/atoms/select/SelectField.vue'
 import useScreenType from '@/composables/useScreenType'
 import type { FileType, Option } from '@/types/general'
 import type { TReqRegisterInstitution } from '@/types/registration'
-import type { FormInstance, FormRules } from 'element-plus'
-import { reactive, ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
+import { useQueryClient } from '@tanstack/vue-query'
+import { ElNotification, dayjs, type FormInstance, type FormRules } from 'element-plus'
+import { h, reactive, ref, watch } from 'vue'
 
 // Hooks
-const router = useRouter()
+const queryClient = useQueryClient()
 const { isMobile } = useScreenType()
 
 // Queries
@@ -22,10 +22,11 @@ const { data: province } = useMaster.getProvince()
 const { data: legalEntity } = useMaster.getLegalEntity()
 const { data: businessLicense } = useMaster.getBusinessLicense()
 const { data: businessField } = useMaster.getBusinessLicense()
+const { data: documents } = useRegistration.getAllDocument()
 const { mutate: city } = useMaster.getCity()
 const { mutate: district } = useMaster.getDistrict()
 const { mutate: subDistrict } = useMaster.getSubDistrict()
-const { mutate: registerIndividual } = useRegistration.patchRegisterIndividual()
+const { mutate: registerInstitution } = useRegistration.patchRegisterInstitution()
 
 const optionsCity = ref<Option[]>([])
 const optionsDistrict = ref<Option[]>([])
@@ -51,6 +52,7 @@ const form = reactive<TReqRegisterInstitution>({
   cityId: '',
   districtId: '',
   subDistrictId: '',
+  companyAddress: '',
   address: '',
   postalCode: ''
 })
@@ -59,36 +61,153 @@ const rules = reactive<FormRules<TReqRegisterInstitution>>({
   companyName: [
     {
       required: true,
-      message: 'Nama Lengkap Sesuai KTP harus diisi',
+      message: 'Nama Perusahaan harus diisi',
+      trigger: 'change'
+    }
+  ],
+  legalEntityId: [
+    {
+      required: true,
+      message: 'Bentuk Badan Hukum harus diisi',
+      trigger: 'change'
+    }
+  ],
+  businessFieldId: [
+    {
+      required: true,
+      message: 'Bidang Usaha harus diisi',
+      trigger: 'change'
+    }
+  ],
+  businessLicenseId: [
+    {
+      required: true,
+      message: 'Izin Usaha harus diisi',
+      trigger: 'change'
+    }
+  ],
+  businessLicenseNumber: [
+    {
+      required: true,
+      message: 'Nomor SIUP harus diisi',
+      trigger: 'change'
+    }
+  ],
+  deedNumber: [
+    {
+      required: true,
+      message: 'No. Akta Pendirian harus diisi',
+      trigger: 'change'
+    }
+  ],
+  idCardNumber: [
+    {
+      required: true,
+      message: 'No. KTP Koresponden harus diisi',
+      trigger: 'change'
+    }
+  ],
+  taxNumber: [
+    {
+      required: true,
+      message: 'No. NPWP Perusahaa harus diisi',
+      trigger: 'change'
+    }
+  ],
+  birthPlace: [
+    {
+      required: true,
+      message: 'Tempat Lahir harus diisi',
+      trigger: 'change'
+    }
+  ],
+  birthDate: [
+    {
+      required: true,
+      message: 'Tanggal Lahir harus diisi',
+      trigger: 'change'
+    }
+  ],
+  provinceId: [
+    {
+      required: true,
+      message: 'Provinsi harus diisi',
+      trigger: 'change'
+    }
+  ],
+  cityId: [
+    {
+      required: true,
+      message: 'Kota harus diisi',
+      trigger: 'change'
+    }
+  ],
+  districtId: [
+    {
+      required: true,
+      message: 'Kecamatan harus diisi',
+      trigger: 'change'
+    }
+  ],
+  subDistrictId: [
+    {
+      required: true,
+      message: 'Kelurahan harus diisi',
+      trigger: 'change'
+    }
+  ],
+  companyAddress: [
+    {
+      required: true,
+      message: 'Alamat Perusahaan harus diisi',
+      trigger: 'change'
+    }
+  ],
+  address: [
+    {
+      required: true,
+      message: 'Alamat Koresponden harus diisi',
+      trigger: 'change'
+    }
+  ],
+  postalCode: [
+    {
+      required: true,
+      message: 'Kode POS harus diisi',
+      trigger: 'change'
+    }
+  ],
+  sourceOfFoundId: [
+    {
+      required: true,
+      message: 'Sumber Dana harus diisi',
+      trigger: 'change'
+    }
+  ],
+  monthlyIncomeId: [
+    {
+      required: true,
+      message: 'Penghasilan Perbulan harus diisi',
+      trigger: 'change'
+    }
+  ],
+  bankId: [
+    {
+      required: true,
+      message: 'Nama Rekening Bank harus diisi',
+      trigger: 'change'
+    }
+  ],
+  bankAccountNumber: [
+    {
+      required: true,
+      message: 'No. Rekening harus diisi',
       trigger: 'change'
     }
   ]
 })
 
-const submitForm = async (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  await formEl.validate((valid) => {
-    if (valid) {
-      const payload: TReqRegisterInstitution = {
-        ...form,
-        idCardNumber: form.idCardNumber.replace(/\s/g, '')
-      }
-
-      // Deleting unwanted keys from the cloned object
-      delete payload.idCardNumberFile
-      delete payload.selfiePhotoFile
-      delete payload.taxNumberFile
-      delete payload.proofOfIncomeFile
-      registerIndividual(payload, {
-        onSuccess: () => {
-          router.push({ name: 'waiting-approval' })
-        }
-      })
-    }
-  })
-}
-
-const fieldFile: { key: FileType; label: string }[] = [
+const fieldFile: { key: FileType; label: string; desc?: string }[] = [
   {
     key: 'akta-pendirian',
     label: 'Unggah Akta Pendirian'
@@ -119,7 +238,8 @@ const fieldFile: { key: FileType; label: string }[] = [
   },
   {
     key: 'rekening-koran',
-    label: 'Unggah Rekening Koran (Min.3 bulan terkahir)'
+    label: 'Unggah Rekening Koran',
+    desc: 'Min.3 bulan terkahir'
   },
   {
     key: 'keuangan-perusahaan-inhouse',
@@ -131,21 +251,77 @@ const fieldFile: { key: FileType; label: string }[] = [
   },
   {
     key: 'siup',
-    label: 'Unggah SIUP (Opsional)'
+    label: 'Unggah SIUP',
+    desc: 'Opsional'
   },
   {
     key: 'tdp',
-    label: 'Unggah TDP (Opsional)'
+    label: 'Unggah TDP',
+    desc: 'Opsional'
   },
   {
     key: 'tax-card',
-    label: 'Unggah NPWP Perusahaan (Opsional)'
+    label: 'Unggah NPWP Perusahaan',
+    desc: 'Opsional'
   },
   {
     key: 'keuangan-perusahaan-audited',
-    label: 'Laporan Keuangan Perusahaan Audited (Opsional)'
+    label: 'Laporan Keuangan Perusahaan Audited',
+    desc: 'Opsional'
   }
 ]
+
+const validateFiles = () => {
+  const errors = []
+
+  for (const key in documents.value) {
+    const file = fieldFile.find((it) => it.key === key)
+
+    if (documents.value[key] === '0' && file && !file.desc) {
+      errors.push(key)
+    }
+  }
+
+  if (errors.length > 0) {
+    ElNotification({
+      title: 'Dokumen wajib diisi: ',
+      message: h(
+        'ul',
+        errors.map((error) =>
+          h(
+            'li',
+            { class: 'tw-text-danger' },
+            `• ${fieldFile.find((it) => it.key === error)?.label}`
+          )
+        )
+      ),
+      type: 'error'
+    })
+    return false
+  }
+
+  return true
+}
+
+const submitForm = async (formEl: FormInstance | undefined) => {
+  if (!formEl) return
+  await formEl.validate((valid) => {
+    if (!validateFiles()) return
+    if (valid) {
+      const payload: TReqRegisterInstitution = {
+        ...form,
+        birthDate: dayjs(form.birthDate).format('YYYY-MM-DD'),
+        idCardNumber: form.idCardNumber.replace(/\s/g, '')
+      }
+
+      registerInstitution(payload, {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['FUNDING_CHECK'] })
+        }
+      })
+    }
+  })
+}
 
 watch(
   () => form.provinceId,
@@ -276,9 +452,9 @@ watch(
           <el-form-item prop="taxNumber" class="tw-col-span-6">
             <InputField
               v-model="form.taxNumber"
+              v-maska="'###############'"
               label="No. NPWP Perusahaan"
               placeholder="Cth: 2941XXXXX"
-              type="number"
             />
           </el-form-item>
           <el-form-item prop="provinceId" class="tw-col-span-6">
@@ -329,11 +505,25 @@ watch(
               placeholder="Cth: 3674 0412 3456 7890"
             />
           </el-form-item>
-          <el-form-item prop="alamat_lengkap" class="tw-col-span-6">
-            <InputField label="Alamat Perusahaan" placeholder="Cth: Jl. Sukses Bersama" />
+          <el-form-item prop="birthPlace" class="tw-col-span-6">
+            <InputField v-model="form.birthPlace" label="Tempat Lahir" placeholder="Cth: Jakarta" />
           </el-form-item>
-          <el-form-item prop="alamat_lengkap" class="tw-col-span-6">
-            <InputField label="Alamat Koresponden" placeholder="Cth: Jl. Sukses Bersama" />
+          <el-form-item prop="birthDate" class="tw-col-span-6">
+            <DatePicker v-model="form.birthDate" label="Tanggal Lahir" placeholder="11/11/2024" />
+          </el-form-item>
+          <el-form-item prop="companyAddress" class="tw-col-span-6">
+            <InputField
+              v-model="form.companyAddress"
+              label="Alamat Perusahaan"
+              placeholder="Cth: Jl. Sukses Bersama"
+            />
+          </el-form-item>
+          <el-form-item prop="address" class="tw-col-span-6">
+            <InputField
+              v-model="form.address"
+              label="Alamat Koresponden"
+              placeholder="Cth: Jl. Sukses Bersama"
+            />
           </el-form-item>
           <el-form-item prop="sourceOfFoundId" class="tw-col-span-6">
             <SelectField
@@ -378,7 +568,7 @@ watch(
 
         <div class="tw-mt-6 tw-grid tw-grid-cols-1 tw-gap-x-4 tw-gap-y-2 tw-pt-2 md:tw-grid-cols-2">
           <el-form-item v-for="(item, i) in fieldFile" :key="i" :prop="item.key">
-            <FileInput :file-type="item.key" :label="item.label" />
+            <FileInput :file-type="item.key" :label="item.label" :status="item.desc" />
           </el-form-item>
         </div>
 
@@ -388,6 +578,7 @@ watch(
             type="primary"
             size="large"
             :style="!isMobile ? { paddingLeft: '100px', paddingRight: '100px' } : { width: '100%' }"
+            @click="submitForm(ruleFormRef)"
           >
             Simpan dan Lanjutkan
           </el-button>
