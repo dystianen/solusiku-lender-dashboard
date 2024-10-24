@@ -31,6 +31,12 @@ const { mutate: registerInstitution } = useRegistration.patchRegisterInstitution
 const optionsCity = ref<Option[]>([])
 const optionsDistrict = ref<Option[]>([])
 const optionsSubDistrict = ref<Option[]>([])
+const defaultValue = dayjs().subtract(5, 'year').toDate()
+
+const disabledDate = (time: Date) => {
+  const fiveYearsAgo = dayjs().subtract(5, 'year')
+  return dayjs(time).isAfter(fiveYearsAgo, 'day')
+}
 
 const ruleFormRef = ref<FormInstance>()
 const form = reactive<TReqRegisterInstitution>({
@@ -509,7 +515,14 @@ watch(
             <InputField v-model="form.birthPlace" label="Tempat Lahir" placeholder="Cth: Jakarta" />
           </el-form-item>
           <el-form-item prop="birthDate" class="tw-col-span-6">
-            <DatePicker v-model="form.birthDate" label="Tanggal Lahir" placeholder="11/11/2024" />
+            <DatePicker
+              v-model="form.birthDate"
+              :disabledDate="disabledDate"
+              :default-value="defaultValue"
+              label="Tanggal Lahir"
+              format="DD/MM/YYYY"
+              placeholder="11/11/2019"
+            />
           </el-form-item>
           <el-form-item prop="companyAddress" class="tw-col-span-6">
             <InputField
