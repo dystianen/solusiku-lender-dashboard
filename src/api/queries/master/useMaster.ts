@@ -1,4 +1,3 @@
-import type { TReqIdWithFilter } from '@/types/master'
 import { useMutation, useQuery } from '@tanstack/vue-query'
 import masterServices from './master-service'
 
@@ -6,64 +5,64 @@ const useMaster = {
   getGender() {
     return useQuery({
       queryKey: ['GENDER'],
-      queryFn: () => masterServices.gender()
+      queryFn: masterServices.gender
     })
   },
   getProvince() {
     return useQuery({
       queryKey: ['PROVINCE'],
-      queryFn: () => masterServices.province()
+      queryFn: masterServices.province
     })
   },
   getCity() {
     return useMutation({
-      mutationFn: (payload: TReqIdWithFilter) => masterServices.city(payload)
+      mutationFn: masterServices.city
     })
   },
   getDistrict() {
     return useMutation({
-      mutationFn: (payload: TReqIdWithFilter) => masterServices.district(payload)
+      mutationFn: masterServices.district
     })
   },
   getSubDistrict() {
     return useMutation({
-      mutationFn: (payload: TReqIdWithFilter) => masterServices.subDistrict(payload)
+      mutationFn: masterServices.subDistrict
     })
   },
   getSourceOfFound() {
     return useQuery({
       queryKey: ['SOURCE_OF_FOUND'],
-      queryFn: () => masterServices.sourceOfFound()
+      queryFn: masterServices.sourceOfFound
     })
   },
   getMonthlyIncome() {
     return useQuery({
       queryKey: ['MONTHLY_INCOME'],
-      queryFn: () => masterServices.monthlyIncome()
+      queryFn: masterServices.monthlyIncome
     })
   },
   getBank() {
     return useQuery({
       queryKey: ['BANK'],
-      queryFn: () => masterServices.bank()
+      queryFn: masterServices.bank
     })
   },
   getLegalEntity() {
     return useQuery({
       queryKey: ['LEGAL_ENTITY'],
-      queryFn: () => masterServices.legalEntity()
+      queryFn: masterServices.legalEntity
     })
   },
   getBusinessLicense() {
     return useQuery({
       queryKey: ['BUSINESS_LICENSE'],
-      queryFn: () => masterServices.businessLicense()
+      queryFn: masterServices.businessLicense
     })
   },
   getBusinessField() {
     return useQuery({
       queryKey: ['BUSINESS_FIELD'],
-      queryFn: () => masterServices.businessField()
+      queryFn: masterServices.businessField
     })
   }
 }

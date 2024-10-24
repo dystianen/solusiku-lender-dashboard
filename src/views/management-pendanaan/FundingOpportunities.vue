@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import useOffering from '@/api/queries/offering/useOffering'
 import useScreenType from '@/composables/useScreenType'
+import filters from '@/helpers/filters'
+import { dayjs } from 'element-plus'
 const { isMobile } = useScreenType()
 const { data } = useOffering.getOffering()
 </script>
@@ -37,13 +39,33 @@ const { data } = useOffering.getOffering()
         </template>
       </el-table-column>
       <el-table-column property="productName" label="NAMA PRODUK" :width="175" />
-      <el-table-column property="borrowerId" label="ID PEMINJAM" :width="175" />
-      <el-table-column property="createdOn" label="TANGGAL TRANSAKSI" :width="175" />
+      <el-table-column label="ID PEMINJAM" :width="190">
+        <template #default="scope">
+          <p class="tw-text-primary">{{ scope.row.borrowerId }}</p>
+        </template>
+      </el-table-column>
+      <el-table-column label="TANGGAL TRANSAKSI" :width="175">
+        <template #default="scope">
+          <p>{{ dayjs(scope.row.createdOn).format('DD MMMM YYYY') }}</p>
+        </template>
+      </el-table-column>
       <el-table-column property="riskLevel" label="NO. Pengajuan" :width="175" />
       <el-table-column property="riskLevel" label="TINGKAT RESIKO" :width="175" />
-      <el-table-column property="amountRequested" label="NILAI PINJAMAN" :width="175" />
-      <el-table-column property="loanPeriod" label="PERIODE PINJAMAN" :width="175" />
-      <el-table-column property="loanTenor" label="TENOR PINJAMAN" :width="175" />
+      <el-table-column label="NILAI PINJAMAN" :width="175">
+        <template #default="scope">
+          <p>{{ filters.currency(Number(scope.row.amountRequested)) }}</p>
+        </template>
+      </el-table-column>
+      <el-table-column label="PERIODE PINJAMAN" :width="175">
+        <template #default="scope">
+          <p>{{ scope.row.loanPeriod }} Periode</p>
+        </template>
+      </el-table-column>
+      <el-table-column label="TENOR PINJAMAN" :width="175">
+        <template #default="scope">
+          <p>{{ scope.row.loanTenor }} Bulan</p>
+        </template>
+      </el-table-column>
       <el-table-column property="statusId" label="STATUS" :width="175" />
     </el-table>
 

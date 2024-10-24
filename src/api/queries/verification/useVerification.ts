@@ -1,53 +1,45 @@
-import type {
-  TReqChangePassword,
-  TReqConfirmOTP,
-  TReqForgotPassword,
-  TReqLogin,
-  TReqRegister
-} from '@/types/verification'
 import { useMutation } from '@tanstack/vue-query'
 import { verificationServices } from './verification-service'
 
 const useVerification = {
   postLogin() {
     return useMutation({
-      mutationFn: (payload: TReqLogin) => verificationServices.login(payload)
+      mutationFn: verificationServices.login
     })
   },
   postRegister() {
     return useMutation({
-      mutationFn: (payload: TReqRegister) => verificationServices.register(payload)
+      mutationFn: verificationServices.register
     })
   },
   postConfirmOTPRegister() {
     return useMutation({
-      mutationFn: (payload: TReqConfirmOTP) => verificationServices.confirmOtp(payload)
+      mutationFn: verificationServices.confirmOtp
     })
   },
   postForgotPassword() {
     return useMutation({
-      mutationFn: (payload: TReqForgotPassword) => verificationServices.forgotPassword(payload)
+      mutationFn: verificationServices.forgotPassword
     })
   },
   postForgotPasswordConfirmOTP() {
     return useMutation({
-      mutationFn: (payload: TReqConfirmOTP) =>
-        verificationServices.forgotPasswordConfirmOTP(payload)
+      mutationFn: verificationServices.forgotPasswordConfirmOTP
     })
   },
   postResendForgotPasswordConfirmOTP() {
     return useMutation({
-      mutationFn: (token: string) => verificationServices.resendForgotPasswordConfirmOTP(token)
+      mutationFn: verificationServices.resendForgotPasswordConfirmOTP
     })
   },
   postChangePassword() {
     return useMutation({
-      mutationFn: (payload: TReqChangePassword) => verificationServices.changePassword(payload)
+      mutationFn: verificationServices.changePassword
     })
   },
   postResendOTPRegister() {
     return useMutation({
-      mutationFn: (token: string) => verificationServices.resendOTPRegister(token)
+      mutationFn: verificationServices.resendOTPRegister
     })
   }
 }

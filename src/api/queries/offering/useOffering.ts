@@ -5,7 +5,7 @@ const useOffering = {
   getOffering() {
     return useQuery({
       queryKey: ['OFFERING'],
-      queryFn: () => offeringServices.offering()
+      queryFn: offeringServices.offering
     })
   }
 }
