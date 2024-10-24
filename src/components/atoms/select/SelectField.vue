@@ -13,7 +13,7 @@ const props = defineProps({
   },
   options: {
     type: Array<Option>,
-    default: () => ['']
+    default: () => [{ id: 0, name: '' }]
   },
   size: {
     type: String as PropType<TSize>,
