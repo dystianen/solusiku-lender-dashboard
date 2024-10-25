@@ -19,6 +19,7 @@ declare module 'vue' {
     CTALoan: typeof import('./src/components/organisms/cta/CTALoan.vue')['default']
     DatePicker: typeof import('./src/components/atoms/datepicker/DatePicker.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
+    ElBadge: typeof import('element-plus/es')['ElBadge']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']

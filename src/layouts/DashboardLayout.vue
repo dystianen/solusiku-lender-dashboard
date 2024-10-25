@@ -3,12 +3,13 @@ import useRegistration from '@/api/queries/registration/useRegistration'
 import IcCategory from '@/assets/icons/ic_category.svg'
 import IcCategoryWhite from '@/assets/icons/ic_category_white.svg'
 import IcChart from '@/assets/icons/ic_chart.svg'
-import IcLogout from '@/assets/icons/ic_logout.svg'
 import IcNotif from '@/assets/icons/ic_notif.svg'
 import IcNotifWhite from '@/assets/icons/ic_notif_white.svg'
 import IcUser from '@/assets/icons/ic_user.svg'
 import IcUserWhite from '@/assets/icons/ic_user_white.svg'
+import Avatar from '@/assets/images/avatar.svg'
 import LogoSolusiku from '@/assets/images/logo_solusiku.svg'
+import useOnlineStatus from '@/composables/useOnlineStatus'
 import useScreenType from '@/composables/useScreenType'
 import { removeAccessToken } from '@/cookies/accessToken'
 import { computed, onBeforeUnmount, reactive, ref, watch } from 'vue'
@@ -18,6 +19,7 @@ const route = useRoute()
 const router = useRouter()
 const { isDesktop } = useScreenType()
 const isOpen = computed(() => isDesktop.value)
+const isOnline = useOnlineStatus()
 
 // Query
 const { data: fundingCheck, refetch } = useRegistration.getFundingCheck()
@@ -254,17 +256,42 @@ watch(isOpen, (newVal) => {
           <div class="tw-hidden tw-items-center tw-gap-4 md:tw-flex">
             <div class="tw-flex-tw-flex-col tw-text-right">
               <h5 class="tw-text-neutral-1/[.87]">John Doe</h5>
-              <p class="tw-text-neutral-1/[.38] tw-text-xs">Online</p>
+              <p class="tw-text-neutral-1/[.38] tw-text-xs">
+                {{ isOnline ? 'Online' : 'Offline' }}
+              </p>
             </div>
-            <el-dropdown placement="bottom-end" trigger="click">
-              <el-avatar
-                :size="40"
-                src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
-              />
+            <el-dropdown placement="bottom-end" trigger="click" popper-class="tw-w-[200px]">
+              <el-badge
+                is-dot
+                type="primary"
+                :offset="[-8, 35]"
+                :color="isOnline ? '#72E128' : '#de4f3f'"
+              >
+                <el-avatar :size="40" :src="Avatar" />
+              </el-badge>
               <template #dropdown>
                 <el-dropdown-menu>
+                  <el-dropdown-item>
+                    <div class="tw-flex tw-gap-2">
+                      <el-badge
+                        is-dot
+                        type="primary"
+                        :offset="[-8, 35]"
+                        :color="isOnline ? '#72E128' : '#de4f3f'"
+                      >
+                        <el-avatar :size="40" :src="Avatar" />
+                      </el-badge>
+                      <div class="tw-flex-tw-flex-col">
+                        <h5 class="tw-text-neutral-1/[.87]">John Doe</h5>
+                        <p class="tw-text-neutral-1/[.38] tw-text-xs">
+                          {{ isOnline ? 'Online' : 'Offline' }}
+                        </p>
+                      </div>
+                    </div>
+                  </el-dropdown-item>
+
                   <el-dropdown-item @click="handleLogout">
-                    <img :src="IcLogout" alt="IcLogout" class="tw-mr-2" /> Keluar
+                    <v-icon name="md-logout" class="tw-mr-[10px]" /> Keluar
                   </el-dropdown-item>
                 </el-dropdown-menu>
               </template>
@@ -294,3 +321,11 @@ watch(isOpen, (newVal) => {
     </div>
   </div>
 </template>
+
+<style scoped>
+:deep(.ep-badge__content.is-dot) {
+  width: 12px;
+  height: 12px;
+  border: 2px solid white;
+}
+</style>
