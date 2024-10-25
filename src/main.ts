@@ -20,6 +20,7 @@ import {
   IoCaretDownSharp,
   MdArrowdropdownRound,
   MdFileuploadOutlined,
+  MdLogout,
   MdMenuRound,
   MdSearch,
   PrMoon,
@@ -47,7 +48,8 @@ addIcons(
   RiDatabase2Fill,
   MdFileuploadOutlined,
   IoCalendar,
-  IoCaretDownSharp
+  IoCaretDownSharp,
+  MdLogout
 )
 
 const app = createApp(App)
