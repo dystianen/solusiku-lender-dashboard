@@ -2,7 +2,7 @@
 import { computed, ref, watch } from 'vue'
 
 const props = defineProps({
-  totalRows: {
+  totalData: {
     type: Number,
     default: 0
   },
@@ -33,9 +33,9 @@ watch(
 )
 
 // Computed for total pages, startRow, and endRow
-const totalPages = computed(() => Math.ceil(props.totalRows / rowsPerPage.value))
+const totalPages = computed(() => Math.ceil(props.totalData / rowsPerPage.value))
 const startRow = computed(() => (props.currentPage - 1) * rowsPerPage.value + 1)
-const endRow = computed(() => Math.min(props.currentPage * rowsPerPage.value, props.totalRows))
+const endRow = computed(() => Math.min(props.currentPage * rowsPerPage.value, props.totalData))
 
 // Function to update rows per page
 const setRowsPerPage = (value: number) => {
@@ -85,7 +85,7 @@ const goToNextPage = () => {
 
     <!-- Page Info -->
     <div>
-      <p>{{ startRow }}-{{ endRow }} dari {{ totalRows }}</p>
+      <p>{{ startRow }}-{{ endRow }} dari {{ totalData }}</p>
     </div>
 
     <!-- Pagination Controls -->
@@ -99,3 +99,9 @@ const goToNextPage = () => {
     </div>
   </div>
 </template>
+
+<style scoped>
+.ep-button.is-link:hover {
+  color: grey !important;
+}
+</style>

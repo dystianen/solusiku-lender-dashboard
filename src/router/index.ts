@@ -1,3 +1,4 @@
+import RegistrationFundingIndividual from '@/components/pages/registration/RegistrationFundingIndividual.vue'
 import { accessToken } from '@/cookies/accessToken'
 import { BaseLayout, DashboardLayout } from '@/layouts/layouts'
 import AccountSetting from '@/views/AccountSetting.vue'
@@ -182,6 +183,15 @@ const router = createRouter({
         requiresAuth: true
       },
       component: Notification
+    },
+    {
+      path: '/register-funding-individual',
+      name: 'register-funding-individual',
+      meta: {
+        layout: DashboardLayout,
+        requiresAuth: true
+      },
+      component: RegistrationFundingIndividual
     }
   ]
 })

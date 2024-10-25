@@ -2,6 +2,8 @@
 import '@/styles/main.scss'
 import '@/styles/tailwind.css'
 import 'element-plus/dist/index.css'
+import 'vue-pdf-embed/dist/styles/annotationLayer.css'
+import 'vue-pdf-embed/dist/styles/textLayer.css'
 import 'vue3-carousel/dist/carousel.css'
 
 import VueCountdown from '@chenfengyuan/vue-countdown'
