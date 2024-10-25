@@ -14,6 +14,10 @@
   @apply tw-h-2 tw-w-[150px] tw-rounded-md tw-bg-gradient-to-r tw-from-primary-1 tw-to-primary-2;
 }
 
+.tw-dialog-footer {
+  @apply tw-mt-6 tw-flex tw-flex-col tw-justify-center tw-gap-4 md:tw-flex-row;
+}
+
 @layer base {
   img,
   video {

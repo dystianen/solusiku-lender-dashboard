@@ -252,12 +252,10 @@ watch(isOpen, (newVal) => {
           </div>
 
           <div class="tw-hidden tw-items-center tw-gap-4 md:tw-flex">
-            <button>
-              <v-icon name="pr-moon" :scale="1.2" />
-            </button>
-            <button>
-              <v-icon name="fa-regular-bell" :scale="1.2" />
-            </button>
+            <div class="tw-flex-tw-flex-col tw-text-right">
+              <h5 class="tw-text-neutral-1/[.87]">John Doe</h5>
+              <p class="tw-text-neutral-1/[.38] tw-text-xs">Online</p>
+            </div>
             <el-dropdown placement="bottom-end" trigger="click">
               <el-avatar
                 :size="40"

@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import useMaster from '@/api/queries/master/useMaster'
 import useRegistration from '@/api/queries/registration/useRegistration'
-import DatePicker from '@/components/atoms/datepicker/DatePicker.vue'
-import InputField from '@/components/atoms/input/InputField.vue'
-import SelectField from '@/components/atoms/select/SelectField.vue'
 import useScreenType from '@/composables/useScreenType'
 import type { FileType, Option } from '@/types/general'
 import type { TReqRegisterIndividual } from '@/types/registration'
@@ -16,11 +13,11 @@ const { isMobile } = useScreenType()
 
 // Queries
 const { data: gender } = useMaster.getGender()
-const { data: province } = useMaster.getProvince()
 const { data: sourceOfFound } = useMaster.getSourceOfFound()
 const { data: monthlyIncome } = useMaster.getMonthlyIncome()
 const { data: bank } = useMaster.getBank()
 const { data: documents } = useRegistration.getAllDocument()
+const { data: province } = useMaster.getProvince()
 const { mutate: city } = useMaster.getCity()
 const { mutate: district } = useMaster.getDistrict()
 const { mutate: subDistrict } = useMaster.getSubDistrict()
@@ -29,6 +26,12 @@ const { mutate: registerIndividual } = useRegistration.patchRegisterIndividual()
 const optionsCity = ref<Option[]>([])
 const optionsDistrict = ref<Option[]>([])
 const optionsSubDistrict = ref<Option[]>([])
+const defaultValue = dayjs().subtract(5, 'year').toDate()
+
+const disabledDate = (time: Date) => {
+  const fiveYearsAgo = dayjs().subtract(5, 'year')
+  return dayjs(time).isAfter(fiveYearsAgo, 'day')
+}
 
 const ruleFormRef = ref<FormInstance>()
 const form = reactive({
@@ -226,10 +229,6 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   })
 }
 
-const handleChangeFile = ({ value, field }: { value: string; field: keyof typeof form }) => {
-  form[field] = value
-}
-
 watch(
   () => form.provinceId,
   (value) => {
@@ -335,7 +334,14 @@ watch(
             <InputField v-model="form.birthPlace" label="Tempat Lahir" placeholder="Cth: Jakarta" />
           </el-form-item>
           <el-form-item prop="birthDate">
-            <DatePicker v-model="form.birthDate" label="Tanggal Lahir" placeholder="11/11/2024" />
+            <DatePicker
+              v-model="form.birthDate"
+              :disabledDate="disabledDate"
+              :default-value="defaultValue"
+              label="Tanggal Lahir"
+              format="DD/MM/YYYY"
+              placeholder="11/11/2019"
+            />
           </el-form-item>
           <el-form-item prop="provinceId" class="tw-col-span-2">
             <SelectField
@@ -427,7 +433,7 @@ watch(
 
         <div class="tw-mt-6 tw-grid tw-grid-cols-1 tw-gap-x-4 tw-gap-y-2 tw-pt-2 md:tw-grid-cols-2">
           <el-form-item v-for="(item, i) in fieldFile" :key="i" :prop="item.key">
-            <FileInput :file-type="item.key" :label="item.label" />
+            <UploadFile :file-type="item.key" :label="item.label" />
           </el-form-item>
         </div>
 

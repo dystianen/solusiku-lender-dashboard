@@ -5,7 +5,7 @@ const useUser = {
   getUserType() {
     return useQuery({
       queryKey: ['USER_TYPE'],
-      queryFn: () => userServices.userType()
+      queryFn: userServices.userType
     })
   }
 }

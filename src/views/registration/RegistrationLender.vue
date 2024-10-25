@@ -250,13 +250,16 @@ watch(userType, (value) => {
             v-model="form.isAgree"
             size="large"
             type="success"
-            style="height: max-content; margin-top: 5px"
-          />
-          <p class="tw-leading-normal tw-text-neutral-desc">
-            Dengan mendaftar, Saya menyetujui
-            <span class="tw-text-primary">Syarat dan Ketentuan </span> serta
-            <span class="tw-text-primary">Kebijakan Privasi</span> dari Solusiku.
-          </p>
+            style="align-items: start"
+          >
+            <template #default>
+              <p class="tw-leading-normal tw-text-wrap tw-text-neutral-desc">
+                Dengan mendaftar, Saya menyetujui
+                <span class="tw-text-primary">Syarat dan Ketentuan </span> serta
+                <span class="tw-text-primary">Kebijakan Privasi</span> dari Solusiku.
+              </p>
+            </template>
+          </el-checkbox>
         </div>
       </el-form-item>
 
