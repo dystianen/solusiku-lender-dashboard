@@ -132,14 +132,6 @@ onMounted(() => {
 })
 
 onMounted(() => {
-  mutateOffering(params, {
-    onSuccess: (res) => {
-      offering.value = res
-    }
-  })
-})
-
-onMounted(() => {
   checkOffering(undefined, {
     onSuccess: (res) => {
       if (res.isReady) {
