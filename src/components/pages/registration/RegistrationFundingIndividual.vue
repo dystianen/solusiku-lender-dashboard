@@ -437,17 +437,15 @@ watch(
           </el-form-item>
         </div>
 
-        <div class="tw-mt-6 tw-flex tw-justify-center">
-          <el-button
-            round
-            type="primary"
-            size="large"
-            @click="submitForm(ruleFormRef)"
-            :style="!isMobile ? { paddingLeft: '100px', paddingRight: '100px' } : { width: '100%' }"
-          >
-            Simpan dan Lanjutkan
-          </el-button>
-        </div>
+        <el-button
+          type="primary"
+          size="large"
+          @click="submitForm(ruleFormRef)"
+          :style="!isMobile ? { paddingLeft: '45px', paddingRight: '45px' } : { width: '100%' }"
+          class="tw-mt-6"
+        >
+          Simpan dan Lanjutkan
+        </el-button>
       </div>
     </el-form>
   </div>
