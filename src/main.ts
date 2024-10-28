@@ -19,6 +19,7 @@ import {
   IoCalendar,
   IoCaretDownSharp,
   MdArrowdropdownRound,
+  MdClose,
   MdFileuploadOutlined,
   MdLogout,
   MdMenuRound,
@@ -49,7 +50,8 @@ addIcons(
   MdFileuploadOutlined,
   IoCalendar,
   IoCaretDownSharp,
-  MdLogout
+  MdLogout,
+  MdClose
 )
 
 const app = createApp(App)

@@ -21,6 +21,7 @@ const dialogOTP = ref(false)
 const dialogFundingAgreement = ref(false)
 const dialogFundingSuccessful = ref(false)
 const isLoadingCheckOffering = ref(false)
+const isLoadingCheckOfferingInsurance = ref(false)
 const approvalId = ref('')
 const transactionId = ref('')
 const otpCode = ref('')
@@ -37,6 +38,8 @@ const isAgree = ref(false)
 // Queries
 const { mutate: mutateOffering } = useOffering.getOffering()
 const { mutate: submitOffering } = useOffering.postOfferingApproval()
+const { mutate: submitOfferingInsurance } = useOffering.postOfferingApprovalInsurance()
+const { mutate: cancelOffering } = useOffering.postCancelOfferingApproval()
 const { mutate: checkOffering } = useOffering.getOfferringCheck()
 const { mutate: OTPRequest, isPending: IsLoadingOTPRequest } = useOffering.postSigningOTPRequest()
 const { mutate: OTPValidate, isPending: IsLoadingOTPValidate } =
@@ -160,34 +163,49 @@ const handleSelection = (newSelection: any[]) => {
   offeringIds.value = newSelection.map((it) => it.id)
 }
 
-const handleClickFunding = () => {
-  isLoadingCheckOffering.value = true
-  submitOffering(
-    { offeringIds: offeringIds.value },
-    {
-      onSuccess: () => {
-        checkOffering()
-
-        // Start interval to check the offering status
-        const intervalId = setInterval(() => {
-          checkOffering(undefined, {
-            onSuccess: (res) => {
-              if (res.isReady) {
-                dialogFundingConfirm.value = true
-                isLoadingCheckOffering.value = false
-                approvalId.value = res.approvalId
-                mutateOffering(params)
-                clearInterval(intervalId)
-              }
-            }
-          })
-        }, 5000)
-      },
-      onError: () => {
-        isLoadingCheckOffering.value = false
+const handleSuccessFunding = () => {
+  checkOffering()
+  // Start interval to check the offering status
+  const intervalId = setInterval(() => {
+    checkOffering(undefined, {
+      onSuccess: (res) => {
+        if (res.isReady) {
+          dialogFundingConfirm.value = true
+          isLoadingCheckOffering.value = false
+          isLoadingCheckOfferingInsurance.value = false
+          approvalId.value = res.approvalId
+          mutateOffering(params)
+          clearInterval(intervalId)
+        }
       }
-    }
-  )
+    })
+  }, 5000)
+}
+
+const handleClickFunding = (type: 'default' | 'insurance') => {
+  if (type === 'default') {
+    isLoadingCheckOffering.value = true
+    submitOffering(
+      { offeringIds: offeringIds.value },
+      {
+        onSuccess: handleSuccessFunding,
+        onError: () => {
+          isLoadingCheckOffering.value = false
+        }
+      }
+    )
+  } else {
+    isLoadingCheckOfferingInsurance.value = true
+    submitOfferingInsurance(
+      { offeringIds: offeringIds.value },
+      {
+        onSuccess: handleSuccessFunding,
+        onError: () => {
+          isLoadingCheckOfferingInsurance.value = false
+        }
+      }
+    )
+  }
 }
 
 const handleFundNow = () => {
@@ -203,8 +221,8 @@ const handleSubmitAgreement = () => {
   }
   OTPRequest(payload, {
     onSuccess: (res) => {
-      dialogFundingConfirm.value = false
-      dialogFundingAgreement.value = true
+      dialogFundingAgreement.value = false
+      dialogOTP.value = true
       transactionId.value = res.transactionId
     }
   })
@@ -225,6 +243,15 @@ const handleSubmitOTP = () => {
 
 const handleOpenPDF = () => {
   window.open(sourcePdf.value)
+}
+
+const handleCancelOffering = () => {
+  dialogFundingConfirm.value = false
+  dialogFundingAgreement.value = false
+  dialogOTP.value = false
+  cancelOffering(undefined, {
+    onSuccess: () => mutateOffering(params)
+  })
 }
 
 const tableRowClassName = ({ row }: { row: any }) => {
@@ -267,11 +294,17 @@ const tableRowClassName = ({ row }: { row: any }) => {
           size="large"
           class="tw-w-full md:tw-w-max"
           :loading="isLoadingCheckOffering"
-          @click="handleClickFunding"
+          @click="handleClickFunding('default')"
         >
           PENDANAAN
         </el-button>
-        <el-button type="success" size="large" class="tw-w-full md:tw-w-max">
+        <el-button
+          type="success"
+          size="large"
+          class="tw-w-full md:tw-w-max"
+          :loading="isLoadingCheckOfferingInsurance"
+          @click="handleClickFunding('insurance')"
+        >
           PENDANAAN (ASURANSI)
         </el-button>
       </div>
@@ -350,7 +383,7 @@ const tableRowClassName = ({ row }: { row: any }) => {
         >
           DANAI SEKARANG
         </el-button>
-        <el-button size="large" @click="dialogFundingConfirm = false">BATAL</el-button>
+        <el-button size="large" @click="handleCancelOffering">BATAL</el-button>
       </div>
     </template>
   </el-dialog>
@@ -430,7 +463,7 @@ const tableRowClassName = ({ row }: { row: any }) => {
           >
             TANDATANGANI KONTRAK
           </el-button>
-          <el-button size="large" @click="dialogFundingConfirm = false">BATAL</el-button>
+          <el-button size="large" @click="handleCancelOffering">BATAL</el-button>
         </div>
 
         <div class="tw-flex tw-gap-2 tw-items-center tw-text-neutral-1/[.87]">
@@ -470,12 +503,12 @@ const tableRowClassName = ({ row }: { row: any }) => {
           size="large"
           type="primary"
           :loading="IsLoadingOTPValidate"
-          :disabled="otpCode.length !== 6"
+          :disabled="!otpCode"
           @click="handleSubmitOTP"
         >
           Selanjutnya
         </el-button>
-        <el-button size="large" @click="dialogOTP = false">BATAL</el-button>
+        <el-button size="large" @click="handleCancelOffering">BATAL</el-button>
       </div>
     </template>
   </el-dialog>

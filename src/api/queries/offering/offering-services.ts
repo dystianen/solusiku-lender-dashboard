@@ -13,6 +13,14 @@ const offeringServices = {
     const { data: offering } = await api.post(`${LENDER_API}/offering/approval`, payload)
     return offering.data
   },
+  async offeringApprovalInsurance(payload?: { offeringIds: string[] }) {
+    const { data: offering } = await api.post(`${LENDER_API}/offering/approval/insurance`, payload)
+    return offering.data
+  },
+  async cancelOfferingApproval() {
+    const { data: offering } = await api.post(`${LENDER_API}/offering/approval/cancel`)
+    return offering.data
+  },
   async offeringCheck() {
     const { data: offering } = await api.get(`${LENDER_API}/offering/check`)
     return offering.data

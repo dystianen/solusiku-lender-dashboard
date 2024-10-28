@@ -12,6 +12,16 @@ const useOffering = {
       mutationFn: offeringServices.offeringApproval
     })
   },
+  postOfferingApprovalInsurance() {
+    return useMutation({
+      mutationFn: offeringServices.offeringApprovalInsurance
+    })
+  },
+  postCancelOfferingApproval() {
+    return useMutation({
+      mutationFn: offeringServices.cancelOfferingApproval
+    })
+  },
   getOfferringCheck() {
     return useMutation({
       mutationFn: offeringServices.offeringCheck

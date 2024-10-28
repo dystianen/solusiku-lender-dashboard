@@ -25,20 +25,28 @@ const isOnline = useOnlineStatus()
 const { data: fundingCheck, refetch } = useRegistration.getFundingCheck()
 
 const isSidebarOpen = ref(isOpen.value)
-const openMenuIndex = ref<number | null>(null)
+const openMenuIndex = reactive<{
+  parent: number | null
+  children: { [key: number]: number | null } // Allow numeric indexing for children
+}>({
+  parent: null,
+  children: {} // Initialize as an empty object
+})
 
 const toggleSidbarMenu = () => {
   isSidebarOpen.value = !isSidebarOpen.value
 }
 
-const toggleMenu = (index: number) => {
-  if (openMenuIndex.value === index) {
-    openMenuIndex.value = null // Close the menu if it's already open
-  } else {
-    openMenuIndex.value = index // Open the clicked menu
+const toggleMenu = (parentIndex: number, path: string, hasChildren?: boolean) => {
+  if (path && !isDesktop.value) {
+    isSidebarOpen.value = false
+  }
+
+  if (hasChildren) {
+    // Toggle hanya untuk menu yang memiliki anak
+    openMenuIndex.parent = openMenuIndex.parent === parentIndex ? null : parentIndex
   }
 }
-
 const showAllMenu = computed(() => fundingCheck.value?.status === 'completed')
 
 const menu = reactive([
@@ -143,11 +151,14 @@ watch(isOpen, (newVal) => {
   <div class="tw-flex tw-h-screen tw-overflow-y-hidden tw-bg-white">
     <!-- Sidebar -->
     <aside
-      class="tw-fixed tw-z-10 tw-flex tw-h-screen tw-w-[340px] tw-flex-shrink-0 tw-transform tw-flex-col tw-overflow-hidden tw-bg-white tw-p-4 tw-shadow-lg tw-transition-all lg:tw-static lg:tw-z-auto lg:tw-shadow-none"
+      class="tw-fixed tw-z-20 tw-flex tw-h-screen tw-w-full tw-mt-20 lg:tw-mt-4 md:tw-w-[340px] tw-flex-shrink-0 tw-transform tw-flex-col tw-bg-white tw-px-4 tw-shadow-lg tw-transition-all lg:tw-static lg:tw-z-auto lg:tw-shadow-none"
       :class="{ '-tw-translate-x-full lg:tw-w-40 lg:tw-translate-x-0': !isSidebarOpen }"
     >
       <!-- sidebar header -->
-      <div class="tw-flex tw-w-full tw-flex-shrink-0 tw-items-center tw-justify-between tw-p-2">
+      <div
+        v-if="isDesktop"
+        class="tw-flex tw-w-full tw-flex-shrink-0 tw-items-center tw-justify-between tw-p-2 tw-z-10"
+      >
         <div class="tw-flex tw-items-center tw-gap-4">
           <img :src="LogoSolusiku" />
           <span :class="{ 'lg:tw-hidden': !isSidebarOpen }" class="tw-text-2xl tw-text-primary">
@@ -193,8 +204,30 @@ watch(isOpen, (newVal) => {
           </svg>
         </button>
       </div>
-      <nav class="tw-mt-6 tw-w-full tw-flex-1 tw-overflow-hidden hover:tw-overflow-y-auto">
-        <ul class="tw-flex tw-w-full tw-flex-col tw-gap-6 tw-overflow-hidden tw-p-2">
+      <nav class="tw-mt-6 tw-w-full tw-flex-1">
+        <div v-if="!isDesktop">
+          <div class="tw-flex tw-gap-2 tw-ml-3">
+            <el-badge
+              is-dot
+              type="primary"
+              :offset="[-8, 35]"
+              :color="isOnline ? '#72E128' : '#de4f3f'"
+            >
+              <el-avatar :size="40" :src="Avatar" />
+            </el-badge>
+            <div class="tw-flex-tw-flex-col">
+              <h5 class="tw-text-neutral-1/[.87]">John Doe</h5>
+              <p class="tw-text-neutral-1/[.38] tw-text-xs">
+                {{ isOnline ? 'Online' : 'Offline' }}
+              </p>
+            </div>
+          </div>
+          <el-divider style="margin: 16px 0" />
+        </div>
+
+        <ul
+          class="tw-flex tw-w-full tw-flex-col tw-gap-6 tw-overflow-y-auto lg:tw-overflow-hidden tw-p-2 tw-pb-10 tw-max-h-[500px] md:tw-max-h-full"
+        >
           <li v-for="(item, i) in menu" :key="i" class="tw-w-full">
             <div>
               <component
@@ -203,32 +236,39 @@ watch(isOpen, (newVal) => {
                 v-bind="item.path ? { to: item.path } : {}"
                 class="tw-flex tw-cursor-pointer tw-items-center tw-space-x-2 tw-rounded-md tw-p-2 tw-text-neutral-desc"
                 :class="[isSidebarOpen ? 'tw-w-full' : 'tw-w-max']"
-                @click="toggleMenu(i)"
+                @click="toggleMenu(i, item.path, !!item.children)"
               >
                 <img
                   v-if="item.icon"
                   :src="isActiveMenu(item.path) ? item.activeIcon : item.icon"
                   class="tw-fill-white tw-stroke-white"
                 />
-                <span :class="{ 'lg:tw-hidden': !isSidebarOpen }" class="tw-truncate tw-text-base">
+                <span
+                  :class="{ 'lg:tw-hidden': !isSidebarOpen }"
+                  class="tw-truncate tw-text-sm lg:tw-text-base"
+                >
                   {{ item.label }}
                 </span>
                 <span v-if="item.children" :class="{ 'lg:tw-hidden': !isSidebarOpen }">
                   <v-icon
-                    :name="openMenuIndex === i ? 'fa-chevron-up' : 'fa-chevron-down'"
+                    :name="openMenuIndex.parent === i ? 'fa-chevron-up' : 'fa-chevron-down'"
                     color="grey"
                   />
                 </span>
               </component>
 
-              <!-- Children menu -->
+              <!-- Menu Anak -->
               <div v-if="item.isShow">
-                <ul v-if="item.children && openMenuIndex === i" class="tw-ml-2 tw-mt-2 tw-w-full">
+                <ul
+                  v-if="item.children && openMenuIndex.parent === i"
+                  class="tw-ml-2 tw-mt-2 tw-w-full"
+                >
                   <li v-for="(child, j) in item.children" :key="j">
                     <RouterLink
                       :to="child.path"
-                      class="tw-flex tw-w-full tw-items-center tw-truncate tw-rounded-md tw-p-2 tw-text-base tw-text-neutral-desc"
+                      class="tw-flex tw-w-full tw-items-center tw-truncate tw-rounded-md tw-p-2 tw-text-sm lg:tw-text-base tw-text-neutral-desc"
                       :class="{ 'lg:tw-hidden': !isSidebarOpen }"
+                      @click="toggleMenu(i, child.path)"
                     >
                       <span class="tw-mr-2 tw-text-2xl">•</span> {{ child.label }}
                     </RouterLink>
@@ -237,13 +277,23 @@ watch(isOpen, (newVal) => {
               </div>
             </div>
           </li>
+
+          <div v-if="!isDesktop">
+            <el-divider style="margin: 0 0 24px" />
+            <li
+              class="tw-ml-3 tw-text-neutral-desc tw-cursor-pointer"
+              @click.prevent="handleLogout"
+            >
+              <v-icon name="md-logout" class="tw-mr-1" /> Keluar
+            </li>
+          </div>
         </ul>
       </nav>
     </aside>
 
     <div class="tw-flex tw-h-full tw-flex-1 tw-flex-col tw-overflow-hidden">
       <!-- Navbar -->
-      <header class="tw-h-20 tw-flex-shrink-0 tw-p-6 lg:tw-pr-4">
+      <header class="tw-h-20 tw-flex-shrink-0 tw-p-6 lg:tw-pr-4 tw-border-b lg:tw-border-b-0">
         <div class="tw-hidden tw-h-full tw-items-center tw-justify-between lg:tw-flex">
           <!-- Desktop search box -->
           <div
@@ -309,7 +359,7 @@ watch(isOpen, (newVal) => {
           </div>
 
           <button @click="toggleSidbarMenu()">
-            <v-icon name="md-menu-round" :scale="1.5" />
+            <v-icon :name="isSidebarOpen ? 'md-close' : 'md-menu-round'" :scale="1.5" />
           </button>
         </div>
       </header>
