@@ -59,7 +59,7 @@ const goToNextPage = () => {
 
 <template>
   <div
-    class="tw-mt-4 tw-flex tw-w-full tw-items-center tw-justify-end tw-gap-6 tw-text-neutral-1/[.68]"
+    class="tw-mt-4 tw-flex tw-flex-col md:tw-flex-row tw-w-full tw-items-center tw-justify-end tw-gap-6 tw-text-neutral-1/[.68]"
   >
     <!-- Rows Per Page Dropdown -->
     <div class="tw-flex tw-items-center tw-gap-4">
@@ -83,19 +83,21 @@ const goToNextPage = () => {
       </el-dropdown>
     </div>
 
-    <!-- Page Info -->
-    <div>
-      <p>{{ startRow }}-{{ endRow }} dari {{ totalData }}</p>
-    </div>
+    <div class="tw-flex tw-items-center tw-gap-6">
+      <!-- Page Info -->
+      <div>
+        <p>{{ startRow }}-{{ endRow }} dari {{ totalData }}</p>
+      </div>
 
-    <!-- Pagination Controls -->
-    <div>
-      <el-button link plain :disabled="currentPage === 1" @click="goToPrevPage">
-        <v-icon name="fa-chevron-left" />
-      </el-button>
-      <el-button link plain :disabled="currentPage >= totalPages" @click="goToNextPage">
-        <v-icon name="fa-chevron-right" />
-      </el-button>
+      <!-- Pagination Controls -->
+      <div class="tw-flex tw-gap-6">
+        <el-button link plain :disabled="currentPage === 1" @click="goToPrevPage">
+          <v-icon name="fa-chevron-left" />
+        </el-button>
+        <el-button link plain :disabled="currentPage >= totalPages" @click="goToNextPage">
+          <v-icon name="fa-chevron-right" />
+        </el-button>
+      </div>
     </div>
   </div>
 </template>
