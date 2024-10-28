@@ -170,7 +170,14 @@ const transformSlotProps = (props: Record<string, number>): Record<string, strin
       </p>
     </template>
 
-    <el-button round type="primary" size="large" style="width: 100%" @click="handleSubmitOTP()">
+    <el-button
+      round
+      type="primary"
+      size="large"
+      style="width: 100%"
+      :disabled="otpCode.length !== 6"
+      @click="handleSubmitOTP()"
+    >
       Konfirmasi
     </el-button>
   </VerificationLayout>

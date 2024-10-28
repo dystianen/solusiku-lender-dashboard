@@ -171,6 +171,7 @@ watch(userType, (value) => {
       status-icon
       :model="form"
       :rules="rules"
+      @keydown.enter="submitForm(ruleFormRef)"
     >
       <h5 class="tw-font-semibold">Daftar Sebagai</h5>
       <el-form-item prop="userTypeId">

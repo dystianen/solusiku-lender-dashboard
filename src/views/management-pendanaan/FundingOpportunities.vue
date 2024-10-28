@@ -6,7 +6,7 @@ import SelectField from '@/components/atoms/select/SelectField.vue'
 import useScreenType from '@/composables/useScreenType'
 import filters from '@/helpers/filters'
 import { useDebounce } from '@vueuse/core'
-import { dayjs, ElMessage, ElTable } from 'element-plus'
+import { dayjs, ElTable } from 'element-plus'
 import { computed, onMounted, reactive, ref, watch } from 'vue'
 import VuePdfEmbed from 'vue-pdf-embed'
 const { isMobile } = useScreenType()
@@ -193,10 +193,6 @@ const handleFundNow = () => {
 }
 
 const handleSubmitAgreement = () => {
-  if (!isAgree.value) {
-    ElMessage.error('Silakan setujui persyaratan terlebih dahulu!')
-    return
-  }
   const payload = {
     isAgree: isAgree.value,
     approvalId: approvalId.value
