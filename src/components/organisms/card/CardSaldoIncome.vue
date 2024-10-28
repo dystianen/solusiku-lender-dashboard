@@ -41,7 +41,7 @@ const chartOptions = {
     </div>
 
     <div class="tw-mt-6 tw-flex tw-w-full tw-flex-grow tw-flex-col tw-gap-4 md:tw-flex-row">
-      <div class="tw-flex tw-flex-col tw-gap-20">
+      <div class="tw-flex tw-flex-col tw-gap-4 md:tw-gap-20">
         <div class="tw-flex tw-flex-col tw-gap-2">
           <p class="tw-text-neutral-1/[.68]">Bulan ini</p>
           <h3 class="tw-truncate tw-text-2xl tw-font-semibold">
