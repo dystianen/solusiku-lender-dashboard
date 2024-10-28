@@ -51,7 +51,7 @@ const params = reactive({
 })
 
 const search = computed(() => params.search)
-const debouncedSearch = useDebounce(search, 500)
+const debouncedSearch = useDebounce(search, 300)
 
 const sourceAgreementPDF = ref([])
 const sourceLoanPDF = ref([])
@@ -243,12 +243,22 @@ const tableRowClassName = ({ row }: { row: any }) => {
       <el-button size="large" class="tw-w-full md:tw-w-max" v-show="!isMobile">
         <v-icon name="md-fileupload-outlined" class="tw-mr-2" />Export
       </el-button>
-      <InputField v-model="params.search" placeholder="Search Borrower" v-show="isMobile" />
+      <InputField
+        clearable
+        v-model="params.search"
+        placeholder="Search Borrower"
+        v-show="isMobile"
+      />
 
       <div
         class="tw-flex tw-w-full tw-flex-col tw-items-center tw-gap-4 md:tw-w-max md:tw-flex-row"
       >
-        <InputField v-model="params.search" placeholder="Search Borrower" v-show="!isMobile" />
+        <InputField
+          clearable
+          v-model="params.search"
+          placeholder="Search Borrower"
+          v-show="!isMobile"
+        />
         <el-button size="large" class="tw-w-full md:tw-w-max" v-show="isMobile">
           <v-icon name="md-fileupload-outlined" class="tw-mr-2" />Export
         </el-button>
