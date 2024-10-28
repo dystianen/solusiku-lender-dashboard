@@ -281,10 +281,10 @@ watch(isOpen, (newVal) => {
           <div v-if="!isDesktop">
             <el-divider style="margin: 0 0 24px" />
             <li
-              class="tw-ml-3 tw-text-neutral-desc tw-cursor-pointer"
+              class="tw-ml-3 tw-text-neutral-desc tw-cursor-pointer tw-flex tw-gap-1 tw-items-center"
               @click.prevent="handleLogout"
             >
-              <v-icon name="md-logout" class="tw-mr-1" /> Keluar
+              <v-icon name="md-logout" :scale="1.2" /> Keluar
             </li>
           </div>
         </ul>
