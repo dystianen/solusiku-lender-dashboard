@@ -67,6 +67,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
       status-icon
       :model="form"
       :rules="rules"
+      @keydown.enter="submitForm(ruleFormRef)"
     >
       <el-form-item prop="email">
         <InputField
