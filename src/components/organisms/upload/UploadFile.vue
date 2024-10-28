@@ -133,19 +133,27 @@ const handleSubmit = () => {
       <p class="tw-mt-4">File di Unggah</p>
       <div class="tw-flex tw-flex-col tw-gap-2">
         <div v-for="(item, i) in document" :key="i">
-          <CardFile :id="item.id" :name="item.name" :file-size="item.fileSize" />
+          <CardFile
+            :id="item.id"
+            :name="item.name"
+            :file-size="item.fileSize"
+            :file-type="fileType"
+          />
         </div>
       </div>
     </template>
 
     <template #footer>
-      <div class="tw-flex tw-gap-4">
-        <el-button round size="large" style="width: 100%" @click="dialogVisible = false">
-          Batalkan
-        </el-button>
-        <el-button round type="primary" size="large" style="width: 100%" @click="handleSubmit">
+      <div class="tw-flex tw-justify-center tw-gap-4">
+        <el-button
+          type="primary"
+          size="large"
+          :disabled="document?.length === 0"
+          @click="handleSubmit"
+        >
           Simpan
         </el-button>
+        <el-button size="large" @click="dialogVisible = false"> Batalkan </el-button>
       </div>
     </template>
   </el-dialog>
