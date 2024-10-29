@@ -127,22 +127,22 @@ const router = createRouter({
           component: FundingOpportunities
         },
         {
-          path: '/funding-history',
+          path: 'funding-history',
           name: 'funding-history',
           component: FundingHistory
         },
         {
-          path: '/payment-history',
+          path: 'payment-history',
           name: 'payment-history',
           component: PaymentHistory
         },
         {
-          path: '/restructuring',
+          path: 'restructuring',
           name: 'restructuring',
           component: Restructuring
         },
         {
-          path: '/delete-book-wo',
+          path: 'delete-book-wo',
           name: 'delete-book-wo',
           component: DeleteBookWO
         }
