@@ -332,7 +332,7 @@ const tableRowClassName = ({ row }: { row: any }) => {
           <p>{{ dayjs(scope.row.createdOn).format('DD MMMM YYYY') }}</p>
         </template>
       </el-table-column>
-      <el-table-column property="applicationId" label="NO. Pengajuan" :width="190" />
+      <el-table-column property="applicationId" label="NO. PENGAJUAN" :width="190" />
       <el-table-column property="riskLevel" label="TINGKAT RESIKO" :width="175" />
       <el-table-column label="NILAI PINJAMAN" :width="175">
         <template #default="scope">

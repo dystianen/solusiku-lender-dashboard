@@ -294,15 +294,7 @@ watch(isOpen, (newVal) => {
     <div class="tw-flex tw-h-full tw-flex-1 tw-flex-col tw-overflow-hidden">
       <!-- Navbar -->
       <header class="tw-h-20 tw-flex-shrink-0 tw-p-6 lg:tw-pr-4 tw-border-b lg:tw-border-b-0">
-        <div class="tw-hidden tw-h-full tw-items-center tw-justify-between lg:tw-flex">
-          <!-- Desktop search box -->
-          <div
-            class="tw-hidden tw-items-center tw-pb-2 focus-within:tw-border-b focus-within:tw-border-primary md:tw-flex md:tw-gap-2"
-          >
-            <v-icon name="md-search" :scale="1.2" color="grey" />
-            <input placeholder="Search (Ctrl+/)" class="focus:tw-outline-none" />
-          </div>
-
+        <div class="tw-hidden tw-h-full tw-items-center tw-justify-end lg:tw-flex">
           <div class="tw-hidden tw-items-center tw-gap-4 md:tw-flex">
             <div class="tw-flex-tw-flex-col tw-text-right">
               <h5 class="tw-text-neutral-1/[.87]">John Doe</h5>
@@ -365,8 +357,22 @@ watch(isOpen, (newVal) => {
       </header>
 
       <!-- Main content -->
-      <main class="tw-max-h-full tw-flex-1 tw-overflow-hidden tw-overflow-y-scroll tw-p-5">
-        <slot />
+      <main class="tw-flex-1 tw-overflow-y-auto tw-flex tw-flex-col tw-justify-between tw-p-5">
+        <div>
+          <slot />
+        </div>
+        <footer class="tw-pt-6 tw-flex tw-justify-between tw-font-normal">
+          <p class="tw-text-neutral-1/[.68]">
+            &copy; 2024, Sistem Manajemen Pendanaan - PT. Anugerah Digital Indonesia.
+          </p>
+
+          <div class="tw-flex tw-gap-4 tw-pl-8 tw-text-primary tw-text-base">
+            <router-link to="license">License</router-link>
+            <router-link to="more-themes">More Themes</router-link>
+            <router-link to="documentation">Documentation</router-link>
+            <router-link to="support">Support</router-link>
+          </div>
+        </footer>
       </main>
     </div>
   </div>
