@@ -373,12 +373,16 @@ onMounted(() => {
         <div>
           <slot />
         </div>
-        <footer class="tw-pt-6 tw-flex tw-justify-between tw-font-normal">
-          <p class="tw-text-neutral-1/[.68]">
+        <footer
+          class="tw-pt-6 tw-flex tw-flex-col tw-truncate md:tw-flex-row tw-justify-between tw-items-center tw-font-normal tw-text-center"
+        >
+          <p class="tw-text-neutral-1/[.68] tw-text-xs md:tw-text-sm">
             &copy; 2024, Sistem Manajemen Pendanaan - PT. Anugerah Digital Indonesia.
           </p>
 
-          <div class="tw-flex tw-gap-4 tw-pl-8 tw-text-primary tw-text-base">
+          <div
+            class="tw-flex tw-justify-center tw-gap-4 md:tw-pl-8 tw-text-primary tw-text-xs md:tw-text-base"
+          >
             <router-link to="license">License</router-link>
             <router-link to="more-themes">More Themes</router-link>
             <router-link to="documentation">Documentation</router-link>
