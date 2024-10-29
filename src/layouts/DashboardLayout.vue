@@ -12,7 +12,7 @@ import LogoSolusiku from '@/assets/images/logo_solusiku.svg'
 import useOnlineStatus from '@/composables/useOnlineStatus'
 import useScreenType from '@/composables/useScreenType'
 import { removeAccessToken } from '@/cookies/accessToken'
-import { computed, onBeforeUnmount, reactive, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
@@ -144,6 +144,18 @@ onBeforeUnmount(() => {
 
 watch(isOpen, (newVal) => {
   isSidebarOpen.value = newVal
+})
+
+onMounted(() => {
+  const currentMenuItem = menu.find(
+    (item) => item.children && item.children.some((child) => child.path === route.path)
+  )
+
+  if (currentMenuItem) {
+    // If it matches, open the parent menu
+    const parentIndex = menu.indexOf(currentMenuItem)
+    openMenuIndex.parent = parentIndex
+  }
 })
 </script>
 
