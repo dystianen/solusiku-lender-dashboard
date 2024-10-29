@@ -33,7 +33,7 @@ const openMenuIndex = reactive<{
   children: {} // Initialize as an empty object
 })
 
-const toggleSidbarMenu = () => {
+const toggleSidebarMenu = () => {
   isSidebarOpen.value = !isSidebarOpen.value
 }
 
@@ -64,23 +64,23 @@ const menu = reactive([
     isShow: showAllMenu,
     children: [
       {
-        path: '/funding-opportunities',
+        path: '/funding-management/funding-opportunities',
         label: 'Peluang Pendanaan'
       },
       {
-        path: '/funding-history',
+        path: '/funding-management/funding-history',
         label: 'Riwayat Pendanaan'
       },
       {
-        path: '/payment-history',
+        path: '/funding-management/payment-history',
         label: 'Riwayat Pembayaran'
       },
       {
-        path: '/restructuring',
+        path: '/funding-management/restructuring',
         label: 'Restrukturisasi'
       },
       {
-        path: '/delete-book-wo',
+        path: '/funding-management/delete-book-wo',
         label: 'Hapus Buku (WO)'
       }
     ]
@@ -168,7 +168,7 @@ watch(isOpen, (newVal) => {
 
         <button
           class="tw-hidden tw-rounded-md tw-p-2 focus:tw-outline-none focus:tw-ring lg:tw-block"
-          @click="toggleSidbarMenu()"
+          @click="toggleSidebarMenu()"
         >
           <svg
             class="tw-h-4 tw-w-4 tw-text-gray-600"
@@ -187,7 +187,7 @@ watch(isOpen, (newVal) => {
           </svg>
         </button>
 
-        <button class="tw-rounded-md lg:tw-hidden" @click="toggleSidbarMenu()">
+        <button class="tw-rounded-md lg:tw-hidden" @click="toggleSidebarMenu()">
           <svg
             class="tw-h-6 tw-w-6 tw-text-gray-600"
             xmlns="http://www.w3.org/2000/svg"
@@ -350,7 +350,7 @@ watch(isOpen, (newVal) => {
             </span>
           </div>
 
-          <button @click="toggleSidbarMenu()">
+          <button @click="toggleSidebarMenu()">
             <v-icon :name="isSidebarOpen ? 'md-close' : 'md-menu-round'" :scale="1.5" />
           </button>
         </div>

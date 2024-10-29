@@ -1,4 +1,5 @@
 import RegistrationFundingIndividual from '@/components/pages/registration/RegistrationFundingIndividual.vue'
+import RegistrationFundingInstitution from '@/components/pages/registration/RegistrationFundingInstitution.vue'
 import { accessToken } from '@/cookies/accessToken'
 import { BaseLayout, DashboardLayout } from '@/layouts/layouts'
 import AccountSetting from '@/views/AccountSetting.vue'
@@ -7,11 +8,11 @@ import LoginView from '@/views/LoginView.vue'
 import Notification from '@/views/Notification.vue'
 import OtpView from '@/views/OtpView.vue'
 import ProfileLender from '@/views/ProfileLender.vue'
-import DeleteBookWO from '@/views/management-pendanaan/DeleteBookWO.vue'
-import FundingHistory from '@/views/management-pendanaan/FundingHistory.vue'
-import FundingOpportunities from '@/views/management-pendanaan/FundingOpportunities.vue'
-import PaymentHistory from '@/views/management-pendanaan/PaymentHistory.vue'
-import Restructuring from '@/views/management-pendanaan/Restructuring.vue'
+import DeleteBookWO from '@/views/funding-management/DeleteBookWO.vue'
+import FundingHistory from '@/views/funding-management/FundingHistory.vue'
+import FundingOpportunities from '@/views/funding-management/FundingOpportunities.vue'
+import PaymentHistory from '@/views/funding-management/PaymentHistory.vue'
+import Restructuring from '@/views/funding-management/Restructuring.vue'
 import ChangePassword from '@/views/password/ChangePassword.vue'
 import ForgotPassword from '@/views/password/ForgotPassword.vue'
 import SuccessUpdatePassword from '@/views/password/SuccessUpdatePassword.vue'
@@ -113,49 +114,39 @@ const router = createRouter({
       component: DashboardView
     },
     {
-      path: '/funding-opportunities',
-      name: 'funding-opportunities',
+      path: '/funding-management',
+      name: 'funding-management',
       meta: {
         layout: DashboardLayout,
         requiresAuth: true
       },
-      component: FundingOpportunities
-    },
-    {
-      path: '/funding-history',
-      name: 'funding-history',
-      meta: {
-        layout: DashboardLayout,
-        requiresAuth: true
-      },
-      component: FundingHistory
-    },
-    {
-      path: '/payment-history',
-      name: 'payment-history',
-      meta: {
-        layout: DashboardLayout,
-        requiresAuth: true
-      },
-      component: PaymentHistory
-    },
-    {
-      path: '/restructuring',
-      name: 'restructuring',
-      meta: {
-        layout: DashboardLayout,
-        requiresAuth: true
-      },
-      component: Restructuring
-    },
-    {
-      path: '/delete-book-wo',
-      name: 'delete-book-wo',
-      meta: {
-        layout: DashboardLayout,
-        requiresAuth: true
-      },
-      component: DeleteBookWO
+      children: [
+        {
+          path: 'funding-opportunities',
+          name: 'funding-opportunities',
+          component: FundingOpportunities
+        },
+        {
+          path: '/funding-history',
+          name: 'funding-history',
+          component: FundingHistory
+        },
+        {
+          path: '/payment-history',
+          name: 'payment-history',
+          component: PaymentHistory
+        },
+        {
+          path: '/restructuring',
+          name: 'restructuring',
+          component: Restructuring
+        },
+        {
+          path: '/delete-book-wo',
+          name: 'delete-book-wo',
+          component: DeleteBookWO
+        }
+      ]
     },
     {
       path: '/profile-lender',
@@ -192,6 +183,15 @@ const router = createRouter({
         requiresAuth: true
       },
       component: RegistrationFundingIndividual
+    },
+    {
+      path: '/register-funding-institution',
+      name: 'register-funding-institution',
+      meta: {
+        layout: DashboardLayout,
+        requiresAuth: true
+      },
+      component: RegistrationFundingInstitution
     }
   ]
 })

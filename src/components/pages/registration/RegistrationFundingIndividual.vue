@@ -52,110 +52,108 @@ const form = reactive({
   postalCode: ''
 })
 
+const validateIdCard = (rule: any, value: any, callback: any) => {
+  if (value === '') {
+    callback(new Error('Nomor KTP harus diisi'))
+  } else if (value.replace(/\s/g, '').length !== 16) {
+    callback(new Error('Nomor KTP harus 16 digit'))
+  }
+}
 const rules = reactive<FormRules<TReqRegisterIndividual>>({
-  idCardNumber: [
-    {
-      required: true,
-      message: 'Nomor KTP harus diisi',
-      trigger: 'change'
-    }
-  ],
+  idCardNumber: [{ validator: validateIdCard, trigger: 'blur' }],
   taxNumber: [
-    {
-      required: true,
-      message: 'Nomor NPWP harus diisi',
-      trigger: 'change'
-    }
+    { required: true, message: 'Nomor NPWP harus diisi', trigger: 'blur' },
+    { min: 16, message: 'Nomor NPWP harus 16 digit', trigger: 'blur' }
   ],
   genderId: [
     {
       required: true,
       message: 'Jenis Kelamin harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   birthPlace: [
     {
       required: true,
       message: 'Tampat Lahir harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   birthDate: [
     {
       required: true,
       message: 'Tanggal Lahir harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   provinceId: [
     {
       required: true,
       message: 'Provinsi harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   cityId: [
     {
       required: true,
       message: 'Kota harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   districtId: [
     {
       required: true,
       message: 'Kecamatan harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   subDistrictId: [
     {
       required: true,
       message: 'Kelurahan harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   address: [
     {
       required: true,
       message: 'Alamat Lengkap harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   postalCode: [
     {
       required: true,
       message: 'Kode POS harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   sourceOfFoundId: [
     {
       required: true,
       message: 'Sumber dana harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   monthlyIncomeId: [
     {
       required: true,
       message: 'Penghasilan Perbulan harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   bankId: [
     {
       required: true,
       message: 'Nama Rekening Bank harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   bankAccountNumber: [
     {
       required: true,
       message: 'Nomor Rekening harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ]
 })
@@ -317,7 +315,7 @@ watch(
           <el-form-item prop="taxNumber" class="tw-col-span-2">
             <InputField
               v-model="form.taxNumber"
-              v-maska="'###############'"
+              v-maska="'################'"
               label="No. NPWP"
               placeholder="Cth: 2941XXXXX"
             />

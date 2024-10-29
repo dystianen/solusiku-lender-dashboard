@@ -30,6 +30,18 @@ const form = reactive<TReqRegister>({
   isAgree: false
 })
 
+const validatePhoneNumber = (rule: any, value: any, callback: any) => {
+  const validValue = `0${value.replace(/\s/g, '')}`
+  console.log('🚀 ~ validatePhoneNumber ~ validValue:', validValue, validValue.length)
+  if (value === '') {
+    callback(new Error('No. Hp/Telepon harus diisi'))
+  } else if (validValue.length < 7 || validValue.length > 13) {
+    callback(new Error('No. Hp/Telepon tidak valid'))
+  } else {
+    callback()
+  }
+}
+
 const validatePassword = (rule: any, value: any, callback: any) => {
   if (!value) {
     callback(new Error('Kata Sandi harus diisi'))
@@ -79,7 +91,7 @@ const rules = reactive<FormRules<TReqRegister>>({
     {
       required: true,
       message: 'Nama Lengkap Sesuai KTP harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   email: [
@@ -94,24 +106,18 @@ const rules = reactive<FormRules<TReqRegister>>({
       trigger: 'blur'
     }
   ],
-  phone: [
-    {
-      required: true,
-      message: 'No. Hp/Telepon harus diisi',
-      trigger: 'blur'
-    }
-  ],
+  phone: [{ validator: validatePhoneNumber, trigger: 'blur' }],
   password: [
     {
       required: true,
-      trigger: ['blur', 'change'],
+      trigger: 'blur',
       validator: validatePassword
     }
   ],
   confirmPassword: [
     {
       required: true,
-      trigger: ['blur', 'change'],
+      trigger: 'blur',
       validator: validateConfirmPassword
     }
   ],
@@ -211,7 +217,7 @@ watch(userType, (value) => {
       <el-form-item prop="phone">
         <InputField
           v-model="form.phone"
-          v-maska="'### #### #### ####'"
+          v-maska="'#### #### ####'"
           label="No. Hp/Telepon"
           placeholder="8128 1234 5678"
         >

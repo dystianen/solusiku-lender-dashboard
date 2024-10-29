@@ -61,152 +61,151 @@ const form = reactive<TReqRegisterInstitution>({
   postalCode: ''
 })
 
+const validateIdCard = (rule: any, value: any, callback: any) => {
+  if (value === '') {
+    callback(new Error('Nomor KTP Koresponden harus diisi'))
+  } else if (value.replace(/\s/g, '').length !== 16) {
+    callback(new Error('Nomor KTP Koresponden harus 16 digit'))
+  }
+}
+
 const rules = reactive<FormRules<TReqRegisterInstitution>>({
   companyName: [
     {
       required: true,
       message: 'Nama Perusahaan harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   legalEntityId: [
     {
       required: true,
       message: 'Bentuk Badan Hukum harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   businessFieldId: [
     {
       required: true,
       message: 'Bidang Usaha harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   businessLicenseId: [
     {
       required: true,
       message: 'Izin Usaha harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   businessLicenseNumber: [
     {
       required: true,
       message: 'Nomor SIUP harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   deedNumber: [
     {
       required: true,
       message: 'No. Akta Pendirian harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
-  idCardNumber: [
-    {
-      required: true,
-      message: 'No. KTP Koresponden harus diisi',
-      trigger: 'change'
-    }
-  ],
+  idCardNumber: [{ validator: validateIdCard, trigger: 'blur' }],
   taxNumber: [
-    {
-      required: true,
-      message: 'No. NPWP Perusahaa harus diisi',
-      trigger: 'change'
-    }
+    { required: true, message: 'No. NPWP Perusahaan harus diisi', trigger: 'blur' },
+    { min: 16, message: 'Nomor NPWP Perusahaan harus 16 digit', trigger: 'blur' }
   ],
   birthPlace: [
     {
       required: true,
       message: 'Tempat Lahir harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   birthDate: [
     {
       required: true,
       message: 'Tanggal Lahir harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   provinceId: [
     {
       required: true,
       message: 'Provinsi harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   cityId: [
     {
       required: true,
       message: 'Kota harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   districtId: [
     {
       required: true,
       message: 'Kecamatan harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   subDistrictId: [
     {
       required: true,
       message: 'Kelurahan harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   companyAddress: [
     {
       required: true,
       message: 'Alamat Perusahaan harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   address: [
     {
       required: true,
       message: 'Alamat Koresponden harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   postalCode: [
     {
       required: true,
       message: 'Kode POS harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   sourceOfFoundId: [
     {
       required: true,
       message: 'Sumber Dana harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   monthlyIncomeId: [
     {
       required: true,
       message: 'Penghasilan Perbulan harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   bankId: [
     {
       required: true,
       message: 'Nama Rekening Bank harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ],
   bankAccountNumber: [
     {
       required: true,
       message: 'No. Rekening harus diisi',
-      trigger: 'change'
+      trigger: 'blur'
     }
   ]
 })
@@ -456,7 +455,7 @@ watch(
           <el-form-item prop="taxNumber" class="tw-col-span-6">
             <InputField
               v-model="form.taxNumber"
-              v-maska="'###############'"
+              v-maska="'################'"
               label="No. NPWP Perusahaan"
               placeholder="Cth: 2941XXXXX"
             />

@@ -52,10 +52,7 @@ const summary = [
         <CardPrincipalLoan class="tw-col-span-4 lg:tw-col-span-2" />
       </div>
 
-      <Card>
-        <h3 class="tw-text-xl tw-text-neutral-1/[.87]">Riwayat Pendanaan</h3>
-        <TableHistoryFunding />
-      </Card>
+      <TableFundingHistory :withTitle="true" />
     </div>
   </template>
   <template v-if="fundingCheck?.status === 'registered'">
