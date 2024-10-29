@@ -49,7 +49,7 @@ const { mutate: loanAgreement } = useOffering.getDocumentLoanAgreement()
 
 const params = reactive({
   search: '',
-  length: 5,
+  length: 10,
   start: 1
 })
 
