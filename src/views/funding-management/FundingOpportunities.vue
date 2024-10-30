@@ -37,8 +37,9 @@ const isAgree = ref(false)
 
 // Queries
 const { mutate: mutateOffering } = useOffering.getOffering()
-const { mutate: submitOffering } = useOffering.postOfferingApproval()
-const { mutate: submitOfferingInsurance } = useOffering.postOfferingApprovalInsurance()
+const { mutate: submitOffering, isPending: isLoadingOffering } = useOffering.postOfferingApproval()
+const { mutate: submitOfferingInsurance, isPending: isLoadingOfferingInsurance } =
+  useOffering.postOfferingApprovalInsurance()
 const { mutate: cancelOffering } = useOffering.postCancelOfferingApproval()
 const { mutate: checkOffering } = useOffering.getOfferringCheck()
 const { mutate: OTPRequest, isPending: IsLoadingOTPRequest } = useOffering.postSigningOTPRequest()
@@ -89,6 +90,9 @@ const handleLoanAgreement = () => {
       totalDocs.value = res.docs.length
       currentDoc.value = 1
       setSourcePdf()
+    },
+    onError: (res: any) => {
+      ElMessage.error(res.data.error)
     }
   })
 }
@@ -189,7 +193,8 @@ const handleClickFunding = (type: 'default' | 'insurance') => {
       { offeringIds: offeringIds.value },
       {
         onSuccess: handleSuccessFunding,
-        onError: () => {
+        onError: (res: any) => {
+          ElMessage.error(res.data.error)
           isLoadingCheckOffering.value = false
         }
       }
@@ -303,6 +308,7 @@ const tableRowClassName = ({ row }: { row: any }) => {
           size="large"
           class="tw-w-full md:tw-w-max"
           :loading="isLoadingCheckOffering"
+          :disabled="isLoadingOfferingInsurance"
           @click="handleClickFunding('default')"
         >
           PENDANAAN
@@ -312,6 +318,7 @@ const tableRowClassName = ({ row }: { row: any }) => {
           size="large"
           class="tw-w-full md:tw-w-max"
           :loading="isLoadingCheckOfferingInsurance"
+          :disabled="isLoadingOffering"
           @click="handleClickFunding('insurance')"
         >
           PENDANAAN (ASURANSI)
