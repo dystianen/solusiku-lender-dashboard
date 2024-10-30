@@ -5,6 +5,7 @@ import IcFile from '@/assets/icons/ic_file.svg'
 import type { FileType } from '@/types/general'
 import type { TDocument } from '@/types/master'
 import { useQueryClient } from '@tanstack/vue-query'
+import { ElMessage } from 'element-plus'
 import type { PropType } from 'vue'
 const queryClient = useQueryClient()
 
@@ -39,6 +40,9 @@ const handleDelete = (id: string) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['DOCUMENT'] })
       queryClient.invalidateQueries({ queryKey: ['DOCUMENT_TYPE', { fileType: props.fileType }] })
+    },
+    onError: (res: any) => {
+      ElMessage.error(res.data.error)
     }
   })
 }

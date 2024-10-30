@@ -103,7 +103,7 @@ const handleTimeoutOtp = () => {
 
 const startCountdown = () => {
   isSend.value = true
-  const countdownTime = 180000
+  const countdownTime = 60000
   timer.value = countdownTime
   setTimerCookies(countdownTime)
 }

@@ -2,7 +2,7 @@ import { useCookies } from 'vue3-cookies'
 const { cookies } = useCookies()
 
 // Function to set a timer cookie
-export const setTimerCookies = (value: number = 180000): void => {
+export const setTimerCookies = (value: number = 60000): void => {
   const expires = new Date(new Date().getTime() + value)
   cookies.set('timer', value.toString(), expires)
 }

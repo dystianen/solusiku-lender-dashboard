@@ -7,6 +7,7 @@ import { computed, ref, type PropType } from 'vue'
 import { useDropzone } from 'vue3-dropzone'
 
 import { useQueryClient } from '@tanstack/vue-query'
+import { ElMessage } from 'element-plus'
 const queryClient = useQueryClient()
 
 const emit = defineEmits(['update:modelValue'])
@@ -62,6 +63,9 @@ function onDrop(acceptFiles: File[]) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['DOCUMENT'] })
       queryClient.invalidateQueries({ queryKey: ['DOCUMENT_TYPE', { fileType: props.fileType }] })
+    },
+    onError: (res: any) => {
+      ElMessage.error(res.data.error)
     }
   })
 }
@@ -124,7 +128,7 @@ const handleSubmit = () => {
         </h5>
         <p class="tw-text-[13px] tw-text-neutral-desc">
           Format yang disarankan zip, pdf, jpg dan png. <br />
-          (Maks.20mb)
+          (Maks.2mb)
         </p>
       </div>
     </div>
