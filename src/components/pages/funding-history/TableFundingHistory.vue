@@ -1,5 +1,8 @@
 <script lang="ts" setup>
+import useScreenType from '@/composables/useScreenType'
 import { reactive } from 'vue'
+
+const { isMobile } = useScreenType()
 
 defineProps({
   withTitle: {
@@ -75,16 +78,37 @@ const tableData = [
 <template>
   <Card>
     <h3 v-if="withTitle" class="tw-text-xl tw-text-neutral-1/[.87]">Riwayat Pendanaan</h3>
-    <div :class="`tw-mb-6 ${withTitle ? 'tw-mt-6' : ''} tw-flex tw-justify-between`">
-      <el-button size="large">
-        <v-icon name="md-fileupload-outlined" class="tw-mr-2" />
-        EXPORT
+    <div
+      :class="`tw-mb-6 ${withTitle ? 'tw-mt-6' : ''} tw-flex tw-flex-col tw-items-center tw-justify-between tw-gap-4 md:tw-flex-row`"
+    >
+      <el-button size="large" class="tw-w-full md:tw-w-max" v-show="!isMobile">
+        <v-icon name="md-fileupload-outlined" class="tw-mr-2" />Export
       </el-button>
+      <InputField
+        clearable
+        v-model="params.search"
+        placeholder="Cari produk, status"
+        v-show="isMobile"
+      />
 
-      <div class="tw-flex tw-gap-4">
-        <InputField placeholder="Cari produk, status" class="!tw-w-max" />
-        <el-button type="primary" size="large">HAPUS BUKU (WO)</el-button>
-        <el-button type="success" size="large">RESTRUKTURISASI</el-button>
+      <div
+        class="tw-flex tw-w-full tw-flex-col tw-items-center tw-gap-4 md:tw-w-max md:tw-flex-row"
+      >
+        <InputField
+          clearable
+          v-model="params.search"
+          placeholder="Cari produk, status"
+          v-show="!isMobile"
+        />
+        <el-button size="large" class="tw-w-full md:tw-w-max" v-show="isMobile">
+          <v-icon name="md-fileupload-outlined" class="tw-mr-2" />Export
+        </el-button>
+        <el-button type="primary" class="tw-w-full md:tw-w-max" size="large"
+          >HAPUS BUKU (WO)</el-button
+        >
+        <el-button type="success" class="tw-w-full md:tw-w-max" size="large"
+          >RESTRUKTURISASI</el-button
+        >
       </div>
     </div>
 

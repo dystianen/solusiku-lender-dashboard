@@ -8,6 +8,15 @@ body {
   font-weight: 500;
 }
 
+div,
+input,
+textarea,
+button,
+select,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
 img,
 video {
   max-width: 100%;
