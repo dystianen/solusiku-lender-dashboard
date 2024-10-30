@@ -1,6 +1,5 @@
 import { ref } from 'vue'
 import { useCookies } from 'vue3-cookies'
-
 const { cookies } = useCookies()
 
 const token = cookies.get('access-token')

@@ -1,4 +1,5 @@
 import { accessToken } from '@/cookies/accessToken'
+import { verificationToken } from '@/cookies/verificationToken'
 import axios, { AxiosError, type AxiosInstance, type AxiosResponse } from 'axios'
 
 const api = axios.create({
@@ -15,8 +16,9 @@ const api = axios.create({
 const addAuthInterceptor = (instance: AxiosInstance) => {
   instance.interceptors.request.use(
     (config) => {
-      if (accessToken) {
-        config.headers.Authorization = `Bearer ${accessToken.value}`
+      if (accessToken.value || verificationToken.value) {
+        const token = accessToken.value ?? verificationToken.value
+        config.headers.Authorization = `Bearer ${token}`
       }
       return config
     },

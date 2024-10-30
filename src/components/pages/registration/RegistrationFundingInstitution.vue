@@ -248,7 +248,7 @@ const fieldFile: { key: FileType; label: string; desc?: string }[] = [
   },
   {
     key: 'keuangan-perusahaan-inhouse',
-    label: 'Laporan Keuangan Perusahaan InHouse'
+    label: 'Unggah Laporan Keuangan Perusahaan InHouse'
   },
   {
     key: 'bukti-penghasilan',
@@ -333,6 +333,8 @@ watch(
   (value) => {
     if (value) {
       form.cityId = ''
+      form.districtId = ''
+      form.subDistrictId = ''
       city(
         { id: value },
         {
@@ -349,6 +351,7 @@ watch(
   (value) => {
     if (value) {
       form.districtId = ''
+      form.subDistrictId = ''
       district(
         { id: value },
         {

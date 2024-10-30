@@ -4,8 +4,8 @@ import useVerification from '@/api/queries/verification/useVerification'
 import IcFlagIDN from '@/assets/icons/ic_flag_idn.svg'
 import InputField from '@/components/atoms/input/InputField.vue'
 import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
-import { setAccessToken } from '@/cookies/accessToken'
 import { setTimerCookies } from '@/cookies/timer'
+import { setVerificationToken } from '@/cookies/verificationToken'
 import useEmailStore from '@/stores/email'
 import type { TReqRegister } from '@/types/verification'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
@@ -146,7 +146,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
       submitRegister(payload, {
         onSuccess: (res) => {
           setTimerCookies()
-          setAccessToken(res.token)
+          setVerificationToken(res.token)
           emailStore.setEmail(form.email)
           router.push({ name: 'register-otp' })
         },

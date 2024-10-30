@@ -113,7 +113,7 @@ const handleSubmit = () => {
 
   <el-dialog v-model="dialogVisible" class="!tw-w-[590px] !tw-rounded-2xl">
     <template #header>
-      <h3 class="tw-text-xl tw-font-semibold tw-text-primary">Unggah {{ props.label }}</h3>
+      <h3 class="tw-text-xl tw-font-semibold tw-text-primary">{{ props.label }}</h3>
     </template>
     <span>Unggah File</span>
     <div

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import useVerification from '@/api/queries/verification/useVerification'
 import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
-import { accessToken } from '@/cookies/accessToken'
+import { verificationToken } from '@/cookies/verificationToken'
 import validatorPassword from '@/helpers/password'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import { reactive, ref, watch } from 'vue'
@@ -38,7 +38,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     if (valid) {
       const payload = {
         ...form,
-        token: accessToken.value
+        token: verificationToken.value
       }
       submitChangePassword(payload, {
         onSuccess: () => {

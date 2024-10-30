@@ -234,6 +234,8 @@ watch(
   (value) => {
     if (value) {
       form.cityId = ''
+      form.districtId = ''
+      form.subDistrictId = ''
       city(
         { id: value },
         {
@@ -250,6 +252,7 @@ watch(
   (value) => {
     if (value) {
       form.districtId = ''
+      form.subDistrictId = ''
       district(
         { id: value },
         {

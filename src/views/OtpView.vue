@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import useVerification from '@/api/queries/verification/useVerification'
 import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
-import { accessToken, setAccessToken } from '@/cookies/accessToken'
 import { getTimerCookies, removeTimerCookies, setTimerCookies } from '@/cookies/timer'
+import { setVerificationToken, verificationToken } from '@/cookies/verificationToken'
 import useEmailStore from '@/stores/email'
 import { ElMessage } from 'element-plus'
 import { computed, ref, watch } from 'vue'
@@ -36,7 +36,7 @@ const { mutate: resendOTPForgotPassword } = useVerification.postResendForgotPass
 
 const handleSubmitOTP = () => {
   const payload = {
-    token: accessToken.value,
+    token: verificationToken.value,
     otpCode: otpCode.value
   }
 
@@ -44,7 +44,7 @@ const handleSubmitOTP = () => {
     submitOTPForgotPassword(payload, {
       onSuccess: (res) => {
         removeTimerCookies()
-        setAccessToken(res.token)
+        setVerificationToken(res.token)
         router.push({ name: 'change-password' })
       },
       onError: (res: any) => {
@@ -55,7 +55,7 @@ const handleSubmitOTP = () => {
     submitOTPRegister(payload, {
       onSuccess: (res) => {
         removeTimerCookies()
-        setAccessToken(res.token)
+        setVerificationToken(res.token)
         router.push({ name: 'login' })
       },
       onError: (res: any) => {
@@ -71,7 +71,7 @@ const handleOnComplete = (value: string) => {
 
 const handleResendOtp = () => {
   if (isForgotPassword) {
-    resendOTPForgotPassword(accessToken.value, {
+    resendOTPForgotPassword(verificationToken.value, {
       onSuccess: () => {
         isSend.value = true
         startCountdown()
@@ -81,7 +81,7 @@ const handleResendOtp = () => {
       }
     })
   } else {
-    resendOTPRegister(accessToken.value, {
+    resendOTPRegister(verificationToken.value, {
       onSuccess: () => {
         isSend.value = true
         startCountdown()
