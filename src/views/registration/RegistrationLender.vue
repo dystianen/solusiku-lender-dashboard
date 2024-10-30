@@ -164,7 +164,7 @@ watch(userType, (value) => {
 
 <template>
   <VerificationLayout>
-    <h1 class="tw-text-4xl tw-font-semibold">Registrasi Akun Lender</h1>
+    <h1 class="tw-text-3xl md:tw-text-4xl tw-font-semibold">Registrasi Akun Lender</h1>
     <p class="tw-text-neutral-desc">
       Mohon lengkapi informasi dibawah ini dengan <br />
       baik dan benar.

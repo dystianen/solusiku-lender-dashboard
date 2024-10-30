@@ -48,7 +48,7 @@ const handleRedirect = () => {
         v-for="(item, i) in typeUser"
         :key="i"
         :class="[
-          'tw-flex tw-max-w-[155px] tw-flex-col tw-items-center tw-justify-center tw-gap-6 tw-rounded-2xl tw-px-10 tw-py-8 tw-shadow-soft-red md:tw-max-w-[240px]',
+          'tw-flex tw-max-w-[155px] tw-flex-col tw-items-center tw-justify-center tw-gap-6 tw-rounded-2xl md:tw-px-10 tw-py-4 md:tw-py-8 tw-shadow-soft-red md:tw-max-w-[240px]',
           selectedType === item.key ? 'tw-border-2 tw-border-primary' : ''
         ]"
         @click="handleSelectedType(item.key)"
