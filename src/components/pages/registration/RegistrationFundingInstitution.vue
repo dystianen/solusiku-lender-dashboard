@@ -66,6 +66,8 @@ const validateIdCard = (rule: any, value: any, callback: any) => {
     callback(new Error('Nomor KTP Koresponden harus diisi'))
   } else if (value.replace(/\s/g, '').length !== 16) {
     callback(new Error('Nomor KTP Koresponden harus 16 digit'))
+  } else {
+    callback()
   }
 }
 
@@ -330,6 +332,7 @@ watch(
   () => form.provinceId,
   (value) => {
     if (value) {
+      form.cityId = ''
       city(
         { id: value },
         {
@@ -345,6 +348,7 @@ watch(
   () => form.cityId,
   (value) => {
     if (value) {
+      form.districtId = ''
       district(
         { id: value },
         {
@@ -360,6 +364,7 @@ watch(
   () => form.districtId,
   (value) => {
     if (value) {
+      form.subDistrictId = ''
       subDistrict(
         { id: value },
         {
