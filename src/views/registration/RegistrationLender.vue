@@ -173,7 +173,7 @@ watch(userType, (value) => {
     <el-form
       ref="ruleFormRef"
       label-width="auto"
-      class="tw-flex tw-flex-col tw-gap-4"
+      class="tw-flex tw-flex-col tw-gap-4 tw-w-full"
       status-icon
       :model="form"
       :rules="rules"
