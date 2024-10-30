@@ -6,7 +6,7 @@ import SelectField from '@/components/atoms/select/SelectField.vue'
 import useScreenType from '@/composables/useScreenType'
 import filters from '@/helpers/filters'
 import { useDebounce } from '@vueuse/core'
-import { dayjs, ElTable } from 'element-plus'
+import { dayjs, ElMessage, ElTable } from 'element-plus'
 import { computed, onMounted, reactive, ref, watch } from 'vue'
 import VuePdfEmbed from 'vue-pdf-embed'
 const { isMobile } = useScreenType()
@@ -224,6 +224,9 @@ const handleSubmitAgreement = () => {
       dialogFundingAgreement.value = false
       dialogOTP.value = true
       transactionId.value = res.transactionId
+    },
+    onError: (res: any) => {
+      ElMessage.error(res.data.error)
     }
   })
 }
@@ -237,6 +240,9 @@ const handleSubmitOTP = () => {
     onSuccess: () => {
       dialogOTP.value = false
       dialogFundingSuccessful.value = true
+    },
+    onError: (res: any) => {
+      ElMessage.error(res.data.error)
     }
   })
 }
@@ -250,7 +256,10 @@ const handleCancelOffering = () => {
   dialogFundingAgreement.value = false
   dialogOTP.value = false
   cancelOffering(undefined, {
-    onSuccess: () => mutateOffering(params)
+    onSuccess: () => mutateOffering(params),
+    onError: (res: any) => {
+      ElMessage.error(res.data.error)
+    }
   })
 }
 
