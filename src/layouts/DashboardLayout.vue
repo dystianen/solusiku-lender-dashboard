@@ -238,7 +238,7 @@ onMounted(() => {
         </div>
 
         <ul
-          class="tw-flex tw-w-full tw-flex-col tw-gap-6 tw-overflow-y-auto lg:tw-overflow-hidden tw-p-2 tw-pb-10 tw-max-h-[500px] md:tw-max-h-full"
+          class="tw-flex tw-w-full tw-flex-col tw-gap-6 tw-overflow-y-auto lg:tw-overflow-hidden tw-p-2 tw-pb-10 tw-max-h-[700px] md:tw-max-h-full"
         >
           <li v-for="(item, i) in menu" :key="i" class="tw-w-full">
             <div>
