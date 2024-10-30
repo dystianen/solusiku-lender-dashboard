@@ -8,7 +8,7 @@ const props = defineProps({
   },
   initialRowsPerPage: {
     type: Number,
-    default: 5
+    default: 10
   },
   rowsPerPageOptions: {
     type: Array<number>,
