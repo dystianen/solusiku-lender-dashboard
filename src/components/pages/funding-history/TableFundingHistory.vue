@@ -83,8 +83,8 @@ const tableData = [
 
       <div class="tw-flex tw-gap-4">
         <InputField placeholder="Cari produk, status" class="!tw-w-max" />
-        <el-button type="primary" size="large">HAPUS BUKU (WO)</el-button>
-        <el-button type="success" size="large">RESTRUKTURISASI</el-button>
+        <el-button size="large" class="outline" plain>HAPUS BUKU (WO)</el-button>
+        <el-button type="primary" size="large">RESTRUKTURISASI</el-button>
       </div>
     </div>
 

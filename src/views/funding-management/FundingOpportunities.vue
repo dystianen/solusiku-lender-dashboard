@@ -270,12 +270,7 @@ const tableRowClassName = ({ row }: { row: any }) => {
       <el-button size="large" class="tw-w-full md:tw-w-max" v-show="!isMobile">
         <v-icon name="md-fileupload-outlined" class="tw-mr-2" />Export
       </el-button>
-      <InputField
-        clearable
-        v-model="params.search"
-        placeholder="Search Borrower"
-        v-show="isMobile"
-      />
+      <InputField clearable v-model="params.search" placeholder="Cari Peminjam" v-show="isMobile" />
 
       <div
         class="tw-flex tw-w-full tw-flex-col tw-items-center tw-gap-4 md:tw-w-max md:tw-flex-row"
@@ -283,7 +278,7 @@ const tableRowClassName = ({ row }: { row: any }) => {
         <InputField
           clearable
           v-model="params.search"
-          placeholder="Search Borrower"
+          placeholder="Cari Peminjam"
           v-show="!isMobile"
         />
         <el-button size="large" class="tw-w-full md:tw-w-max" v-show="isMobile">

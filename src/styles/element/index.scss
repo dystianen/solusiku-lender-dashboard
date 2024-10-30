@@ -27,15 +27,16 @@ $--colors: (
 // You should use them in scss, because we calculate it by sass.
 // comment next lines to use default color
 @forward 'element-plus/theme-chalk/src/common/var.scss' with (
-  // do not use same name, it will override.
-  $colors: $--colors,
-  $border-radius: ('base': 8px),
-  $radio-button: (
-    'checked-bg-color': rgba(222, 79, 63, 0.15),
-    'checked-border-color': rgba(222, 79, 63, 0.5),
-    'checked-text-color': #de4f3f
-  )
-);
+    // do not use same name, it will override.
+    $colors: $--colors,
+    $border-radius: ('base': 8px),
+    $radio-button: (
+      'checked-bg-color': rgba(222, 79, 63, 0.15),
+      'checked-border-color': rgba(222, 79, 63, 0.5),
+      'checked-text-color': #de4f3f
+    ),
+    // $button: ('border-color': '#de4f3f', 'text-color': '#de4f3f')
+  );
 
 @use 'element-plus/theme-chalk/src/message.scss';
 @use 'element-plus/theme-chalk/src/notification.scss';
