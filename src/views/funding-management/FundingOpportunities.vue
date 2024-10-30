@@ -187,6 +187,10 @@ const handleSuccessFunding = () => {
 }
 
 const handleClickFunding = (type: 'default' | 'insurance') => {
+  if (offeringIds.value.length === 0) {
+    ElMessage.error('Please, crosscheck the data')
+    return
+  }
   if (type === 'default') {
     isLoadingCheckOffering.value = true
     submitOffering(

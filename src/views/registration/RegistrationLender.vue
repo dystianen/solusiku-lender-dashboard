@@ -84,6 +84,7 @@ const validateCheckbox = (rule: any, value: any, callback: any) => {
   if (value === false) {
     callback(new Error('Harap centang kotak persetujuan untuk melanjutkan'))
   }
+  callback()
 }
 
 const rules = reactive<FormRules<TReqRegister>>({
@@ -140,7 +141,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     if (valid) {
       const payload = {
         ...form,
-        phone: `+62${form.phone}`
+        phone: `+62${form.phone.replace(/\s/g, '')}`
       }
       submitRegister(payload, {
         onSuccess: (res) => {

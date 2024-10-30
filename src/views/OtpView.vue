@@ -56,7 +56,7 @@ const handleSubmitOTP = () => {
       onSuccess: (res) => {
         removeTimerCookies()
         setAccessToken(res.token)
-        router.push({ name: 'register-funding-personal' })
+        router.push({ name: 'login' })
       },
       onError: (res: any) => {
         ElMessage.error(res.data.error)
@@ -75,6 +75,9 @@ const handleResendOtp = () => {
       onSuccess: () => {
         isSend.value = true
         startCountdown()
+      },
+      onError: (res: any) => {
+        ElMessage.error(res.data.error)
       }
     })
   } else {
@@ -82,6 +85,9 @@ const handleResendOtp = () => {
       onSuccess: () => {
         isSend.value = true
         startCountdown()
+      },
+      onError: (res: any) => {
+        ElMessage.error(res.data.error)
       }
     })
   }
