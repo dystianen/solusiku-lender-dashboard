@@ -65,7 +65,7 @@ const rules = reactive<FormRules<TReqRegisterIndividual>>({
   idCardNumber: [{ validator: validateIdCard, trigger: 'blur' }],
   taxNumber: [
     { required: true, message: 'Nomor NPWP harus diisi', trigger: 'blur' },
-    { min: 16, message: 'Nomor NPWP harus 16 digit', trigger: 'blur' }
+    { min: 15, max: 16, message: 'Nomor NPWP harus 15-16 digit', trigger: 'blur' }
   ],
   genderId: [
     {
