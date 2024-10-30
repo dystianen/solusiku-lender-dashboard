@@ -49,7 +49,7 @@ const { mutate: loanAgreement } = useOffering.getDocumentLoanAgreement()
 
 const params = reactive({
   search: '',
-  length: 5,
+  length: 10,
   start: 1
 })
 
@@ -252,6 +252,11 @@ const handleCancelOffering = () => {
   cancelOffering(undefined, {
     onSuccess: () => mutateOffering(params)
   })
+}
+
+const handleClosePopup = () => {
+  dialogFundingSuccessful.value = false
+  mutateOffering(params)
 }
 
 const tableRowClassName = ({ row }: { row: any }) => {
@@ -530,9 +535,7 @@ const tableRowClassName = ({ row }: { row: any }) => {
     </div>
     <template #footer>
       <div class="tw-dialog-footer">
-        <el-button size="large" type="primary" @click="dialogFundingSuccessful = false">
-          TUTUP
-        </el-button>
+        <el-button size="large" type="primary" @click="handleClosePopup"> TUTUP </el-button>
       </div>
     </template>
   </el-dialog>
