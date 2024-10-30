@@ -2,7 +2,7 @@ import { accessToken } from '@/cookies/accessToken'
 import axios, { AxiosError, type AxiosInstance, type AxiosResponse } from 'axios'
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_APP_API_BASE_URL,
+  baseURL: import.meta.env.VITE_APP_API_BASE_URL || 'https://api-v2-test.solusi-ku.id',
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json'
