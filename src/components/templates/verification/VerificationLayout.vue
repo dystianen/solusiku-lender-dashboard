@@ -13,10 +13,12 @@ const { isDesktop } = useScreenType()
     <ReasonRightSection v-if="isDesktop" />
 
     <div
-      class="tw-relative tw-flex tw-h-screen tw-flex-col tw-items-center tw-justify-between tw-gap-4 tw-overflow-x-auto tw-p-8 tw-text-left tw-max-w-full"
+      class="tw-relative tw-flex tw-h-screen tw-flex-col tw-items-center tw-justify-between tw-gap-4 tw-overflow-x-auto tw-p-8 tw-text-left"
     >
       <div class="tw-relative tw-mt-8">
-        <div class="tw-flex tw-max-w-[512px] tw-flex-col tw-items-start tw-justify-center tw-gap-6">
+        <div
+          class="tw-flex tw-max-w-full lg:tw-max-w-[512px] tw-flex-col tw-items-start tw-justify-center tw-gap-6"
+        >
           <slot />
         </div>
       </div>
