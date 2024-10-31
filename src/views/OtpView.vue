@@ -72,8 +72,9 @@ const handleOnComplete = (value: string) => {
 const handleResendOtp = () => {
   if (isForgotPassword) {
     resendOTPForgotPassword(verificationToken.value, {
-      onSuccess: () => {
+      onSuccess: (res) => {
         isSend.value = true
+        setVerificationToken(res.token)
         startCountdown()
       },
       onError: (res: any) => {
@@ -82,7 +83,8 @@ const handleResendOtp = () => {
     })
   } else {
     resendOTPRegister(verificationToken.value, {
-      onSuccess: () => {
+      onSuccess: (res) => {
+        setVerificationToken(res.token)
         isSend.value = true
         startCountdown()
       },
