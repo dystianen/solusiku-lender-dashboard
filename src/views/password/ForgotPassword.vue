@@ -1,12 +1,14 @@
 <script lang="ts" setup>
 import useVerification from '@/api/queries/verification/useVerification'
 import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
+import useScreenType from '@/composables/useScreenType'
 import { setTimerCookies } from '@/cookies/timer'
 import { setVerificationToken } from '@/cookies/verificationToken'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import { reactive, ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 const router = useRouter()
+const { isMobile } = useScreenType()
 
 // Queries
 const { mutate: submitForgotPassword, isPending } = useVerification.postForgotPassword()
@@ -51,7 +53,8 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   <VerificationLayout>
     <h1 class="tw-text-4xl tw-font-semibold">Lupa Kata Sandi?</h1>
     <p class="tw-text-neutral-desc">
-      Masukkan Email/No.Telepon yang digunakan saat mendaftar untuk memulihkan kata sandi. Anda akan
+      Masukkan Email/No.Telepon yang digunakan saat <br v-if="!isMobile" />
+      mendaftar untuk memulihkan kata sandi. Anda akan <br v-if="!isMobile" />
       menerima tautan pengaturan ulang kata sandi.
     </p>
 

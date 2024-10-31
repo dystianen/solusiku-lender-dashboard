@@ -202,6 +202,17 @@ router.beforeEach((to, from, next) => {
   // Pages that cannot be accessed if logged in
   const restrictedAfterLogin = ['/login']
 
+  // Check if route exists
+  if (to.matched.length === 0) {
+    // Route not found
+    if (token) {
+      next('/dashboard') // If logged in, go to dashboard
+    } else {
+      next('/login') // If not logged in, go to login
+    }
+    return
+  }
+
   if (token) {
     if (restrictedAfterLogin.includes(to.path)) {
       next('/dashboard')
