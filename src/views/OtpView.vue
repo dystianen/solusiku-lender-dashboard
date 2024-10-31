@@ -116,7 +116,7 @@ watch(timer, (value) => {
 
 // handle not error when less then 6 character
 watch(otpCode, (value) => {
-  if (value.length < 4) {
+  if (value.length < 6) {
     hasError.value = false
     isSuccessOtp.value = false
   }
@@ -149,7 +149,7 @@ const transformSlotProps = (props: Record<string, number>): Record<string, strin
       :num-inputs="6"
       :should-auto-focus="true"
       :should-focus-order="true"
-      @on-complete="handleOnComplete"
+      @on-change="handleOnComplete"
     />
 
     <template v-if="!isSend">
