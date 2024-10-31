@@ -65,7 +65,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
       status-icon
       :model="form"
       :rules="rules"
-      @keydown.enter="submitForm(ruleFormRef)"
+      @keydown.enter.prevent="submitForm(ruleFormRef)"
     >
       <el-form-item prop="email">
         <InputField
@@ -74,18 +74,17 @@ const submitForm = async (formEl: FormInstance | undefined) => {
           placeholder="Cth: Jhondue@example.com"
         />
       </el-form-item>
-
-      <el-button
-        round
-        type="primary"
-        size="large"
-        style="width: 100%"
-        :loading="isPending"
-        @click.prevent="submitForm(ruleFormRef)"
-      >
-        Kirim Email
-      </el-button>
     </el-form>
+    <el-button
+      round
+      type="primary"
+      size="large"
+      style="width: 100%"
+      :loading="isPending"
+      @click="submitForm(ruleFormRef)"
+    >
+      Kirim Email
+    </el-button>
     <RouterLink to="login" class="tw-w-full tw-text-center tw-font-semibold tw-text-primary">
       Kembali ke Halaman Login
     </RouterLink>

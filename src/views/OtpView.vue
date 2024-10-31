@@ -150,6 +150,7 @@ const transformSlotProps = (props: Record<string, number>): Record<string, strin
       :should-auto-focus="true"
       :should-focus-order="true"
       @on-change="handleOnComplete"
+      @on-complete="handleOnComplete"
     />
 
     <template v-if="!isSend">

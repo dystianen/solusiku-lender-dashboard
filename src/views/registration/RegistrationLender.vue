@@ -32,7 +32,6 @@ const form = reactive<TReqRegister>({
 
 const validatePhoneNumber = (rule: any, value: any, callback: any) => {
   const validValue = `0${value.replace(/\s/g, '')}`
-  console.log('🚀 ~ validatePhoneNumber ~ validValue:', validValue, validValue.length)
   if (value === '') {
     callback(new Error('No. Hp/Telepon harus diisi'))
   } else if (validValue.length < 7 || validValue.length > 13) {
