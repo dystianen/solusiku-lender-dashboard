@@ -99,6 +99,10 @@ input[type='number'] {
   margin-top: 3px !important;
 }
 
+.ep-checkbox__label {
+  text-wrap-mode: wrap !important;
+}
+
 .ep-button.is-plain.outline {
   --ep-button-text-color: var(--ep-color-primary);
   --ep-button-bg-color: var(--ep-fill-color-blank);
