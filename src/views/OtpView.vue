@@ -30,9 +30,11 @@ watch(timerCookies, (newValue) => {
 
 // Queries
 const { mutate: submitOTPRegister } = useVerification.postConfirmOTPRegister()
-const { mutate: resendOTPRegister } = useVerification.postResendOTPRegister()
+const { mutate: resendOTPRegister, isPending: isLoadingResendR } =
+  useVerification.postResendOTPRegister()
 const { mutate: submitOTPForgotPassword } = useVerification.postForgotPasswordConfirmOTP()
-const { mutate: resendOTPForgotPassword } = useVerification.postResendForgotPasswordConfirmOTP()
+const { mutate: resendOTPForgotPassword, isPending: isLoadingResendFP } =
+  useVerification.postResendForgotPasswordConfirmOTP()
 
 const handleSubmitOTP = () => {
   const payload = {
@@ -158,9 +160,15 @@ const transformSlotProps = (props: Record<string, number>): Record<string, strin
     <template v-if="!isSend">
       <p class="tw-text-center">
         Tidak menerima kode verifikasi?
-        <a href="javascript:void(0)" class="tw-text-primary" @click.prevent="handleResendOtp">
+        <el-button
+          type="primary"
+          class="tw-text-primary"
+          :disabled="isLoadingResendR || isLoadingResendFP"
+          @click.prevent="handleResendOtp"
+          link
+        >
           Kirim Ulang
-        </a>
+        </el-button>
       </p>
     </template>
 
