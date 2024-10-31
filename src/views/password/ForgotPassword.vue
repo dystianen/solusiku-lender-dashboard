@@ -24,11 +24,6 @@ const rules = reactive<FormRules<RuleForm>>({
       required: true,
       message: 'Email harus diisi',
       trigger: 'change'
-    },
-    {
-      type: 'email',
-      message: 'Harap masukkan alamat email yang benar',
-      trigger: 'blur'
     }
   ]
 })
