@@ -22,7 +22,7 @@ const rules = reactive<FormRules<RuleForm>>({
   email: [
     {
       required: true,
-      message: 'Email harus diisi',
+      message: 'Email/No.Telepon harus diisi',
       trigger: 'change'
     }
   ]
