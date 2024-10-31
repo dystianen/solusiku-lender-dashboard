@@ -8,8 +8,8 @@ import { setTimerCookies } from '@/cookies/timer'
 import { setVerificationToken } from '@/cookies/verificationToken'
 import useEmailStore from '@/stores/email'
 import type { TReqRegister } from '@/types/verification'
-import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
-import { reactive, ref, watch } from 'vue'
+import { ElNotification, type FormInstance, type FormRules } from 'element-plus'
+import { h, reactive, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -150,7 +150,15 @@ const submitForm = async (formEl: FormInstance | undefined) => {
           router.push({ name: 'register-otp' })
         },
         onError: (res: any) => {
-          ElMessage.error(res.data.error)
+          const errors = Object.values(res.data.details)
+          ElNotification({
+            title: 'Errors: ',
+            message: h(
+              'ul',
+              errors.map((error) => h('li', { class: 'tw-text-danger' }, `• ${error}`))
+            ),
+            type: 'error'
+          })
         }
       })
     }
@@ -260,7 +268,7 @@ watch(userType, (value) => {
             style="align-items: start"
           >
             <template #default>
-              <p class="tw-leading-normal tw-text-wrap tw-text-neutral-desc">
+              <p class="tw-leading-normal tw-text-wrap tw-text-neutral-desc tw-w-full">
                 Dengan mendaftar, Saya menyetujui
                 <span class="tw-text-primary">Syarat dan Ketentuan </span> serta
                 <span class="tw-text-primary">Kebijakan Privasi</span> dari Solusiku.
