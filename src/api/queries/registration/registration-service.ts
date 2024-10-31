@@ -28,8 +28,12 @@ export const registationServices = {
     )
     return document.data ?? {}
   },
-  async deleteDocument(id: string) {
-    const { data: document } = await api.delete(`${LENDER_API}/document/${id}`)
+  async deleteDocument(ids: string[]) {
+    const { data: document } = await api.delete(`${LENDER_API}/document/delete`, {
+      data: {
+        ids
+      }
+    })
     return document.data ?? {}
   },
   async registerIndividual(payload: TReqRegisterIndividual) {

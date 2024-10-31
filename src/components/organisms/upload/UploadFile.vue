@@ -1,13 +1,14 @@
 <script lang="ts" setup>
 import useRegistration from '@/api/queries/registration/useRegistration'
 import IcFileSaved from '@/assets/icons/ic_file_saved.svg'
+import filters from '@/helpers/filters'
 import type { FileType } from '@/types/general'
-import type { TReqUploadDocument } from '@/types/master'
-import { computed, ref, type PropType } from 'vue'
-import { useDropzone } from 'vue3-dropzone'
-
+import type { TDocument, TReqUploadDocument } from '@/types/master'
+import generateRandomNumbers from '@/utils/random-number'
 import { useQueryClient } from '@tanstack/vue-query'
 import { ElMessage } from 'element-plus'
+import { computed, ref, watch, watchEffect, type PropType } from 'vue'
+import { useDropzone } from 'vue3-dropzone'
 const queryClient = useQueryClient()
 
 const emit = defineEmits(['update:modelValue'])
@@ -37,11 +38,50 @@ const props = defineProps({
 
 const dialogVisible = ref(false)
 
+// Query
 const { data: document } = useRegistration.getDocument(props.fileType)
 const totalDocument = computed(() => document.value?.length || 0)
 
 const { mutate: uploadDocument, isPending: isLoadingUploadDocs } =
   useRegistration.postUploadDocument()
+const { mutate: deleteDocument, isPending: isLoadingDeleteDocs } = useRegistration.deleteDocument()
+
+interface TResFile {
+  id: string
+  name: string
+  size: string
+}
+
+const documentList = ref<TResFile[]>([])
+const files = ref<File[]>([])
+const deleteIds = ref<string[]>([])
+
+const { getRootProps, getInputProps } = useDropzone({ onDrop, maxSize: 16000000 })
+
+const deleteFile = (id: string) => {
+  const index = (document.value || []).findIndex((it) => it.id === id)
+  if (index !== -1 && index !== undefined) {
+    const isUploaded = documentList.value[index]
+
+    if (isUploaded) {
+      deleteIds.value = [...deleteIds.value, id]
+      documentList.value.splice(index, 1)
+    }
+  } else {
+    documentList.value.splice(index, 1)
+  }
+}
+
+function onDrop(acceptFiles: File[]) {
+  files.value = [...acceptFiles, ...files.value]
+
+  const mappedFiles: TResFile[] = acceptFiles.map((it) => ({
+    id: generateRandomNumbers(),
+    name: it.name,
+    size: filters.formatFileSize(it.size)
+  }))
+  documentList.value = [...documentList.value, ...mappedFiles]
+}
 
 const saveFiles = (files: File[]): FormData => {
   const formData = new FormData()
@@ -53,16 +93,17 @@ const saveFiles = (files: File[]): FormData => {
   return formData
 }
 
-function onDrop(acceptFiles: File[]) {
-  const formData = saveFiles(acceptFiles)
-  const payload: TReqUploadDocument = {
-    fileType: props.fileType,
-    formData
-  }
-  uploadDocument(payload, {
+const invalidateQueriesOnce = () => {
+  queryClient.invalidateQueries({ queryKey: ['DOCUMENT'] })
+  queryClient.invalidateQueries({ queryKey: ['DOCUMENT_TYPE', { fileType: props.fileType }] })
+}
+
+const handleDelete = () => {
+  deleteDocument(deleteIds.value, {
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['DOCUMENT'] })
-      queryClient.invalidateQueries({ queryKey: ['DOCUMENT_TYPE', { fileType: props.fileType }] })
+      deleteIds.value = []
+      dialogVisible.value = false
+      invalidateQueriesOnce()
     },
     onError: (res: any) => {
       ElMessage.error(res.data.error)
@@ -70,17 +111,56 @@ function onDrop(acceptFiles: File[]) {
   })
 }
 
-const { getRootProps, getInputProps } = useDropzone({ onDrop })
+const onSave = () => {
+  if (deleteIds.value.length > 0) {
+    handleDelete()
+  }
 
-const handleSetEmit = (field: string) => {
-  const value = totalDocument.value !== 0 ? `${totalDocument.value} File Telah di Simpan` : ''
-  emit('update:modelValue', { value, field })
+  if (files.value.length > 0) {
+    const formData = saveFiles(files.value)
+    const payload: TReqUploadDocument = {
+      fileType: props.fileType,
+      formData
+    }
+    uploadDocument(payload, {
+      onSuccess: () => {
+        dialogVisible.value = false
+        files.value = []
+        invalidateQueriesOnce()
+      },
+      onError: (res: any) => {
+        ElMessage.error(res.data.error)
+      }
+    })
+  }
 }
 
-const handleSubmit = () => {
-  handleSetEmit(props.field)
+const handleSetDocumentList = (document: TDocument[]) => {
+  const files: TResFile[] = document.map((it) => ({
+    id: it.id,
+    name: it.name,
+    size: it.fileSize
+  }))
+  documentList.value = files
+}
+
+const onCancel = () => {
   dialogVisible.value = false
+  files.value = []
+  deleteIds.value = []
 }
+
+watch([dialogVisible, document], ([value, document]) => {
+  if (value && document) {
+    handleSetDocumentList(document)
+  }
+})
+
+watchEffect(() => {
+  if (document.value) {
+    handleSetDocumentList(document.value)
+  }
+})
 </script>
 
 <template>
@@ -133,15 +213,15 @@ const handleSubmit = () => {
       </div>
     </div>
 
-    <template v-if="document && document.length > 0">
+    <template v-if="documentList.length > 0">
       <p class="tw-mt-4">File di Unggah</p>
       <div class="tw-flex tw-flex-col tw-gap-2">
-        <div v-for="(item, i) in document" :key="i">
+        <div v-for="(item, i) in documentList" :key="i">
           <CardFile
-            :id="item.id"
             :name="item.name"
-            :file-size="item.fileSize"
+            :file-size="item.size"
             :file-type="fileType"
+            @onDelete="deleteFile(item.id)"
           />
         </div>
       </div>
@@ -152,12 +232,13 @@ const handleSubmit = () => {
         <el-button
           type="primary"
           size="large"
-          :disabled="document?.length === 0"
-          @click="handleSubmit"
+          :loading="isLoadingUploadDocs || isLoadingDeleteDocs"
+          :disabled="documentList.length === 0"
+          @click="onSave"
         >
           Simpan
         </el-button>
-        <el-button size="large" @click="dialogVisible = false"> Batalkan </el-button>
+        <el-button size="large" @click="onCancel"> Batalkan </el-button>
       </div>
     </template>
   </el-dialog>

@@ -1,15 +1,11 @@
 <script lang="ts" setup>
-import useRegistration from '@/api/queries/registration/useRegistration'
 import IcDelete from '@/assets/icons/ic_delete.svg'
 import IcFile from '@/assets/icons/ic_file.svg'
 import type { FileType } from '@/types/general'
 import type { TDocument } from '@/types/master'
-import { useQueryClient } from '@tanstack/vue-query'
-import { ElMessage } from 'element-plus'
 import type { PropType } from 'vue'
-const queryClient = useQueryClient()
 
-const props = defineProps({
+defineProps({
   id: {
     type: String,
     default: ''
@@ -32,20 +28,7 @@ const props = defineProps({
   }
 })
 
-// Query
-const { mutate: deleteDocument, isPending: isLoadingDeleteDoc } = useRegistration.deleteDocument()
-
-const handleDelete = (id: string) => {
-  deleteDocument(id, {
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['DOCUMENT'] })
-      queryClient.invalidateQueries({ queryKey: ['DOCUMENT_TYPE', { fileType: props.fileType }] })
-    },
-    onError: (res: any) => {
-      ElMessage.error(res.data.error)
-    }
-  })
-}
+const emit = defineEmits(['onDelete'])
 </script>
 
 <template>
@@ -59,7 +42,7 @@ const handleDelete = (id: string) => {
       </div>
     </div>
 
-    <el-button link @click="handleDelete(id)" :loading="isLoadingDeleteDoc">
+    <el-button link @click="emit('onDelete')">
       <img :src="IcDelete" alt="IcDelete" />
     </el-button>
   </div>
