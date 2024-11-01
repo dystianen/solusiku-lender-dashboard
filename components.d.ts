@@ -58,6 +58,7 @@ declare module 'vue' {
     HeaderSection: typeof import('./src/components/organisms/header/HeaderSection.vue')['default']
     HeroSection: typeof import('./src/components/organisms/hero/HeroSection.vue')['default']
     InputField: typeof import('./src/components/atoms/input/InputField.vue')['default']
+    Loader: typeof import('./src/components/atoms/Loader/Loader.vue')['default']
     LoanProcess: typeof import('./src/components/organisms/loan/LoanProcess.vue')['default']
     Pagination: typeof import('./src/components/organisms/pagination/Pagination.vue')['default']
     PartnerSection: typeof import('./src/components/organisms/partner/PartnerSection.vue')['default']

@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import useOffering from '@/api/queries/offering/useOffering'
 import IcSuccessfull from '@/assets/icons/ic_successful.svg'
-import InputField from '@/components/atoms/input/InputField.vue'
-import SelectField from '@/components/atoms/select/SelectField.vue'
 import useScreenType from '@/composables/useScreenType'
 import filters from '@/helpers/filters'
 import type { TFundingOpportunities } from '@/types/funding'
@@ -17,6 +15,7 @@ const offering = ref<{ data: TFundingOpportunities[]; totalCount: number }>({
   data: [],
   totalCount: 0
 })
+const dialogLoading = ref(false)
 const dialogFundingConfirm = ref(false)
 const dialogOTP = ref(false)
 const dialogFundingAgreement = ref(false)
@@ -175,6 +174,7 @@ const handleSuccessFunding = () => {
     checkOffering(undefined, {
       onSuccess: (res) => {
         if (res.isReady) {
+          dialogLoading.value = false
           dialogFundingConfirm.value = true
           isLoadingCheckOffering.value = false
           isLoadingCheckOfferingInsurance.value = false
@@ -192,6 +192,8 @@ const handleClickFunding = (type: 'default' | 'insurance') => {
     ElMessage.error('Please, crosscheck the data')
     return
   }
+
+  dialogLoading.value = true
   if (type === 'default') {
     isLoadingCheckOffering.value = true
     submitOffering(
@@ -201,6 +203,7 @@ const handleClickFunding = (type: 'default' | 'insurance') => {
         onError: (res: any) => {
           ElMessage.error(res.data.error)
           isLoadingCheckOffering.value = false
+          dialogLoading.value = false
         }
       }
     )
@@ -212,6 +215,7 @@ const handleClickFunding = (type: 'default' | 'insurance') => {
         onSuccess: handleSuccessFunding,
         onError: () => {
           isLoadingCheckOfferingInsurance.value = false
+          dialogLoading.value = false
         }
       }
     )
@@ -312,8 +316,7 @@ const tableRowClassName = ({ row }: { row: any }) => {
           type="primary"
           size="large"
           class="tw-w-full md:tw-w-max"
-          :loading="isLoadingCheckOffering"
-          :disabled="isLoadingOfferingInsurance"
+          :disabled="isLoadingCheckOffering || isLoadingOfferingInsurance"
           @click="handleClickFunding('default')"
         >
           PENDANAAN
@@ -322,8 +325,7 @@ const tableRowClassName = ({ row }: { row: any }) => {
           type="success"
           size="large"
           class="tw-w-full md:tw-w-max"
-          :loading="isLoadingCheckOfferingInsurance"
-          :disabled="isLoadingOffering"
+          :disabled="isLoadingCheckOfferingInsurance || isLoadingOffering"
           @click="handleClickFunding('insurance')"
         >
           PENDANAAN (ASURANSI)
@@ -380,6 +382,24 @@ const tableRowClassName = ({ row }: { row: any }) => {
       @update:currentPage="handleChangePage"
     />
   </Card>
+
+  <!-- POPUP LOADING -->
+  <el-dialog
+    v-model="dialogLoading"
+    :show-close="false"
+    :close-on-click-modal="false"
+    :close-on-press-escape="false"
+    :width="300"
+    center
+  >
+    <div class="tw-flex tw-flex-col tw-items-center tw-justify-center tw-text-center">
+      <Loader />
+      <h5 class="tw-text-neutral-2 tw-mt-4">
+        Sedang memuat tunggu <br />
+        sebentar...
+      </h5>
+    </div>
+  </el-dialog>
 
   <!-- POPUP CONFIRMATION -->
   <el-dialog
