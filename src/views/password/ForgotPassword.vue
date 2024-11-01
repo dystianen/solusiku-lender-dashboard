@@ -30,7 +30,7 @@ const rules = reactive<FormRules<RuleForm>>({
     {
       type: 'email',
       message: 'Harap masukkan alamat email yang benar',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ]
 })

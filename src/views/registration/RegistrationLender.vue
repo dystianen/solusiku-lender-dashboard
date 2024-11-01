@@ -91,40 +91,40 @@ const rules = reactive<FormRules<TReqRegister>>({
     {
       required: true,
       message: 'Nama Lengkap Sesuai KTP harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   email: [
     {
       required: true,
       message: 'Email harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     },
     {
       type: 'email',
       message: 'Harap masukkan alamat email yang benar',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
-  phone: [{ validator: validatePhoneNumber, trigger: 'blur' }],
+  phone: [{ validator: validatePhoneNumber, trigger: 'change' }],
   password: [
     {
       required: true,
-      trigger: 'blur',
+      trigger: 'change',
       validator: validatePassword
     }
   ],
   confirmPassword: [
     {
       required: true,
-      trigger: 'blur',
+      trigger: 'change',
       validator: validateConfirmPassword
     }
   ],
   isAgree: [
     {
       required: true,
-      trigger: 'blur',
+      trigger: 'change',
       validator: validateCheckbox
     }
   ]

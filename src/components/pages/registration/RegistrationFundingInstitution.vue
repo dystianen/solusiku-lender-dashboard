@@ -77,138 +77,138 @@ const rules = reactive<FormRules<TReqRegisterInstitution>>({
     {
       required: true,
       message: 'Nama Perusahaan harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   legalEntityId: [
     {
       required: true,
       message: 'Bentuk Badan Hukum harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   businessFieldId: [
     {
       required: true,
       message: 'Bidang Usaha harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   businessLicenseId: [
     {
       required: true,
       message: 'Izin Usaha harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   businessLicenseNumber: [
     {
       required: true,
       message: 'Nomor SIUP harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   deedNumber: [
     {
       required: true,
       message: 'No. Akta Pendirian harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
-  idCardNumber: [{ validator: validateIdCard, trigger: 'blur' }],
+  idCardNumber: [{ validator: validateIdCard, trigger: 'change' }],
   taxNumber: [
-    { required: true, message: 'No. NPWP Perusahaan harus diisi', trigger: 'blur' },
-    { min: 15, max: 16, message: 'Nomor NPWP harus 15-16 digit', trigger: 'blur' }
+    { required: true, message: 'No. NPWP Perusahaan harus diisi', trigger: 'change' },
+    { min: 15, max: 16, message: 'Nomor NPWP harus 15-16 digit', trigger: 'change' }
   ],
   birthPlace: [
     {
       required: true,
       message: 'Tempat Lahir harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   birthDate: [
     {
       required: true,
       message: 'Tanggal Lahir harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   provinceId: [
     {
       required: true,
       message: 'Provinsi harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   cityId: [
     {
       required: true,
       message: 'Kota harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   districtId: [
     {
       required: true,
       message: 'Kecamatan harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   subDistrictId: [
     {
       required: true,
       message: 'Kelurahan harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   companyAddress: [
     {
       required: true,
       message: 'Alamat Perusahaan harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   address: [
     {
       required: true,
       message: 'Alamat Koresponden harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   postalCode: [
     {
       required: true,
       message: 'Kode POS harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   sourceOfFoundId: [
     {
       required: true,
       message: 'Sumber Dana harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   monthlyIncomeId: [
     {
       required: true,
       message: 'Penghasilan Perbulan harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   bankId: [
     {
       required: true,
       message: 'Nama Rekening Bank harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   bankAccountNumber: [
     {
       required: true,
       message: 'No. Rekening harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ]
 })

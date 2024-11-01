@@ -63,100 +63,100 @@ const validateIdCard = (rule: any, value: any, callback: any) => {
   }
 }
 const rules = reactive<FormRules<TReqRegisterIndividual>>({
-  idCardNumber: [{ validator: validateIdCard, trigger: 'blur' }],
+  idCardNumber: [{ validator: validateIdCard, trigger: 'change' }],
   taxNumber: [
-    { required: true, message: 'Nomor NPWP harus diisi', trigger: 'blur' },
-    { min: 15, max: 16, message: 'Nomor NPWP harus 15-16 digit', trigger: 'blur' }
+    { required: true, message: 'Nomor NPWP harus diisi', trigger: 'change' },
+    { min: 15, max: 16, message: 'Nomor NPWP harus 15-16 digit', trigger: 'change' }
   ],
   genderId: [
     {
       required: true,
       message: 'Jenis Kelamin harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   birthPlace: [
     {
       required: true,
       message: 'Tampat Lahir harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   birthDate: [
     {
       required: true,
       message: 'Tanggal Lahir harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   provinceId: [
     {
       required: true,
       message: 'Provinsi harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   cityId: [
     {
       required: true,
       message: 'Kota harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   districtId: [
     {
       required: true,
       message: 'Kecamatan harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   subDistrictId: [
     {
       required: true,
       message: 'Kelurahan harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   address: [
     {
       required: true,
       message: 'Alamat Lengkap harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   postalCode: [
     {
       required: true,
       message: 'Kode POS harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   sourceOfFoundId: [
     {
       required: true,
       message: 'Sumber dana harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   monthlyIncomeId: [
     {
       required: true,
       message: 'Penghasilan Perbulan harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   bankId: [
     {
       required: true,
       message: 'Nama Rekening Bank harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ],
   bankAccountNumber: [
     {
       required: true,
       message: 'Nomor Rekening harus diisi',
-      trigger: 'blur'
+      trigger: 'change'
     }
   ]
 })

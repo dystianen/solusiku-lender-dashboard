@@ -26,7 +26,7 @@ const rules = reactive<FormRules<RuleForm>>({
   password: [
     {
       required: true,
-      trigger: 'blur',
+      trigger: 'change',
       validator: validatorPassword
     }
   ]
