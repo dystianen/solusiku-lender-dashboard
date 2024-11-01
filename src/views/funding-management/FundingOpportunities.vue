@@ -372,6 +372,7 @@ const tableRowClassName = ({ row }: { row: any }) => {
     </el-table>
 
     <Pagination
+      v-if="Number(offering.totalCount) > 0"
       :totalData="Number(offering.totalCount)"
       :current-page="params.start"
       @update:rowsPerPage="handleChangeLimit"
