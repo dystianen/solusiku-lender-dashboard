@@ -190,7 +190,7 @@ watchEffect(() => {
 
 <template>
   <div class="input-container">
-    <label :for="label" class="input-label tw-max-w-48 tw-truncate md:tw-max-w-full">
+    <label :for="label" class="input-label tw-max-w-56 md:tw-max-w-48 tw-truncate lg:tw-max-w-full">
       {{ label }} <span v-if="status" class="tw-text-neutral-subtle">({{ status }})</span>
     </label>
     <div
@@ -216,7 +216,7 @@ watchEffect(() => {
     </div>
   </div>
 
-  <el-dialog v-model="dialogVisible" class="!tw-w-[590px] !tw-rounded-2xl">
+  <el-dialog v-model="dialogVisible" class="!tw-w-11/12 md:!tw-w-[590px] !tw-rounded-2xl">
     <template #header>
       <h3 class="tw-text-xl tw-font-semibold tw-text-primary">{{ props.label }}</h3>
     </template>
