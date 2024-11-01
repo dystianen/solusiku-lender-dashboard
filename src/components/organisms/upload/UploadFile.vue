@@ -103,6 +103,7 @@ const deleteFile = (id: string) => {
       documentList.value.splice(index, 1)
     }
   } else {
+    files.value.splice(index, 1)
     documentList.value.splice(index, 1)
   }
 }
