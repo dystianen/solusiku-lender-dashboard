@@ -24,8 +24,13 @@ const rules = reactive<FormRules<RuleForm>>({
   email: [
     {
       required: true,
-      message: 'Email/No.Telepon harus diisi',
+      message: 'Email harus diisi',
       trigger: 'change'
+    },
+    {
+      type: 'email',
+      message: 'Harap masukkan alamat email yang benar',
+      trigger: 'blur'
     }
   ]
 })
@@ -68,11 +73,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
       @keydown.enter.prevent="submitForm(ruleFormRef)"
     >
       <el-form-item prop="email">
-        <InputField
-          v-model="form.email"
-          label="Email/No.Telepon"
-          placeholder="Cth: Jhondue@example.com"
-        />
+        <InputField v-model="form.email" label="Email" placeholder="Cth: Jhondue@example.com" />
       </el-form-item>
     </el-form>
     <el-button
