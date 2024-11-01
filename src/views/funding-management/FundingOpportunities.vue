@@ -18,7 +18,7 @@ const offering = ref<{ data: TFundingOpportunities[]; totalCount: number }>({
 })
 const dialogLoading = ref(false)
 const dialogFundingConfirm = ref(false)
-const dialogOTP = ref(true)
+const dialogOTP = ref(false)
 const dialogFundingAgreement = ref(false)
 const dialogFundingSuccessful = ref(false)
 const isLoadingCheckOffering = ref(false)
