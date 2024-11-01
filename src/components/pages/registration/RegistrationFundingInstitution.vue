@@ -24,7 +24,8 @@ const { data: province } = useMaster.getProvince()
 const { mutate: city } = useMaster.getCity()
 const { mutate: district } = useMaster.getDistrict()
 const { mutate: subDistrict } = useMaster.getSubDistrict()
-const { mutate: registerInstitution } = useRegistration.patchRegisterInstitution()
+const { mutate: registerInstitution, isPending: isLoadingSubmitRegister } =
+  useRegistration.patchRegisterInstitution()
 
 const optionsCity = ref<Option[]>([])
 const optionsDistrict = ref<Option[]>([])
@@ -615,6 +616,7 @@ watch(
         <el-button
           type="primary"
           size="large"
+          :loading="isLoadingSubmitRegister"
           @click="submitForm(ruleFormRef)"
           :style="!isMobile ? { paddingLeft: '45px', paddingRight: '45px' } : { width: '100%' }"
           class="tw-mt-6"

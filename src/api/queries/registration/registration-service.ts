@@ -45,7 +45,7 @@ export const registationServices = {
   },
   async registerInstitution(payload: TReqRegisterInstitution) {
     const { data: registerInstitution } = await api.patch(
-      `${LENDER_API}/profile/funding/instutution`,
+      `${LENDER_API}/profile/funding/institution`,
       payload
     )
     return registerInstitution.data ?? {}
