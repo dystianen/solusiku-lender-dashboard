@@ -33,6 +33,10 @@ const props = defineProps({
   status: {
     type: String,
     default: ''
+  },
+  multiple: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -84,7 +88,9 @@ function onDrop(acceptFiles: File[], rejectReasons: FileRejectReason[]) {
 const { getRootProps, getInputProps } = useDropzone({
   onDrop,
   maxSize: 16000000,
-  accept: ['.zip', '.pdf', 'image/jpeg', 'image/png']
+  accept: ['.zip', '.pdf', 'image/jpeg', 'image/png'],
+  disabled: isLoadingUploadDocs.value,
+  multiple: props.multiple
 })
 
 const deleteFile = (id: string) => {
@@ -213,26 +219,27 @@ watchEffect(() => {
     <template #header>
       <h3 class="tw-text-xl tw-font-semibold tw-text-primary">{{ props.label }}</h3>
     </template>
-    <span>Unggah File</span>
-    <div
-      v-bind="getRootProps()"
-      class="tw-grid tw-w-full tw-gap-3 tw-rounded-2xl tw-border tw-border-dashed tw-border-gray-300 tw-py-9 hover:tw-cursor-pointer hover:tw-bg-slate-50"
-      v-loading="isLoadingUploadDocs"
-    >
-      <input v-bind="getInputProps()" />
-      <div class="tw-flex tw-flex-col tw-justify-center tw-gap-1 tw-text-center">
-        <h5 class="tw-text-black">
-          Letakkan file disini atau <span class="tw-text-info tw-underline">klik Telusuri</span>
-        </h5>
-        <p class="tw-text-[13px] tw-text-neutral-desc">
-          Format yang disarankan zip, pdf, jpg dan png. <br />
-          (Maks.2mb)
-        </p>
+    <template v-if="multiple || (!multiple && documentList.length === 0)">
+      <span>Unggah File</span>
+      <div
+        v-bind="getRootProps()"
+        class="tw-grid tw-w-full tw-gap-3 tw-rounded-2xl tw-border tw-border-dashed tw-border-gray-300 tw-py-9 hover:tw-cursor-pointer hover:tw-bg-slate-50 tw-mb-4"
+      >
+        <input v-bind="getInputProps()" />
+        <div class="tw-flex tw-flex-col tw-justify-center tw-gap-1 tw-text-center">
+          <h5 class="tw-text-black">
+            Letakkan file disini atau <span class="tw-text-info tw-underline">klik Telusuri</span>
+          </h5>
+          <p class="tw-text-[13px] tw-text-neutral-desc">
+            Format yang disarankan zip, pdf, jpg dan png. <br />
+            (Maks.2mb)
+          </p>
+        </div>
       </div>
-    </div>
+    </template>
 
     <template v-if="documentList.length > 0">
-      <p class="tw-mt-4">File di Unggah</p>
+      <p>File di Unggah</p>
       <div class="tw-flex tw-flex-col tw-gap-2">
         <div v-for="(item, i) in documentList" :key="i">
           <CardFile

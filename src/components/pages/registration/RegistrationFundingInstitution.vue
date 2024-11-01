@@ -212,67 +212,81 @@ const rules = reactive<FormRules<TReqRegisterInstitution>>({
   ]
 })
 
-const fieldFile: { key: FileType; label: string; desc?: string }[] = [
+const fieldFile: { key: FileType; label: string; desc?: string; multiple: boolean }[] = [
   {
     key: 'akta-pendirian',
-    label: 'Unggah Akta Pendirian'
+    label: 'Unggah Akta Pendirian',
+    multiple: false
   },
   {
     key: 'akta-perubahan',
-    label: 'Unggah Akta Perubahan'
+    label: 'Unggah Akta Perubahan',
+    multiple: true
   },
   {
     key: 'sk-kemenkumham-akta-pendirian',
-    label: 'Unggah SK Kemenkumham Akta Pendirian'
+    label: 'Unggah SK Kemenkumham Akta Pendirian',
+    multiple: false
   },
   {
     key: 'sk-kemenkumham-akta-perubahan',
-    label: 'Unggah SK Kemenkumham Akta Perubahan'
+    label: 'Unggah SK Kemenkumham Akta Perubahan',
+    multiple: true
   },
   {
     key: 'id-card',
-    label: 'Unggah KTP Bagian Depan'
+    label: 'Unggah KTP Bagian Depan',
+    multiple: false
   },
   {
     key: 'selfie-photo',
-    label: 'Unggah Foto Wajah'
+    label: 'Unggah Foto Wajah',
+    multiple: false
   },
   {
     key: 'nib',
-    label: 'Unggah NIB'
+    label: 'Unggah NIB',
+    multiple: false
   },
   {
     key: 'rekening-koran',
     label: 'Unggah Rekening Koran',
-    desc: 'Min.3 bulan terkahir'
+    desc: 'Min.3 bulan terkahir',
+    multiple: true
   },
   {
     key: 'keuangan-perusahaan-inhouse',
-    label: 'Unggah Laporan Keuangan Perusahaan InHouse'
+    label: 'Unggah Laporan Keuangan Perusahaan InHouse',
+    multiple: true
   },
   {
     key: 'bukti-penghasilan',
-    label: 'Unggah Bukti Penghasilan'
+    label: 'Unggah Bukti Penghasilan',
+    multiple: true
   },
   {
     key: 'siup',
     label: 'Unggah SIUP',
-    desc: 'Opsional'
+    desc: 'Opsional',
+    multiple: false
   },
   {
     key: 'tdp',
     label: 'Unggah TDP',
-    desc: 'Opsional'
+    desc: 'Opsional',
+    multiple: true
   },
   {
     key: 'tax-card',
     label: 'Unggah NPWP Perusahaan',
-    desc: 'Opsional'
+    desc: 'Opsional',
+    multiple: false
   },
   {
     key: 'keuangan-perusahaan-audited',
     label: 'Laporan Keuangan Perusahaan Audited',
-    desc: 'Opsional'
+    desc: 'Opsional',
+    multiple: true
   }
 ]
 
@@ -589,7 +603,12 @@ watch(
 
         <div class="tw-mt-6 tw-grid tw-grid-cols-1 tw-gap-x-4 tw-gap-y-2 tw-pt-2 md:tw-grid-cols-2">
           <el-form-item v-for="(item, i) in fieldFile" :key="i" :prop="item.key">
-            <UploadFile :file-type="item.key" :label="item.label" :status="item.desc" />
+            <UploadFile
+              :file-type="item.key"
+              :label="item.label"
+              :status="item.desc"
+              :multiple="item.multiple"
+            />
           </el-form-item>
         </div>
 
