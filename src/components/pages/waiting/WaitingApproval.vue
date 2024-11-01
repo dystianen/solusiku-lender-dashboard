@@ -16,9 +16,5 @@ const { isMobile } = useScreenType()
     </div>
 
     <img :src="Waiting" class="lg:tw-h-[315px] lg:tw-w-[682px]" />
-    <p>
-      Estimasi waktu yang dibutuhkan adalah: <br v-if="isMobile" />
-      <span class="tw-text-primary">kurang lebih 20 Menit</span>
-    </p>
   </div>
 </template>
