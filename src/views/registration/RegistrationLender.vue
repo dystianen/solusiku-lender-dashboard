@@ -9,7 +9,7 @@ import { setVerificationToken } from '@/cookies/verificationToken'
 import useEmailStore from '@/stores/email'
 import type { TReqRegister } from '@/types/verification'
 import { ElNotification, type FormInstance, type FormRules } from 'element-plus'
-import { h, reactive, ref, watch } from 'vue'
+import { h, reactive, ref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -165,8 +165,10 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   })
 }
 
-watch(userType, (value) => {
-  form.userTypeId = value![0].id
+watchEffect(() => {
+  if (userType.value) {
+    form.userTypeId = userType.value[0].id
+  }
 })
 </script>
 
