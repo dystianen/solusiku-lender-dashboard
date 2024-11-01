@@ -5,6 +5,7 @@ import InputField from '@/components/atoms/input/InputField.vue'
 import SelectField from '@/components/atoms/select/SelectField.vue'
 import useScreenType from '@/composables/useScreenType'
 import filters from '@/helpers/filters'
+import type { TFundingOpportunities } from '@/types/funding'
 import { useDebounce } from '@vueuse/core'
 import { dayjs, ElMessage, ElTable } from 'element-plus'
 import { computed, onMounted, reactive, ref, watch } from 'vue'
@@ -12,7 +13,7 @@ import VuePdfEmbed from 'vue-pdf-embed'
 const { isMobile } = useScreenType()
 const widthDialog = computed(() => (isMobile.value ? 360 : 550))
 
-const offering = ref({
+const offering = ref<{ data: TFundingOpportunities[]; totalCount: number }>({
   data: [],
   totalCount: 0
 })
@@ -113,12 +114,12 @@ watch(agreementType, (newValue) => {
 })
 
 watch(
-  () => ({ length: params.length, start: params.start, search: debouncedSearch }), // Spread the params object to track changes
+  () => ({ length: params.length, start: params.start, search: debouncedSearch }),
   (newParams) => {
     mutateOffering(
       {
         ...newParams,
-        search: debouncedSearch.value // Use debounced search value
+        search: debouncedSearch.value
       },
       {
         onSuccess: (res) => {
@@ -127,7 +128,7 @@ watch(
       }
     )
   },
-  { deep: true } // Deep watch to track changes to nested properties
+  { deep: true }
 )
 
 watch(debouncedSearch, () => {

@@ -1,13 +1,17 @@
 import { LENDER_API } from '@/api/BaseApiUrl'
 import { api } from '@/config/axios'
+import type { TResFundingOpportunities } from '@/types/funding'
 import type { TReqFilter } from '@/types/general'
 
 const offeringServices = {
   async offering(params?: TReqFilter) {
-    const { data: offering } = await api.get(`${LENDER_API}/offering`, {
+    const { data: offering } = await api.get<TResFundingOpportunities>(`${LENDER_API}/offering`, {
       params
     })
-    return offering ?? []
+    return {
+      data: offering.data,
+      totalCount: Number(offering.totalCount)
+    }
   },
   async offeringApproval(payload?: { offeringIds: string[] }) {
     const { data: offering } = await api.post(`${LENDER_API}/offering/approval`, payload)

@@ -2,6 +2,7 @@
 import useFunding from '@/api/queries/funding/useFunding'
 import useScreenType from '@/composables/useScreenType'
 import filters from '@/helpers/filters'
+import type { TFundingHistory } from '@/types/funding'
 import { useDebounce } from '@vueuse/core'
 import { dayjs } from 'element-plus'
 import { computed, onMounted, reactive, ref, watch } from 'vue'
@@ -24,7 +25,7 @@ const search = computed(() => params.search)
 const debouncedSearch = useDebounce(search, 300)
 
 const { mutate: mutateFundingHistory } = useFunding.getFundingHistory()
-const fundingHistory = ref({
+const fundingHistory = ref<{ data: TFundingHistory[]; totalCount: number }>({
   data: [],
   totalCount: 0
 })

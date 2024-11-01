@@ -3,6 +3,7 @@ export interface GeneralResponse<T = unknown> {
   status: number
   success: boolean
   data: T
+  totalCount: string
 }
 
 export type StringOrNumber = string | number
