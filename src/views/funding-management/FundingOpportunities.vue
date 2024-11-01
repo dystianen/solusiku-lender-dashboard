@@ -2,6 +2,7 @@
 import useOffering from '@/api/queries/offering/useOffering'
 import IcSuccessfull from '@/assets/icons/ic_successful.svg'
 import useScreenType from '@/composables/useScreenType'
+import { getTimerCookies, setTimerCookies } from '@/cookies/timer'
 import filters from '@/helpers/filters'
 import type { TFundingOpportunities } from '@/types/funding'
 import { useDebounce } from '@vueuse/core'
@@ -17,7 +18,7 @@ const offering = ref<{ data: TFundingOpportunities[]; totalCount: number }>({
 })
 const dialogLoading = ref(false)
 const dialogFundingConfirm = ref(false)
-const dialogOTP = ref(false)
+const dialogOTP = ref(true)
 const dialogFundingAgreement = ref(false)
 const dialogFundingSuccessful = ref(false)
 const isLoadingCheckOffering = ref(false)
@@ -25,9 +26,28 @@ const isLoadingCheckOfferingInsurance = ref(false)
 const approvalId = ref('')
 const transactionId = ref('')
 const otpCode = ref('')
+const isSend = ref(true)
 const agreementType = ref<'PERJANJIAN PENDANAAN' | 'PERJANJIAN LAYANAN PENDANAAN'>(
   'PERJANJIAN PENDANAAN'
 )
+const params = reactive({
+  search: '',
+  length: 10,
+  start: 1
+})
+
+const search = computed(() => params.search)
+const debouncedSearch = useDebounce(search, 300)
+
+const sourceAgreementPDF = ref([])
+const sourceLoanPDF = ref([])
+const totalDocs = ref(0)
+const currentDoc = ref(1)
+const sourcePdf = ref('')
+
+// Timer
+const timerCookies = computed(() => getTimerCookies())
+const timer = ref(timerCookies.value)
 
 const optionsAgreement = [
   { id: 'PERJANJIAN PENDANAAN', name: 'PERJANJIAN PENDANAAN' },
@@ -45,23 +65,10 @@ const { mutate: checkOffering } = useOffering.getOfferringCheck()
 const { mutate: OTPRequest, isPending: IsLoadingOTPRequest } = useOffering.postSigningOTPRequest()
 const { mutate: OTPValidate, isPending: IsLoadingOTPValidate } =
   useOffering.postSigningOTPValidate()
+const { mutate: resendOTPOffering, isPending: isLoadingResendOTP } =
+  useOffering.postResendOTPOffering()
 const { mutate: serviceAgreement } = useOffering.getDocumentServiceAgreement()
 const { mutate: loanAgreement } = useOffering.getDocumentLoanAgreement()
-
-const params = reactive({
-  search: '',
-  length: 10,
-  start: 1
-})
-
-const search = computed(() => params.search)
-const debouncedSearch = useDebounce(search, 300)
-
-const sourceAgreementPDF = ref([])
-const sourceLoanPDF = ref([])
-const totalDocs = ref(0)
-const currentDoc = ref(1)
-const sourcePdf = ref('')
 
 const setSourcePdf = () => {
   const docs =
@@ -282,11 +289,49 @@ const handleClosePopup = () => {
   mutateOffering(params)
 }
 
+const startCountdown = () => {
+  isSend.value = true
+  const countdownTime = 60000
+  timer.value = countdownTime
+  setTimerCookies(countdownTime)
+}
+
+const handleResendOtp = () => {
+  resendOTPOffering(transactionId.value, {
+    onSuccess: (res) => {
+      isSend.value = true
+      transactionId.value = res.transactionId
+      startCountdown()
+    },
+    onError: (res: any) => {
+      ElMessage.error(res.data.error)
+    }
+  })
+}
+
+const onProgress = (value: { totalMilliseconds: number }) => {
+  setTimerCookies(value.totalMilliseconds)
+}
+
+const handleTimeoutOtp = () => {
+  isSend.value = false
+}
+
 const tableRowClassName = ({ row }: { row: any }) => {
   if (offeringIds.value.includes(row.id)) {
     return 'selected-row'
   }
   return ''
+}
+
+const transformSlotProps = (props: Record<string, number>): Record<string, string> => {
+  const formattedProps: Record<string, string> = {}
+
+  Object.entries(props).forEach(([key, value]) => {
+    formattedProps[key] = value < 10 ? `0${value}` : String(value)
+  })
+
+  return formattedProps
 }
 </script>
 
@@ -537,7 +582,40 @@ const tableRowClassName = ({ row }: { row: any }) => {
           ponsel yang terdaftar.
         </p>
       </div>
-      <InputField v-model="otpCode" label="Kode OTP" placeholder="Masukan Kode OTP" />
+
+      <div class="tw-flex tw-flex-col tw-gap-2">
+        <InputField v-model="otpCode" label="Kode OTP" placeholder="Masukan Kode OTP" />
+
+        <template v-if="!isSend">
+          <p class="tw-text-left tw-text-neutral-1/[.68]">
+            Tidak menerima kode verifikasi?
+            <el-button
+              type="primary"
+              class="tw-text-primary"
+              :disabled="isLoadingResendOTP"
+              @click.prevent="handleResendOtp"
+              link
+            >
+              Kirim Ulang
+            </el-button>
+          </p>
+        </template>
+
+        <template v-else>
+          <p class="tw-text-center">
+            Kirim ulang setelah
+            <v-countdown
+              v-slot="{ minutes, seconds }"
+              :time="timer"
+              :transform="transformSlotProps"
+              @progress="onProgress"
+              @end="handleTimeoutOtp"
+            >
+              {{ minutes }}:{{ seconds }}
+            </v-countdown>
+          </p>
+        </template>
+      </div>
     </div>
     <template #footer>
       <div class="tw-dialog-footer">

@@ -48,6 +48,12 @@ const offeringServices = {
       `${LENDER_API}/signing/document/loan/agreement/${approvalId}`
     )
     return offering.data
+  },
+  async resendOTPOffering(transactionId: string) {
+    const { data: offering } = await api.post(`${LENDER_API}/signing/otp/resend`, {
+      transactionId
+    })
+    return offering.data
   }
 }
 

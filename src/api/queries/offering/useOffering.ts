@@ -46,6 +46,11 @@ const useOffering = {
     return useMutation({
       mutationFn: offeringServices.documentLoanAgreement
     })
+  },
+  postResendOTPOffering() {
+    return useMutation({
+      mutationFn: offeringServices.resendOTPOffering
+    })
   }
 }
 
