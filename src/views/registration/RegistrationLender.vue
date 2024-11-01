@@ -266,6 +266,7 @@ watch(userType, (value) => {
             size="large"
             type="success"
             style="align-items: start"
+            class="checkbox-agreement"
           >
             <template #default>
               <p class="tw-leading-normal tw-text-wrap tw-text-neutral-desc tw-w-full">
@@ -296,3 +297,11 @@ watch(userType, (value) => {
     </el-form>
   </VerificationLayout>
 </template>
+
+<style scoped>
+:deep(.checkbox-agreement .ep-checkbox__input.is-checked .ep-checkbox__inner) {
+  background: #03ab6f;
+  border-color: #03ab6f;
+  border-radius: 5px;
+}
+</style>
