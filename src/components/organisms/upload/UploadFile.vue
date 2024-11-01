@@ -6,9 +6,9 @@ import type { FileType } from '@/types/general'
 import type { TDocument, TReqUploadDocument } from '@/types/master'
 import generateRandomNumbers from '@/utils/random-number'
 import { useQueryClient } from '@tanstack/vue-query'
-import { ElMessage } from 'element-plus'
-import { computed, ref, watch, watchEffect, type PropType } from 'vue'
-import { useDropzone } from 'vue3-dropzone'
+import { ElMessage, ElNotification } from 'element-plus'
+import { computed, h, ref, watch, watchEffect, type PropType } from 'vue'
+import { useDropzone, type FileRejectReason } from 'vue3-dropzone'
 const queryClient = useQueryClient()
 
 const emit = defineEmits(['update:modelValue'])
@@ -56,7 +56,36 @@ const documentList = ref<TResFile[]>([])
 const files = ref<File[]>([])
 const deleteIds = ref<string[]>([])
 
-const { getRootProps, getInputProps } = useDropzone({ onDrop, maxSize: 16000000 })
+function onDrop(acceptFiles: File[], rejectReasons: FileRejectReason[]) {
+  rejectReasons.map((it) => {
+    ElNotification({
+      title: 'Errors: ',
+      type: 'error',
+      message: h(
+        'ul',
+        it.errors.map((error) => {
+          // @ts-expect-error
+          return h('li', { class: 'tw-text-danger' }, `• ${error.message}`)
+        })
+      )
+    })
+  })
+
+  files.value = [...acceptFiles, ...files.value]
+
+  const mappedFiles: TResFile[] = acceptFiles.map((it) => ({
+    id: generateRandomNumbers(),
+    name: it.name,
+    size: filters.formatFileSize(it.size)
+  }))
+  documentList.value = [...documentList.value, ...mappedFiles]
+}
+
+const { getRootProps, getInputProps } = useDropzone({
+  onDrop,
+  maxSize: 16000000,
+  accept: ['.zip', '.pdf', 'image/jpeg', 'image/png']
+})
 
 const deleteFile = (id: string) => {
   const index = (document.value || []).findIndex((it) => it.id === id)
@@ -70,17 +99,6 @@ const deleteFile = (id: string) => {
   } else {
     documentList.value.splice(index, 1)
   }
-}
-
-function onDrop(acceptFiles: File[]) {
-  files.value = [...acceptFiles, ...files.value]
-
-  const mappedFiles: TResFile[] = acceptFiles.map((it) => ({
-    id: generateRandomNumbers(),
-    name: it.name,
-    size: filters.formatFileSize(it.size)
-  }))
-  documentList.value = [...documentList.value, ...mappedFiles]
 }
 
 const saveFiles = (files: File[]): FormData => {
