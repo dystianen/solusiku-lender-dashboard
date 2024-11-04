@@ -298,7 +298,7 @@ const validateFiles = () => {
   for (const key in documents.value) {
     const file = fieldFile.find((it) => it.key === key)
 
-    if (documents.value[key] === '0' && file && !file.desc) {
+    if (documents.value[key] === '0' && file && !file.desc?.includes('Opsional')) {
       errors.push(key)
     }
   }
