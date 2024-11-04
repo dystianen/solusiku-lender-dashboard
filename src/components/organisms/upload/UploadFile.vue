@@ -83,7 +83,7 @@ function onDrop(acceptFiles: File[], rejectReasons: FileRejectReason[]) {
     })
   })
 
-  files.value = [...acceptFiles, ...files.value]
+  files.value = [...files.value, ...acceptFiles]
 
   const mappedFiles: TResFile[] = acceptFiles.map((it) => ({
     id: generateRandomNumbers(),
@@ -105,7 +105,6 @@ const deleteFile = (id: string) => {
   const index = (document.value || []).findIndex((it) => it.id === id)
   if (index !== -1 && index !== undefined) {
     deleteIds.value = [...deleteIds.value, id]
-    documentList.value = documentList.value.filter((it) => it.id !== id)
   } else {
     // DELETE OBJECT IN FILES
     const dataFile = documentList.value.filter((it) => it.id.length <= 4)
@@ -113,10 +112,10 @@ const deleteFile = (id: string) => {
     if (indexFile !== -1) {
       files.value.splice(indexFile, 1)
     }
-
-    // DELETE OBJECT IN DOCUMENT LIST
-    documentList.value = documentList.value.filter((it) => it.id !== id)
   }
+
+  // DELETE OBJECT IN DOCUMENT LIST
+  documentList.value = documentList.value.filter((it) => it.id !== id)
 }
 
 const saveFiles = (files: File[]): FormData => {
