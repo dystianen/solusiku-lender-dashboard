@@ -103,8 +103,14 @@ const deleteFile = (id: string) => {
       documentList.value.splice(index, 1)
     }
   } else {
-    files.value.splice(index, 1)
-    documentList.value.splice(index, 1)
+    // DELETE OBJECT IN FILES
+    const dataFile = documentList.value.filter((it) => it.id.length <= 4)
+    const indexFile = dataFile.findIndex((it) => it.id === id)
+    files.value = files.value.splice(indexFile, 1)
+
+    // DELETE OBJECT IN DOCUMENT LIST
+    const filterDocument = documentList.value.filter((it) => it.id !== id)
+    documentList.value = filterDocument
   }
 }
 
@@ -136,27 +142,31 @@ const handleDelete = () => {
   })
 }
 
-const onSave = () => {
-  if (deleteIds.value.length > 0) {
-    handleDelete()
+const handleUpload = () => {
+  const formData = saveFiles(files.value)
+  const payload: TReqUploadDocument = {
+    fileType: props.fileType,
+    formData
   }
-
-  if (files.value.length > 0) {
-    const formData = saveFiles(files.value)
-    const payload: TReqUploadDocument = {
-      fileType: props.fileType,
-      formData
+  uploadDocument(payload, {
+    onSuccess: () => {
+      dialogVisible.value = false
+      files.value = []
+      invalidateQueriesOnce()
+    },
+    onError: (res: any) => {
+      ElMessage.error(res.data.error)
     }
-    uploadDocument(payload, {
-      onSuccess: () => {
-        dialogVisible.value = false
-        files.value = []
-        invalidateQueriesOnce()
-      },
-      onError: (res: any) => {
-        ElMessage.error(res.data.error)
-      }
-    })
+  })
+}
+
+const onSave = () => {
+  if (deleteIds.value.length > 0) handleDelete()
+
+  if (files.value.length > 0) handleUpload()
+
+  if (files.value.length === 0 && deleteIds.value.length === 0) {
+    dialogVisible.value = false
   }
 }
 
