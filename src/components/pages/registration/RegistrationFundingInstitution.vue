@@ -349,6 +349,7 @@ watch(
   (value) => {
     const label = businessLicense.value?.find((it) => it.id === value)?.name
     businessLicenseNoLabel.value = `No. ${label}`
+    form.businessLicenseNumber = ''
   }
 )
 
