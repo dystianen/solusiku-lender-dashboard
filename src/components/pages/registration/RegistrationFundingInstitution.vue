@@ -73,6 +73,14 @@ const validateIdCard = (rule: any, value: any, callback: any) => {
   }
 }
 
+const validateBusinessLicense = (rule: any, value: any, callback: any) => {
+  if (value === '') {
+    callback(new Error(`${businessLicenseNoLabel.value} harus diisi`))
+  }
+
+  callback()
+}
+
 const rules = reactive<FormRules<TReqRegisterInstitution>>({
   companyName: [
     {
@@ -102,13 +110,7 @@ const rules = reactive<FormRules<TReqRegisterInstitution>>({
       trigger: 'change'
     }
   ],
-  businessLicenseNumber: [
-    {
-      required: true,
-      message: 'Nomor SIUP harus diisi',
-      trigger: 'change'
-    }
-  ],
+  businessLicenseNumber: [{ validator: validateBusinessLicense, trigger: 'change' }],
   deedNumber: [
     {
       required: true,
