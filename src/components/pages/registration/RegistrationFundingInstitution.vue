@@ -2,6 +2,7 @@
 import useMaster from '@/api/queries/master/useMaster'
 import useRegistration from '@/api/queries/registration/useRegistration'
 import useScreenType from '@/composables/useScreenType'
+import { maskaNumberLength16, maskaNumberLength20, maskaNumberLength30 } from '@/helpers/maska'
 import type { FileType, Option } from '@/types/general'
 import type { TReqRegisterInstitution } from '@/types/registration'
 import { useQueryClient } from '@tanstack/vue-query'
@@ -469,6 +470,7 @@ watch(
           <el-form-item prop="deedNumber" class="tw-col-span-6">
             <InputField
               v-model="form.deedNumber"
+              v-maska="maskaNumberLength30"
               label="No. Akta Pendirian"
               placeholder="Cth: 2941XXXXX"
               type="number"
@@ -477,6 +479,7 @@ watch(
           <el-form-item prop="businessLicenseId" class="tw-col-span-2">
             <SelectField
               v-model="form.businessLicenseId"
+              v-maska="maskaNumberLength20"
               label="Izin Usaha"
               placeholder="Pilih Izin Usaha"
               :options="businessLicense"
@@ -485,6 +488,7 @@ watch(
           <el-form-item prop="businessLicenseNumber" class="tw-col-span-4">
             <InputField
               v-model="form.businessLicenseNumber"
+              v-maska="maskaNumberLength30"
               :label="businessLicenseNoLabel"
               placeholder="Cth: 124XXXX"
               type="number"
@@ -493,7 +497,7 @@ watch(
           <el-form-item prop="taxNumber" class="tw-col-span-6">
             <InputField
               v-model="form.taxNumber"
-              v-maska="'################'"
+              v-maska="maskaNumberLength16"
               label="No. NPWP Perusahaan"
               placeholder="Cth: 2941XXXXX"
             />

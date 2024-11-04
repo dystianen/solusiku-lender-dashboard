@@ -2,6 +2,7 @@
 import useMaster from '@/api/queries/master/useMaster'
 import useRegistration from '@/api/queries/registration/useRegistration'
 import useScreenType from '@/composables/useScreenType'
+import { maskaIdCardNumber, maskaNumberLength16 } from '@/helpers/maska'
 import type { FileType, Option } from '@/types/general'
 import type { TReqRegisterIndividual } from '@/types/registration'
 import { useQueryClient } from '@tanstack/vue-query'
@@ -319,7 +320,7 @@ watch(
           <el-form-item prop="idCardNumber" class="tw-col-span-2">
             <InputField
               v-model="form.idCardNumber"
-              v-maska="'#### #### #### ####'"
+              v-maska="maskaIdCardNumber"
               label="Nomor KTP"
               placeholder="Cth: 3674 0412 3456 7890"
             />
@@ -327,7 +328,7 @@ watch(
           <el-form-item prop="taxNumber" class="tw-col-span-2">
             <InputField
               v-model="form.taxNumber"
-              v-maska="'################'"
+              v-maska="maskaNumberLength16"
               label="No. NPWP"
               placeholder="Cth: 2941XXXXX"
             />
