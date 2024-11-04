@@ -60,6 +60,14 @@ const documentList = ref<TResFile[]>([])
 const files = ref<File[]>([])
 const deleteIds = ref<string[]>([])
 
+const resetDialog = () => {
+  dialogVisible.value = false
+}
+
+const openDialog = () => {
+  dialogVisible.value = true
+}
+
 function onDrop(acceptFiles: File[], rejectReasons: FileRejectReason[]) {
   rejectReasons.map((it) => {
     ElNotification({
@@ -96,21 +104,18 @@ const { getRootProps, getInputProps } = useDropzone({
 const deleteFile = (id: string) => {
   const index = (document.value || []).findIndex((it) => it.id === id)
   if (index !== -1 && index !== undefined) {
-    const isUploaded = documentList.value[index]
-
-    if (isUploaded) {
-      deleteIds.value = [...deleteIds.value, id]
-      documentList.value.splice(index, 1)
-    }
+    deleteIds.value = [...deleteIds.value, id]
+    documentList.value = documentList.value.filter((it) => it.id !== id)
   } else {
     // DELETE OBJECT IN FILES
     const dataFile = documentList.value.filter((it) => it.id.length <= 4)
     const indexFile = dataFile.findIndex((it) => it.id === id)
-    files.value = files.value.splice(indexFile, 1)
+    if (indexFile !== -1) {
+      files.value.splice(indexFile, 1)
+    }
 
     // DELETE OBJECT IN DOCUMENT LIST
-    const filterDocument = documentList.value.filter((it) => it.id !== id)
-    documentList.value = filterDocument
+    documentList.value = documentList.value.filter((it) => it.id !== id)
   }
 }
 
@@ -133,7 +138,7 @@ const handleDelete = () => {
   deleteDocument(deleteIds.value, {
     onSuccess: () => {
       deleteIds.value = []
-      dialogVisible.value = false
+      resetDialog()
       invalidateQueriesOnce()
     },
     onError: (res: any) => {
@@ -150,8 +155,8 @@ const handleUpload = () => {
   }
   uploadDocument(payload, {
     onSuccess: () => {
-      dialogVisible.value = false
       files.value = []
+      resetDialog()
       invalidateQueriesOnce()
     },
     onError: (res: any) => {
@@ -162,12 +167,8 @@ const handleUpload = () => {
 
 const onSave = () => {
   if (deleteIds.value.length > 0) handleDelete()
-
   if (files.value.length > 0) handleUpload()
-
-  if (files.value.length === 0 && deleteIds.value.length === 0) {
-    dialogVisible.value = false
-  }
+  if (files.value.length === 0 && deleteIds.value.length === 0) resetDialog()
 }
 
 const handleSetDocumentList = (document: TDocument[]) => {
@@ -180,7 +181,7 @@ const handleSetDocumentList = (document: TDocument[]) => {
 }
 
 const onCancel = () => {
-  dialogVisible.value = false
+  resetDialog()
   files.value = []
   deleteIds.value = []
 }
@@ -218,11 +219,11 @@ watchEffect(() => {
         type="primary"
         round
         style="padding: 8px 20px"
-        @click="dialogVisible = true"
+        @click="openDialog"
       >
         Upload
       </el-button>
-      <el-button v-else type="primary" link @click="dialogVisible = true"> Ubah File </el-button>
+      <el-button v-else type="primary" link @click="openDialog"> Ubah File </el-button>
     </div>
   </div>
 
