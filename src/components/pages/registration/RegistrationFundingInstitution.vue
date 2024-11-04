@@ -31,6 +31,7 @@ const optionsCity = ref<Option[]>([])
 const optionsDistrict = ref<Option[]>([])
 const optionsSubDistrict = ref<Option[]>([])
 const defaultValue = dayjs().subtract(5, 'year').toDate()
+const businessLicenseNoLabel = ref('')
 
 const disabledDate = (time: Date) => {
   const fiveYearsAgo = dayjs().subtract(5, 'year')
@@ -344,6 +345,14 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 }
 
 watch(
+  () => form.businessLicenseId,
+  (value) => {
+    const label = businessLicense.value?.find((it) => it.id === value)?.name
+    businessLicenseNoLabel.value = `No. ${label}`
+  }
+)
+
+watch(
   () => form.provinceId,
   (value) => {
     if (value) {
@@ -473,7 +482,7 @@ watch(
           <el-form-item prop="businessLicenseNumber" class="tw-col-span-4">
             <InputField
               v-model="form.businessLicenseNumber"
-              label="No. Siup"
+              :label="businessLicenseNoLabel"
               placeholder="Cth: 124XXXX"
               type="number"
             />
@@ -588,7 +597,7 @@ watch(
           <el-form-item prop="bankAccountNumber" class="tw-col-span-6">
             <InputField
               v-model="form.bankAccountNumber"
-              type="number"
+              v-maska="'####################'"
               label="No. Rekening"
               placeholder="Masukan Nomor Rekening"
             />

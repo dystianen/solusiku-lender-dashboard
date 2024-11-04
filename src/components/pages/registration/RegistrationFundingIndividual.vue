@@ -427,7 +427,7 @@ watch(
           <el-form-item prop="bankAccountNumber" class="tw-col-span-2">
             <InputField
               v-model="form.bankAccountNumber"
-              type="number"
+              v-maska="'####################'"
               label="No. Rekening"
               placeholder="Masukan Nomor Rekening"
             />
