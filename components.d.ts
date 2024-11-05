@@ -84,7 +84,4 @@ declare module 'vue' {
     WaitingFeature: typeof import('./src/components/pages/waiting/WaitingFeature.vue')['default']
     WhySection: typeof import('./src/components/organisms/loan/WhySection.vue')['default']
   }
-  export interface ComponentCustomProperties {
-    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
-  }
 }
