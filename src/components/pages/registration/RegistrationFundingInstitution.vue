@@ -7,7 +7,7 @@ import type { FileType, Option } from '@/types/general'
 import type { TReqRegisterInstitution } from '@/types/registration'
 import { useQueryClient } from '@tanstack/vue-query'
 import { ElNotification, dayjs, type FormInstance, type FormRules } from 'element-plus'
-import { h, reactive, ref, watch } from 'vue'
+import { h, onMounted, reactive, ref, watch } from 'vue'
 
 // Hooks
 const queryClient = useQueryClient()
@@ -16,18 +16,19 @@ const { isMobile } = useScreenType()
 // Queries
 const { data: sourceOfFound } = useMaster.getSourceOfFound()
 const { data: monthlyIncome } = useMaster.getMonthlyIncome()
-const { data: bank } = useMaster.getBank()
 const { data: legalEntity } = useMaster.getLegalEntity()
 const { data: businessLicense } = useMaster.getBusinessLicense()
 const { data: businessField } = useMaster.getBusinessField()
 const { data: documents } = useRegistration.getAllDocument()
 const { data: province } = useMaster.getProvince()
+const { mutate: mutateBank } = useMaster.getBank()
 const { mutate: city } = useMaster.getCity()
 const { mutate: district } = useMaster.getDistrict()
 const { mutate: subDistrict } = useMaster.getSubDistrict()
 const { mutate: registerInstitution, isPending: isLoadingSubmitRegister } =
   useRegistration.patchRegisterInstitution()
 
+const optionsBank = ref<Option[]>([])
 const optionsCity = ref<Option[]>([])
 const optionsDistrict = ref<Option[]>([])
 const optionsSubDistrict = ref<Option[]>([])
@@ -63,6 +64,7 @@ const form = reactive<TReqRegisterInstitution>({
   address: '',
   postalCode: ''
 })
+const bankName = ref('')
 
 const validateIdCard = (rule: any, value: any, callback: any) => {
   if (value === '') {
@@ -347,6 +349,31 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   })
 }
 
+const querySearch = (queryString: string, cb: any) => {
+  mutateBank(
+    { search: queryString },
+    {
+      onSuccess: (res) => {
+        cb(res)
+      }
+    }
+  )
+}
+
+const handleSelectBank = (item: any) => {
+  bankName.value = item.name
+  form.bankId = item.id
+}
+
+onMounted(() => {
+  mutateBank(undefined, {
+    onSuccess: (res) => {
+      optionsBank.value = res
+      console.log({ res })
+    }
+  })
+})
+
 watch(
   () => form.businessLicenseId,
   (value) => {
@@ -594,11 +621,14 @@ watch(
             />
           </el-form-item>
           <el-form-item prop="bankId" class="tw-col-span-6">
-            <SelectField
-              v-model="form.bankId"
+            <AutoComplete
+              v-model="bankName"
               label="Nama Rekening Bank"
-              placeholder="Pilih Nama Bank"
-              :options="bank"
+              placeholder="Cari Nama Bank"
+              :fetch-suggestions="querySearch"
+              :trigger-on-focus="true"
+              clearable
+              @select="handleSelectBank"
             />
           </el-form-item>
           <el-form-item prop="bankAccountNumber" class="tw-col-span-6">

@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import type { TSize } from '@/types/general'
-import type { PropType } from 'vue'
+import { useAttrs, type PropType } from 'vue'
 
+const attrs = useAttrs()
 const props = defineProps({
   label: {
     type: String,
@@ -20,16 +21,20 @@ const props = defineProps({
 
 <template>
   <div class="input-container">
-    <label :for="props.label" class="input-label">{{ props.label }}</label>
-    <el-autocomplete popper-class="my-autocomplete" placeholder="Please input" :size="props.size">
+    <label :for="props.label" class="input-label">{{ label }}</label>
+    <el-autocomplete
+      v-bind="attrs"
+      popper-class="my-autocomplete"
+      :placeholder="placeholder"
+      :size="size"
+    >
       <template #suffix>
         <el-icon>
           <v-icon name="fa-chevron-down" />
         </el-icon>
       </template>
       <template #default="{ item }">
-        <div class="value">{{ item.value }}</div>
-        <span class="link">{{ item.link }}</span>
+        <span class="name">{{ item.name }}</span>
       </template>
     </el-autocomplete>
   </div>

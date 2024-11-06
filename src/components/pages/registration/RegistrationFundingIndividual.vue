@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import useMaster from '@/api/queries/master/useMaster'
 import useRegistration from '@/api/queries/registration/useRegistration'
+import AutoComplete from '@/components/atoms/autocomplete/AutoComplete.vue'
 import useScreenType from '@/composables/useScreenType'
 import { maskaIdCardNumber, maskaNumberLength16 } from '@/helpers/maska'
 import type { FileType, Option } from '@/types/general'
 import type { TReqRegisterIndividual } from '@/types/registration'
 import { useQueryClient } from '@tanstack/vue-query'
 import { ElNotification, dayjs, type FormInstance, type FormRules } from 'element-plus'
-import { h, reactive, ref, watch } from 'vue'
+import { h, onMounted, reactive, ref, watch } from 'vue'
 
 const queryClient = useQueryClient()
 const { isMobile } = useScreenType()
@@ -16,15 +17,16 @@ const { isMobile } = useScreenType()
 const { data: gender } = useMaster.getGender()
 const { data: sourceOfFound } = useMaster.getSourceOfFound()
 const { data: monthlyIncome } = useMaster.getMonthlyIncome()
-const { data: bank } = useMaster.getBank()
 const { data: documents } = useRegistration.getAllDocument()
 const { data: province } = useMaster.getProvince()
+const { mutate: mutateBank } = useMaster.getBank()
 const { mutate: city } = useMaster.getCity()
 const { mutate: district } = useMaster.getDistrict()
 const { mutate: subDistrict } = useMaster.getSubDistrict()
 const { mutate: registerIndividual, isPending: isLoadingSubmitRegister } =
   useRegistration.patchRegisterIndividual()
 
+const optionsBank = ref<Option[]>([])
 const optionsCity = ref<Option[]>([])
 const optionsDistrict = ref<Option[]>([])
 const optionsSubDistrict = ref<Option[]>([])
@@ -53,6 +55,7 @@ const form = reactive({
   address: '',
   postalCode: ''
 })
+const bankName = ref('')
 
 const validateIdCard = (rule: any, value: any, callback: any) => {
   if (value === '') {
@@ -230,6 +233,31 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     }
   })
 }
+
+const querySearch = (queryString: string, cb: any) => {
+  mutateBank(
+    { search: queryString },
+    {
+      onSuccess: (res) => {
+        cb(res)
+      }
+    }
+  )
+}
+
+const handleSelectBank = (item: any) => {
+  bankName.value = item.name
+  form.bankId = item.id
+}
+
+onMounted(() => {
+  mutateBank(undefined, {
+    onSuccess: (res) => {
+      optionsBank.value = res
+      console.log({ res })
+    }
+  })
+})
 
 watch(
   () => form.provinceId,
@@ -418,11 +446,14 @@ watch(
             />
           </el-form-item>
           <el-form-item prop="bankId" class="tw-col-span-2">
-            <SelectField
-              v-model="form.bankId"
+            <AutoComplete
+              v-model="bankName"
               label="Nama Rekening Bank"
-              placeholder="Pilih Nama Bank"
-              :options="bank"
+              placeholder="Cari Nama Bank"
+              :fetch-suggestions="querySearch"
+              :trigger-on-focus="true"
+              clearable
+              @select="handleSelectBank"
             />
           </el-form-item>
           <el-form-item prop="bankAccountNumber" class="tw-col-span-2">

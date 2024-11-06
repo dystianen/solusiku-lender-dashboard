@@ -1,5 +1,6 @@
 import { LENDER_API } from '@/api/BaseApiUrl'
 import { api } from '@/config/axios'
+import type { TReqFilter } from '@/types/general'
 import type { TReqIdWithFilter } from '@/types/master'
 import type { TResCity, TResUserType } from '@/types/user'
 
@@ -62,10 +63,11 @@ const masterServices = {
     })
     return monthlyIncome?.data ?? []
   },
-  async bank() {
+  async bank(params?: TReqFilter) {
     const { data: bank } = await api.get<TResCity>(`${LENDER_API}/data/dataBank`, {
       params: {
-        length: 100
+        length: 50,
+        ...params
       }
     })
     return bank?.data ?? []

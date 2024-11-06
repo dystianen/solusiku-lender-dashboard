@@ -42,9 +42,8 @@ const useMaster = {
     })
   },
   getBank() {
-    return useQuery({
-      queryKey: ['BANK'],
-      queryFn: masterServices.bank
+    return useMutation({
+      mutationFn: masterServices.bank
     })
   },
   getLegalEntity() {
