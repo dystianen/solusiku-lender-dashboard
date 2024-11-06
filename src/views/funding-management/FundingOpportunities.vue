@@ -286,8 +286,12 @@ const handleCancelOffering = () => {
 }
 
 const handleClosePopup = () => {
-  dialogFundingSuccessful.value = false
-  mutateOffering(params)
+  mutateOffering(params, {
+    onSuccess: (res) => {
+      offering.value = res
+      dialogFundingSuccessful.value = false
+    }
+  })
 }
 
 const startCountdown = () => {
