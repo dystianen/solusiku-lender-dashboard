@@ -108,6 +108,11 @@ const renderColorTag = (status: string) => {
       background: '#D9F2E9',
       color: '#03AB6F'
     }
+  } else {
+    styles = {
+      background: '#FFF6E5',
+      color: '#FDB528'
+    }
   }
 
   return styles
@@ -183,7 +188,7 @@ const renderColorTag = (status: string) => {
           <p>{{ filters.currency(Number(scope.row.ownerLenderAmount)) }}</p>
         </template>
       </el-table-column>
-      <el-table-column label="STATUS" :width="175">
+      <el-table-column label="STATUS" :width="210">
         <template #default="scope">
           <div
             class="tw-rounded-full tw-px-3 tw-py-1 tw-w-max"
