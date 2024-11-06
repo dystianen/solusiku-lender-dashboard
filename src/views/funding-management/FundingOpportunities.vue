@@ -56,7 +56,7 @@ const optionsAgreement = [
 const isAgree = ref(false)
 
 // Queries
-const { mutate: mutateOffering } = useOffering.getOffering()
+const { mutate: mutateOffering, isPending: isLoadingGetOffering } = useOffering.getOffering()
 const { mutate: submitOffering, isPending: isLoadingOffering } = useOffering.postOfferingApproval()
 const { mutate: submitOfferingInsurance, isPending: isLoadingOfferingInsurance } =
   useOffering.postOfferingApprovalInsurance()
@@ -104,6 +104,14 @@ const handleLoanAgreement = () => {
   })
 }
 
+const handleFetchOffering = () => {
+  mutateOffering(params, {
+    onSuccess: (res) => {
+      offering.value = res
+    }
+  })
+}
+
 watch(agreementType, (newValue) => {
   if (newValue === 'PERJANJIAN PENDANAAN') {
     handleLoanAgreement()
@@ -141,13 +149,7 @@ watch(debouncedSearch, () => {
   params.start = 1
 })
 
-onMounted(() => {
-  mutateOffering(params, {
-    onSuccess: (res) => {
-      offering.value = res
-    }
-  })
-})
+onMounted(handleFetchOffering)
 
 onMounted(() => {
   checkOffering(undefined, {
@@ -186,7 +188,7 @@ const handleSuccessFunding = () => {
           isLoadingCheckOffering.value = false
           isLoadingCheckOfferingInsurance.value = false
           approvalId.value = res.approvalId
-          mutateOffering(params)
+          handleFetchOffering()
           clearInterval(intervalId)
         }
       }
@@ -278,7 +280,7 @@ const handleCancelOffering = () => {
   dialogFundingAgreement.value = false
   dialogOTP.value = false
   cancelOffering(undefined, {
-    onSuccess: () => mutateOffering(params),
+    onSuccess: handleFetchOffering,
     onError: (res: any) => {
       ElMessage.error(res.data.error)
     }
@@ -345,10 +347,24 @@ const transformSlotProps = (props: Record<string, number>): Record<string, strin
     <div
       class="tw-mb-6 tw-flex tw-flex-col tw-items-center tw-justify-between tw-gap-4 md:tw-flex-row"
     >
-      <el-button size="large" class="tw-w-full md:tw-w-max" v-show="!isMobile">
-        <v-icon name="md-fileupload-outlined" class="tw-mr-2" />Export
-      </el-button>
-      <InputField clearable v-model="params.search" placeholder="Cari Peminjam" v-show="isMobile" />
+      <div class="tw-flex tw-gap-4 tw-w-full md:tw-w-max">
+        <el-button size="large" v-show="!isMobile">
+          <v-icon name="md-fileupload-outlined" class="tw-mr-2" />Export
+        </el-button>
+        <el-button size="large" v-show="!isMobile" @click="handleFetchOffering">
+          <v-icon
+            name="md-refresh-sharp"
+            class="tw-mr-2 tw-transition-transform"
+            :class="{ 'tw-animate-spin': isLoadingGetOffering }"
+          />MUAT ULANG
+        </el-button>
+        <InputField
+          clearable
+          v-model="params.search"
+          placeholder="Cari Peminjam"
+          v-show="isMobile"
+        />
+      </div>
 
       <div
         class="tw-flex tw-w-full tw-flex-col tw-items-center tw-gap-4 md:tw-w-max md:tw-flex-row"
@@ -361,6 +377,9 @@ const transformSlotProps = (props: Record<string, number>): Record<string, strin
         />
         <el-button size="large" class="tw-w-full md:tw-w-max" v-show="isMobile">
           <v-icon name="md-fileupload-outlined" class="tw-mr-2" />Export
+        </el-button>
+        <el-button size="large" class="tw-w-full md:tw-w-max" v-show="isMobile">
+          <v-icon name="md-refresh-sharp" class="tw-mr-2" />MUAT ULANG
         </el-button>
         <el-button
           type="primary"
@@ -387,6 +406,7 @@ const transformSlotProps = (props: Record<string, number>): Record<string, strin
       :data="offering.data"
       :row-class-name="tableRowClassName"
       @selection-change="handleSelection"
+      v-loading="isLoadingGetOffering"
     >
       <el-table-column type="selection" width="55" />
       <el-table-column label="AKSI" :width="98">

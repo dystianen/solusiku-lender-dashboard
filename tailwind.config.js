@@ -107,6 +107,9 @@ export default {
         'wood-pattern': "url('@/assets/backgrounds/bg_wood_pattern.svg')",
         product: "url('@/assets/backgrounds/bg_product.svg')",
         'hero-loan': "url('@/assets/backgrounds/bg_hero_loan.svg')"
+      },
+      animation: {
+        spin: 'spin 0.1s linear infinite'
       }
     }
   },
