@@ -24,11 +24,20 @@ const params = reactive({
 const search = computed(() => params.search)
 const debouncedSearch = useDebounce(search, 300)
 
-const { mutate: mutateFundingHistory } = useFunding.getFundingHistory()
+const { mutate: mutateFundingHistory, isPending: isLoadingFundingHistory } =
+  useFunding.getFundingHistory()
 const fundingHistory = ref<{ data: TFundingHistory[]; totalCount: number }>({
   data: [],
   totalCount: 0
 })
+
+const handleFetchFundingHistory = () => {
+  mutateFundingHistory(params, {
+    onSuccess: (res) => {
+      fundingHistory.value = res
+    }
+  })
+}
 
 watch(
   () => ({ length: params.length, start: params.start, search: debouncedSearch }),
@@ -48,13 +57,7 @@ watch(
   { deep: true }
 )
 
-onMounted(() => {
-  mutateFundingHistory(params, {
-    onSuccess: (res) => {
-      fundingHistory.value = res
-    }
-  })
-})
+onMounted(handleFetchFundingHistory)
 
 const handleChangePage = (value: number) => {
   params.start = value
@@ -125,15 +128,29 @@ const renderColorTag = (status: string) => {
     <div
       :class="`tw-mb-6 ${withTitle ? 'tw-mt-6' : ''} tw-flex tw-flex-col tw-items-center tw-justify-between tw-gap-4 md:tw-flex-row`"
     >
-      <el-button size="large" class="tw-w-full md:tw-w-max" v-show="!isMobile">
-        <v-icon name="md-fileupload-outlined" class="tw-mr-2" />Export
-      </el-button>
-      <InputField
-        clearable
-        v-model="params.search"
-        placeholder="Cari produk, status"
-        v-show="isMobile"
-      />
+      <div class="tw-flex tw-gap-4 tw-w-full md:tw-w-max">
+        <el-button size="large" class="tw-w-full md:tw-w-max" v-show="!isMobile">
+          <v-icon name="md-fileupload-outlined" class="tw-mr-2" />Export
+        </el-button>
+        <el-button
+          size="large"
+          class="tw-w-full md:tw-w-max"
+          v-show="!isMobile"
+          @click="handleFetchFundingHistory"
+        >
+          <v-icon
+            name="md-refresh-sharp"
+            class="tw-mr-2 tw-transition-transform"
+            :class="{ 'tw-animate-spin': isLoadingFundingHistory }"
+          />MUAT ULANG
+        </el-button>
+        <InputField
+          clearable
+          v-model="params.search"
+          placeholder="Cari produk, status"
+          v-show="isMobile"
+        />
+      </div>
 
       <div
         class="tw-flex tw-w-full tw-flex-col tw-items-center tw-gap-4 md:tw-w-max md:tw-flex-row"
@@ -146,6 +163,18 @@ const renderColorTag = (status: string) => {
         />
         <el-button size="large" class="tw-w-full md:tw-w-max" v-show="isMobile">
           <v-icon name="md-fileupload-outlined" class="tw-mr-2" />Export
+        </el-button>
+        <el-button
+          size="large"
+          class="tw-w-full md:tw-w-max"
+          v-show="isMobile"
+          @click="handleFetchFundingHistory"
+        >
+          <v-icon
+            name="md-refresh-sharp"
+            class="tw-mr-2 tw-transition-transform"
+            :class="{ 'tw-animate-spin': isLoadingFundingHistory }"
+          />MUAT ULANG
         </el-button>
         <el-button type="primary" class="tw-w-full md:tw-w-max" size="large">
           HAPUS BUKU (WO)
@@ -160,6 +189,7 @@ const renderColorTag = (status: string) => {
       :data="fundingHistory.data"
       :row-class-name="tableRowClassName"
       @selection-change="handleSelection"
+      v-loading="isLoadingFundingHistory"
     >
       <el-table-column type="selection" :width="55" />
       <el-table-column property="productName" label="NAMA PRODUK" :width="175" />

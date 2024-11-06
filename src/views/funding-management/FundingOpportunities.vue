@@ -378,8 +378,17 @@ const transformSlotProps = (props: Record<string, number>): Record<string, strin
         <el-button size="large" class="tw-w-full md:tw-w-max" v-show="isMobile">
           <v-icon name="md-fileupload-outlined" class="tw-mr-2" />Export
         </el-button>
-        <el-button size="large" class="tw-w-full md:tw-w-max" v-show="isMobile">
-          <v-icon name="md-refresh-sharp" class="tw-mr-2" />MUAT ULANG
+        <el-button
+          size="large"
+          class="tw-w-full md:tw-w-max"
+          v-show="isMobile"
+          @click="handleFetchOffering"
+        >
+          <v-icon
+            name="md-refresh-sharp"
+            class="tw-mr-2 tw-transition-transform"
+            :class="{ 'tw-animate-spin': isLoadingGetOffering }"
+          />MUAT ULANG
         </el-button>
         <el-button
           type="primary"
@@ -415,9 +424,11 @@ const transformSlotProps = (props: Record<string, number>): Record<string, strin
         </template>
       </el-table-column>
       <el-table-column property="productName" label="NAMA PRODUK" :width="175" />
-      <el-table-column label="ID PEMINJAM" :width="190">
+      <el-table-column property="borrowerName" label="NAMA PEMINJAM" :width="175" />
+      <el-table-column property="nik" label="NIK" :width="175" />
+      <el-table-column label="ID PEMINJAM" :width="175">
         <template #default="scope">
-          <p class="tw-text-primary">{{ scope.row.borrowerId }}</p>
+          <p class="tw-text-primary">{{ scope.row.borrowerIdSeq }}</p>
         </template>
       </el-table-column>
       <el-table-column label="TANGGAL TRANSAKSI" :width="175">
@@ -425,7 +436,7 @@ const transformSlotProps = (props: Record<string, number>): Record<string, strin
           <p>{{ dayjs(scope.row.createdOn).format('DD MMMM YYYY') }}</p>
         </template>
       </el-table-column>
-      <el-table-column property="applicationId" label="NO. PENGAJUAN" :width="190" />
+      <el-table-column property="applicationIdSeq" label="NO. PENGAJUAN" :width="175" />
       <el-table-column property="riskLevel" label="TINGKAT RESIKO" :width="175" />
       <el-table-column label="NILAI PINJAMAN" :width="175">
         <template #default="scope">
