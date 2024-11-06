@@ -18,6 +18,7 @@ declare module 'vue' {
     CardSummary: typeof import('./src/components/organisms/card/CardSummary.vue')['default']
     CTALoan: typeof import('./src/components/organisms/cta/CTALoan.vue')['default']
     DatePicker: typeof import('./src/components/atoms/datepicker/DatePicker.vue')['default']
+    ElAutocomplete: typeof import('element-plus/es')['ElAutocomplete']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElBadge: typeof import('element-plus/es')['ElBadge']
     ElButton: typeof import('element-plus/es')['ElButton']
@@ -83,5 +84,8 @@ declare module 'vue' {
     WaitingApproval: typeof import('./src/components/pages/waiting/WaitingApproval.vue')['default']
     WaitingFeature: typeof import('./src/components/pages/waiting/WaitingFeature.vue')['default']
     WhySection: typeof import('./src/components/organisms/loan/WhySection.vue')['default']
+  }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import useMaster from '@/api/queries/master/useMaster'
 import useRegistration from '@/api/queries/registration/useRegistration'
-import AutoComplete from '@/components/atoms/autocomplete/AutoComplete.vue'
 import useScreenType from '@/composables/useScreenType'
 import { maskaIdCardNumber, maskaNumberLength16 } from '@/helpers/maska'
 import type { FileType, Option } from '@/types/general'
