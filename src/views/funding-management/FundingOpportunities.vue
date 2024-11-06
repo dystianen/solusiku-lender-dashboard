@@ -220,7 +220,8 @@ const handleClickFunding = (type: 'default' | 'insurance') => {
       { offeringIds: offeringIds.value },
       {
         onSuccess: handleSuccessFunding,
-        onError: () => {
+        onError: (res: any) => {
+          ElMessage.error(res.data.error)
           isLoadingCheckOfferingInsurance.value = false
           dialogLoading.value = false
         }
