@@ -192,7 +192,7 @@ const renderColorTag = (status: string) => {
       v-loading="isLoadingFundingHistory"
     >
       <el-table-column type="selection" :width="55" />
-      <el-table-column property="productName" label="NAMA PRODUK" :min-width="175" />
+      <el-table-column property="productName" label="NAMA PRODUK" :min-width="160" />
       <el-table-column label="ID PEMINJAM" :min-width="150">
         <template #default="scope">
           <p class="tw-text-primary">{{ scope.row.borrowerIdSeq }}</p>
@@ -200,22 +200,20 @@ const renderColorTag = (status: string) => {
       </el-table-column>
       <el-table-column label="TANGGAL TRANSAKSI" :min-width="175">
         <template #default="scope">
-          <p>{{ dayjs(scope.row.startOn).format('DD MMMM YYYY') }}</p>
+          {{ dayjs(scope.row.startOn).format('DD MMMM YYYY') }}
         </template>
       </el-table-column>
-      <el-table-column label="NILAI PINJAMAN" :min-width="175">
+      <el-table-column label="NILAI PINJAMAN" :min-width="175" align="right">
         <template #default="scope">
-          <p>{{ filters.currency(Number(scope.row.amountPrinciple)) }}</p>
+          {{ filters.currency(Number(scope.row.amountPrinciple)) }}
         </template>
       </el-table-column>
       <el-table-column label="PERIODE PINJAMAN" :min-width="175">
-        <template #default="scope">
-          <p>{{ scope.row.termPeriod }} Periode</p>
-        </template>
+        <template #default="scope"> {{ scope.row.termPeriod }} Periode </template>
       </el-table-column>
-      <el-table-column label="JUMLAH PENGEMBALIAN" :min-width="200">
+      <el-table-column label="JUMLAH PENGEMBALIAN" :min-width="200" align="right">
         <template #default="scope">
-          <p>{{ filters.currency(Number(scope.row.ownerLenderAmount)) }}</p>
+          {{ filters.currency(Number(scope.row.ownerLenderAmount)) }}
         </template>
       </el-table-column>
       <el-table-column label="STATUS" :min-width="210">

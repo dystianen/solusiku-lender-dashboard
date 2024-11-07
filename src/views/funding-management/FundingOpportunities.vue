@@ -423,7 +423,7 @@ const transformSlotProps = (props: Record<string, number>): Record<string, strin
           <el-button size="small" type="primary" round> Detail </el-button>
         </template>
       </el-table-column>
-      <el-table-column property="productName" label="NAMA PRODUK" :min-width="175" />
+      <el-table-column property="productName" label="NAMA PRODUK" :min-width="160" />
       <el-table-column property="borrowerName" label="NAMA PEMINJAM" :min-width="175" />
       <el-table-column property="borrowerIdCardNumber" label="NIK" :min-width="175" />
       <el-table-column label="ID PEMINJAM" :min-width="175">
@@ -436,11 +436,11 @@ const transformSlotProps = (props: Record<string, number>): Record<string, strin
           <p>{{ dayjs(scope.row.createdOn).format('DD MMMM YYYY') }}</p>
         </template>
       </el-table-column>
-      <el-table-column property="applicationIdSeq" label="NO. PENGAJUAN" :min-width="175" />
-      <el-table-column property="riskLevel" label="TINGKAT RESIKO" :min-width="175" />
-      <el-table-column label="NILAI PINJAMAN" :min-width="175">
+      <el-table-column property="applicationIdSeq" label="NO. PENGAJUAN" :min-width="150" />
+      <el-table-column property="riskLevel" label="TINGKAT RESIKO" :min-width="140" />
+      <el-table-column label="NILAI PINJAMAN" :min-width="175" align="right">
         <template #default="scope">
-          <p class="tw-text-right">{{ filters.currency(Number(scope.row.amountRequested)) }}</p>
+          {{ filters.currency(Number(scope.row.amountRequested)) }}
         </template>
       </el-table-column>
       <el-table-column label="PERIODE PINJAMAN" :min-width="175">
