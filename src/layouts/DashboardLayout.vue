@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import useRegistration from '@/api/queries/registration/useRegistration'
+import useVerification from '@/api/queries/verification/useVerification'
 import IcCategory from '@/assets/icons/ic_category.svg'
 import IcCategoryWhite from '@/assets/icons/ic_category_white.svg'
 import IcChart from '@/assets/icons/ic_chart.svg'
@@ -23,6 +24,7 @@ const isOnline = useOnlineStatus()
 
 // Query
 const { data: fundingCheck, refetch } = useRegistration.getFundingCheck()
+const { mutate: logout } = useVerification.logout()
 
 const isSidebarOpen = ref(isOpen.value)
 const openMenuIndex = reactive<{
@@ -108,8 +110,13 @@ const isActiveMenu = (path: string) => {
 }
 
 const handleLogout = () => {
-  removeAccessToken()
-  router.push({ name: 'login' })
+  logout(undefined, {
+    onSuccess: () => {
+      console.log('masuk')
+      removeAccessToken()
+      router.push({ name: 'login' })
+    }
+  })
 }
 
 // Interval

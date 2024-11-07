@@ -192,8 +192,8 @@ const renderColorTag = (status: string) => {
       v-loading="isLoadingFundingHistory"
     >
       <el-table-column type="selection" :width="55" />
-      <el-table-column property="productName" label="NAMA PRODUK" :min-width="160" />
-      <el-table-column label="ID PEMINJAM" :min-width="150">
+      <el-table-column property="productName" label="NAMA PRODUK" :min-width="130" />
+      <el-table-column label="ID PEMINJAM" :min-width="120">
         <template #default="scope">
           <p class="tw-text-primary">{{ scope.row.borrowerIdSeq }}</p>
         </template>
@@ -208,7 +208,7 @@ const renderColorTag = (status: string) => {
           {{ filters.currency(Number(scope.row.amountPrinciple)) }}
         </template>
       </el-table-column>
-      <el-table-column label="PERIODE PINJAMAN" :min-width="175">
+      <el-table-column label="PERIODE PINJAMAN" :min-width="160">
         <template #default="scope"> {{ scope.row.termPeriod }} Periode </template>
       </el-table-column>
       <el-table-column label="JUMLAH PENGEMBALIAN" :min-width="200" align="right">
@@ -216,7 +216,7 @@ const renderColorTag = (status: string) => {
           {{ filters.currency(Number(scope.row.ownerLenderAmount)) }}
         </template>
       </el-table-column>
-      <el-table-column label="STATUS" :min-width="210">
+      <el-table-column label="STATUS" :min-width="220">
         <template #default="scope">
           <div
             class="tw-rounded-full tw-px-3 tw-py-1 tw-w-max"

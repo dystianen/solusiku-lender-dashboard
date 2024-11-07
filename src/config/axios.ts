@@ -1,4 +1,4 @@
-import { accessToken } from '@/cookies/accessToken'
+import { accessToken, removeAccessToken } from '@/cookies/accessToken'
 import axios, { AxiosError, type AxiosInstance, type AxiosResponse } from 'axios'
 
 const api = axios.create({
@@ -37,6 +37,7 @@ const addAuthInterceptor = (instance: AxiosInstance) => {
       ) {
         const pathname = window.location.pathname
         if (pathname !== '/login') {
+          removeAccessToken()
           window.location.href = '/login'
         }
       }

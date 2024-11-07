@@ -41,6 +41,11 @@ const useVerification = {
     return useMutation({
       mutationFn: verificationServices.resendOTPRegister
     })
+  },
+  logout() {
+    return useMutation({
+      mutationFn: verificationServices.logout
+    })
   }
 }
 

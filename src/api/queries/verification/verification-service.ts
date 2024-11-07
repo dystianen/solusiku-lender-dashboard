@@ -58,5 +58,9 @@ export const verificationServices = {
       token
     })
     return resendConfirmOTP.data ?? {}
+  },
+  async logout() {
+    const { data: signout } = await api.get(`${LENDER_API}/signout`)
+    return signout.data
   }
 }

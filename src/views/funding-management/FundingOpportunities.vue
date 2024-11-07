@@ -426,7 +426,7 @@ const transformSlotProps = (props: Record<string, number>): Record<string, strin
       <el-table-column property="productName" label="NAMA PRODUK" :min-width="160" />
       <el-table-column property="borrowerName" label="NAMA PEMINJAM" :min-width="175" />
       <el-table-column property="borrowerIdCardNumber" label="NIK" :min-width="175" />
-      <el-table-column label="ID PEMINJAM" :min-width="175">
+      <el-table-column label="ID PEMINJAM" :min-width="120">
         <template #default="scope">
           <p class="tw-text-primary">{{ scope.row.borrowerIdSeq }}</p>
         </template>
