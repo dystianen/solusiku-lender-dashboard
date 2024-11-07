@@ -551,8 +551,11 @@ const transformSlotProps = (props: Record<string, number>): Record<string, strin
       />
 
       <el-scrollbar :height="isMobile ? 200 : 300" always style="width: 100%">
-        <div @click="handleOpenPDF" class="tw-cursor-pointer">
-          <VuePdfEmbed :source="sourcePdf" />
+        <div
+          @click="handleOpenPDF"
+          class="tw-cursor-pointer tw-bg-slate-200 tw-px-4 tw-pt-4 tw-pb-1"
+        >
+          <VuePdfEmbed :source="sourcePdf" annotation-layer />
         </div>
       </el-scrollbar>
 
@@ -729,6 +732,11 @@ const transformSlotProps = (props: Record<string, number>): Record<string, strin
 
 :deep(.selected-row) {
   background-color: rgba(222, 79, 63, 0.15) !important;
+}
+
+:deep(.vue-pdf-embed__page) {
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px 4px rgba(0, 0, 0, 0.1);
 }
 
 .radio-group-full-width {
