@@ -31,7 +31,10 @@ const addAuthInterceptor = (instance: AxiosInstance) => {
       return response
     },
     (error) => {
-      if (error.response && error.response.status === 401) {
+      if (
+        (error.response && error.response.status === 401) ||
+        error.response.data.error.includes('Invalid lender token')
+      ) {
         const pathname = window.location.pathname
         if (pathname !== '/login') {
           window.location.href = '/login'
