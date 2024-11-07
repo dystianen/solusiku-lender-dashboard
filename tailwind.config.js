@@ -109,7 +109,7 @@ export default {
         'hero-loan': "url('@/assets/backgrounds/bg_hero_loan.svg')"
       },
       animation: {
-        spin: 'spin 0.1s linear infinite'
+        spin: 'spin 1s linear infinite'
       }
     }
   },

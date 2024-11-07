@@ -417,38 +417,38 @@ const transformSlotProps = (props: Record<string, number>): Record<string, strin
       @selection-change="handleSelection"
       v-loading="isLoadingGetOffering"
     >
-      <el-table-column type="selection" width="55" />
-      <el-table-column label="AKSI" :width="98">
+      <el-table-column type="selection" :width="55" />
+      <el-table-column label="AKSI" :min-width="98">
         <template #default>
           <el-button size="small" type="primary" round> Detail </el-button>
         </template>
       </el-table-column>
-      <el-table-column property="productName" label="NAMA PRODUK" :width="175" />
-      <el-table-column property="borrowerName" label="NAMA PEMINJAM" :width="175" />
-      <el-table-column property="borrowerIdCardNumber" label="NIK" :width="175" />
-      <el-table-column label="ID PEMINJAM" :width="175">
+      <el-table-column property="productName" label="NAMA PRODUK" :min-width="175" />
+      <el-table-column property="borrowerName" label="NAMA PEMINJAM" :min-width="175" />
+      <el-table-column property="borrowerIdCardNumber" label="NIK" :min-width="175" />
+      <el-table-column label="ID PEMINJAM" :min-width="175">
         <template #default="scope">
           <p class="tw-text-primary">{{ scope.row.borrowerIdSeq }}</p>
         </template>
       </el-table-column>
-      <el-table-column label="TANGGAL TRANSAKSI" :width="175">
+      <el-table-column label="TANGGAL TRANSAKSI" :min-width="175">
         <template #default="scope">
           <p>{{ dayjs(scope.row.createdOn).format('DD MMMM YYYY') }}</p>
         </template>
       </el-table-column>
-      <el-table-column property="applicationIdSeq" label="NO. PENGAJUAN" :width="175" />
-      <el-table-column property="riskLevel" label="TINGKAT RESIKO" :width="175" />
-      <el-table-column label="NILAI PINJAMAN" :width="175">
+      <el-table-column property="applicationIdSeq" label="NO. PENGAJUAN" :min-width="175" />
+      <el-table-column property="riskLevel" label="TINGKAT RESIKO" :min-width="175" />
+      <el-table-column label="NILAI PINJAMAN" :min-width="175">
         <template #default="scope">
-          <p>{{ filters.currency(Number(scope.row.amountRequested)) }}</p>
+          <p class="tw-text-right">{{ filters.currency(Number(scope.row.amountRequested)) }}</p>
         </template>
       </el-table-column>
-      <el-table-column label="PERIODE PINJAMAN" :width="175">
+      <el-table-column label="PERIODE PINJAMAN" :min-width="175">
         <template #default="scope">
           <p>{{ scope.row.loanPeriod }} Periode</p>
         </template>
       </el-table-column>
-      <el-table-column label="TENOR PINJAMAN" :width="175">
+      <el-table-column label="TENOR PINJAMAN" :min-width="175">
         <template #default="scope">
           <p>{{ scope.row.loanTenor }} Bulan</p>
         </template>

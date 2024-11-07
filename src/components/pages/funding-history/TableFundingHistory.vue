@@ -192,33 +192,33 @@ const renderColorTag = (status: string) => {
       v-loading="isLoadingFundingHistory"
     >
       <el-table-column type="selection" :width="55" />
-      <el-table-column property="productName" label="NAMA PRODUK" :width="175" />
-      <el-table-column label="ID PEMINJAM" :width="190">
+      <el-table-column property="productName" label="NAMA PRODUK" :min-width="175" />
+      <el-table-column label="ID PEMINJAM" :min-width="150">
         <template #default="scope">
-          <p class="tw-text-primary">{{ scope.row.borrowerId }}</p>
+          <p class="tw-text-primary">{{ scope.row.borrowerIdSeq }}</p>
         </template>
       </el-table-column>
-      <el-table-column label="TANGGAL TRANSAKSI" :width="175">
+      <el-table-column label="TANGGAL TRANSAKSI" :min-width="175">
         <template #default="scope">
           <p>{{ dayjs(scope.row.startOn).format('DD MMMM YYYY') }}</p>
         </template>
       </el-table-column>
-      <el-table-column label="NILAI PINJAMAN" :width="175">
+      <el-table-column label="NILAI PINJAMAN" :min-width="175">
         <template #default="scope">
           <p>{{ filters.currency(Number(scope.row.amountPrinciple)) }}</p>
         </template>
       </el-table-column>
-      <el-table-column label="PERIODE PINJAMAN" :width="175">
+      <el-table-column label="PERIODE PINJAMAN" :min-width="175">
         <template #default="scope">
           <p>{{ scope.row.termPeriod }} Periode</p>
         </template>
       </el-table-column>
-      <el-table-column label="JUMLAH PENGEMBALIAN" :width="200">
+      <el-table-column label="JUMLAH PENGEMBALIAN" :min-width="200">
         <template #default="scope">
           <p>{{ filters.currency(Number(scope.row.ownerLenderAmount)) }}</p>
         </template>
       </el-table-column>
-      <el-table-column label="STATUS" :width="210">
+      <el-table-column label="STATUS" :min-width="210">
         <template #default="scope">
           <div
             class="tw-rounded-full tw-px-3 tw-py-1 tw-w-max"
