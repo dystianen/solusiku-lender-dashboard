@@ -44,15 +44,20 @@ const tableRowClassName = ({ row }: { row: any }) => {
     <div
       class="tw-mb-6 tw-flex tw-flex-col tw-items-center tw-justify-between tw-gap-4 md:tw-flex-row"
     >
-      <el-button size="large" class="tw-w-full md:tw-w-max" v-show="!isMobile">
-        <v-icon name="md-fileupload-outlined" class="tw-mr-2" />Export
-      </el-button>
-      <InputField
-        clearable
-        v-model="params.search"
-        placeholder="Cari produk, status"
-        v-show="isMobile"
-      />
+      <div class="tw-flex tw-gap-4 tw-w-full md:tw-w-max">
+        <el-button size="large" class="tw-w-full md:tw-w-max" v-show="!isMobile">
+          <v-icon name="md-fileupload-outlined" class="tw-mr-2" />Export
+        </el-button>
+        <el-button size="large" class="tw-w-full md:tw-w-max" v-show="!isMobile">
+          <v-icon name="md-refresh-sharp" class="tw-mr-2 tw-transition-transform" />MUAT ULANG
+        </el-button>
+        <InputField
+          clearable
+          v-model="params.search"
+          placeholder="Cari produk, status"
+          v-show="isMobile"
+        />
+      </div>
 
       <div
         class="tw-flex tw-w-full tw-flex-col tw-items-center tw-gap-4 md:tw-w-max md:tw-flex-row"
@@ -66,33 +71,41 @@ const tableRowClassName = ({ row }: { row: any }) => {
         <el-button size="large" class="tw-w-full md:tw-w-max" v-show="isMobile">
           <v-icon name="md-fileupload-outlined" class="tw-mr-2" />Export
         </el-button>
+        <el-button size="large" class="tw-w-full md:tw-w-max" v-show="isMobile">
+          <v-icon name="md-refresh-sharp" class="tw-mr-2 tw-transition-transform" />MUAT ULANG
+        </el-button>
       </div>
     </div>
 
     <el-table :data="[]" :row-class-name="tableRowClassName" @selection-change="handleSelection">
       <el-table-column type="selection" width="55" />
-      <el-table-column label="ID PEMINJAM" :width="190">
+      <el-table-column label="AKSI" :min-width="98">
+        <template #default>
+          <el-button size="small" type="primary" round> Detail </el-button>
+        </template>
+      </el-table-column>
+      <el-table-column label="ID PEMINJAM" :min-width="190">
         <template #default="scope">
           <p class="tw-text-primary">{{ scope.row.borrowerId }}</p>
         </template>
       </el-table-column>
-      <el-table-column label="TANGGAL PERMOHONAN" :width="200">
+      <el-table-column label="TANGGAL PERMOHONAN" :min-width="200">
         <template #default="scope">
           <p>{{ dayjs(scope.row.createdOn).format('DD MMMM YYYY') }}</p>
         </template>
       </el-table-column>
-      <el-table-column label="NILAI PINJAMAN" :width="200">
+      <el-table-column label="NILAI PINJAMAN" :min-width="200">
         <template #default="scope">
           <p>{{ filters.currency(Number(scope.row.amountRequested)) }}</p>
         </template>
       </el-table-column>
-      <el-table-column label="ALASAN RESTRUKTURISASI" :width="250" />
-      <el-table-column label="TANGGAL KEPUTUSAN" :width="200">
+      <el-table-column label="ALASAN RESTRUKTURISASI" :min-width="250" />
+      <el-table-column label="TANGGAL KEPUTUSAN" :min-width="200">
         <template #default="scope">
           <p>{{ dayjs(scope.row.createdOn).format('DD MMMM YYYY') }}</p>
         </template>
       </el-table-column>
-      <el-table-column label="STATUS" :width="200" />
+      <el-table-column label="STATUS" :min-width="200" />
     </el-table>
 
     <Pagination

@@ -3,6 +3,10 @@ import Card from '@/components/atoms/card/Card.vue'
 import filters from '@/helpers/filters'
 
 const props = defineProps({
+  type: {
+    type: String,
+    default: 'amount'
+  },
   icon: {
     type: String
   },
@@ -10,7 +14,8 @@ const props = defineProps({
     type: String
   },
   total: {
-    type: Number
+    type: Number,
+    default: 0
   }
 })
 </script>
@@ -22,8 +27,14 @@ const props = defineProps({
       <p class="tw-text-xs md:tw-text-base tw-text-neutral-1/[.68]">{{ props.title }}</p>
     </div>
 
-    <h3 class="md:tw-text-md lg:tw-text-md tw-text-base tw-font-semibold 2xl:tw-text-2xl">
-      {{ filters.currency(props.total ?? 0) }}
+    <h3
+      v-if="type === 'amount'"
+      class="md:tw-text-md lg:tw-text-md tw-text-base tw-font-semibold 2xl:tw-text-2xl"
+    >
+      {{ filters.currency(props.total) }}
+    </h3>
+    <h3 v-else class="md:tw-text-md lg:tw-text-md tw-text-base tw-font-semibold 2xl:tw-text-2xl">
+      {{ props.total }} %
     </h3>
   </Card>
 </template>

@@ -1,5 +1,9 @@
 <script lang="ts" setup>
 import useFunding from '@/api/queries/funding/useFunding'
+import IcBarChart from '@/assets/icons/ic_bar_chart.svg'
+import IcDolar from '@/assets/icons/ic_dolar.svg'
+import IcDownChart from '@/assets/icons/ic_down_chart.svg'
+import IcPendanaan from '@/assets/icons/ic_pendanaan.svg'
 import useScreenType from '@/composables/useScreenType'
 import filters from '@/helpers/filters'
 import type { TFundingHistory } from '@/types/funding'
@@ -10,6 +14,10 @@ import { computed, onMounted, reactive, ref, watch } from 'vue'
 const { isMobile } = useScreenType()
 
 defineProps({
+  withSummary: {
+    type: Boolean,
+    default: false
+  },
   withTitle: {
     type: Boolean,
     default: false
@@ -120,9 +128,43 @@ const renderColorTag = (status: string) => {
 
   return styles
 }
+
+const summary = computed(() => [
+  {
+    icon: IcPendanaan,
+    title: 'Total Pendanaan',
+    total: 0
+  },
+  {
+    icon: IcDolar,
+    title: 'Total Pengembalian',
+    total: 0
+  },
+  {
+    icon: IcBarChart,
+    title: 'Pinjaman yang Berjalan',
+    total: 0
+  },
+  {
+    icon: IcDownChart,
+    title: 'Pinjaman Bermasalah',
+    total: 0,
+    type: 'percentage'
+  }
+])
 </script>
 
 <template>
+  <div v-if="withSummary" class="tw-grid tw-grid-cols-2 tw-gap-4 lg:tw-grid-cols-4 tw-mb-4">
+    <CardSummary
+      v-for="(item, i) in summary"
+      :key="i"
+      :type="item.type"
+      :icon="item.icon"
+      :title="item.title"
+      :total="item.total"
+    />
+  </div>
   <Card>
     <h3 v-if="withTitle" class="tw-text-xl tw-text-neutral-1/[.87]">Riwayat Pendanaan</h3>
     <div
@@ -176,10 +218,10 @@ const renderColorTag = (status: string) => {
             :class="{ 'tw-animate-spin': isLoadingFundingHistory }"
           />MUAT ULANG
         </el-button>
-        <el-button type="primary" class="tw-w-full md:tw-w-max" size="large">
+        <el-button plain class="outline tw-w-full md:tw-w-max" size="large">
           HAPUS BUKU (WO)
         </el-button>
-        <el-button type="success" class="tw-w-full md:tw-w-max" size="large">
+        <el-button type="primary" class="tw-w-full md:tw-w-max" size="large">
           RESTRUKTURISASI
         </el-button>
       </div>

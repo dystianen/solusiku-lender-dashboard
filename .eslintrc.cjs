@@ -37,6 +37,8 @@ module.exports = {
 
     'vue/attribute-hyphenation': 'error',
 
+    'vue/define-props-declaration': ['error', 'type-based' | 'runtime'],
+
     'vue/attributes-order': [
       'error',
       {

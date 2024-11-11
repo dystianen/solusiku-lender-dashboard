@@ -71,28 +71,28 @@ const tableRowClassName = ({ row }: { row: any }) => {
 
     <el-table :data="[]" :row-class-name="tableRowClassName" @selection-change="handleSelection">
       <el-table-column type="selection" width="55" />
-      <el-table-column label="ID PEMINJAM" :width="190">
+      <el-table-column label="ID PEMINJAM" :min-width="190">
         <template #default="scope">
           <p class="tw-text-primary">{{ scope.row.borrowerId }}</p>
         </template>
       </el-table-column>
-      <el-table-column label="TANGGAL PEMBAYARAN" :width="200">
+      <el-table-column label="TANGGAL PEMBAYARAN" :min-width="200">
         <template #default="scope">
           <p>{{ dayjs(scope.row.createdOn).format('DD MMMM YYYY') }}</p>
         </template>
       </el-table-column>
-      <el-table-column label="JUMLAH PEMBAYARAN" :width="200">
+      <el-table-column label="JUMLAH PEMBAYARAN" :min-width="200">
         <template #default="scope">
           <p>{{ filters.currency(Number(scope.row.amountRequested)) }}</p>
         </template>
       </el-table-column>
-      <el-table-column label="Jenis pembayaran" :width="175" />
-      <el-table-column label="SISA PEMBAYARAN" :width="175">
+      <el-table-column label="Jenis pembayaran" :min-width="175" />
+      <el-table-column label="SISA PEMBAYARAN" :min-width="175">
         <template #default="scope">
           <p>{{ filters.currency(Number(scope.row.amountRequested)) }}</p>
         </template>
       </el-table-column>
-      <el-table-column label="METODE PEMBAYARAN" :width="200" />
+      <el-table-column label="METODE PEMBAYARAN" :min-width="200" />
     </el-table>
 
     <Pagination

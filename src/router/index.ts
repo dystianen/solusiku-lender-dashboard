@@ -12,7 +12,8 @@ import DeleteBookWO from '@/views/funding-management/DeleteBookWO.vue'
 import FundingHistory from '@/views/funding-management/FundingHistory.vue'
 import FundingOpportunities from '@/views/funding-management/FundingOpportunities.vue'
 import PaymentHistory from '@/views/funding-management/PaymentHistory.vue'
-import Restructuring from '@/views/funding-management/Restructuring.vue'
+import Restructuring from '@/views/funding-management/restructuring/Restructuring.vue'
+import RestructuringDetail from '@/views/funding-management/restructuring/RestructuringDetail.vue'
 import ChangePassword from '@/views/password/ChangePassword.vue'
 import ForgotPassword from '@/views/password/ForgotPassword.vue'
 import SuccessUpdatePassword from '@/views/password/SuccessUpdatePassword.vue'
@@ -139,7 +140,17 @@ const router = createRouter({
         {
           path: 'restructuring',
           name: 'restructuring',
-          component: Restructuring
+          children: [
+            {
+              path: '',
+              component: Restructuring
+            },
+            {
+              path: ':id',
+              name: 'restructuring-detail',
+              component: RestructuringDetail
+            }
+          ]
         },
         {
           path: 'delete-book-wo',

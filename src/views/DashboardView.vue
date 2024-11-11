@@ -38,16 +38,14 @@ const summary = computed(() => [
 <template>
   <template v-if="fundingCheck?.status === 'completed'">
     <div class="tw-flex tw-flex-col tw-gap-4">
-      <div class="tw-col-span-4 lg:tw-col-span-2">
-        <div class="tw-grid tw-grid-cols-2 tw-gap-4 lg:tw-grid-cols-4">
-          <CardSummary
-            v-for="(item, i) in summary"
-            :key="i"
-            :icon="item.icon"
-            :title="item.title"
-            :total="item.total"
-          />
-        </div>
+      <div class="tw-grid tw-grid-cols-2 tw-gap-4 lg:tw-grid-cols-4">
+        <CardSummary
+          v-for="(item, i) in summary"
+          :key="i"
+          :icon="item.icon"
+          :title="item.title"
+          :total="item.total"
+        />
       </div>
 
       <div v-if="dashboard" class="tw-row-span-2 tw-grid tw-grid-cols-4 tw-gap-4 lg:tw-grid-cols-5">
@@ -67,7 +65,7 @@ const summary = computed(() => [
         />
       </div>
 
-      <TableFundingHistory :withTitle="true" />
+      <TableFundingHistory withTitle />
     </div>
   </template>
   <template v-if="fundingCheck?.status === 'registered'">

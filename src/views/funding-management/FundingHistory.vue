@@ -1,3 +1,3 @@
 <template>
-  <TableFundingHistory :withTitle="false" />
+  <TableFundingHistory withSummary />
 </template>
