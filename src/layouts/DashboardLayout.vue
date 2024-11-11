@@ -381,7 +381,7 @@ onMounted(() => {
           <slot />
         </div>
         <footer
-          class="tw-pt-6 tw-flex tw-flex-col tw-truncate md:tw-flex-row tw-justify-between tw-items-center tw-font-normal tw-text-center"
+          class="tw-pb-2 tw-pt-6 tw-flex tw-flex-col tw-truncate md:tw-flex-row tw-justify-between tw-items-center tw-font-normal tw-text-center"
         >
           <p class="tw-text-neutral-1/[.68] tw-text-xs md:tw-text-sm">
             &copy; 2024, Sistem Manajemen Pendanaan - PT. Anugerah Digital Indonesia.
