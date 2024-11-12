@@ -1,16 +1,14 @@
 import { ref } from 'vue'
-import { useCookies } from 'vue3-cookies'
-const { cookies } = useCookies()
 
-const token = cookies.get('access-token')
+const token = localStorage.getItem('access-token')
 export const accessToken = ref(token)
 
 export const setAccessToken = (value: string): void => {
-  cookies.set('access-token', value)
+  localStorage.setItem('access-token', value)
   accessToken.value = value
 }
 
 export const removeAccessToken = () => {
-  cookies.remove('access-token')
+  localStorage.removeItem('access-token')
   accessToken.value = ''
 }
