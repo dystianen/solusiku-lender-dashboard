@@ -112,7 +112,6 @@ const isActiveMenu = (path: string) => {
 const handleLogout = () => {
   logout(undefined, {
     onSuccess: () => {
-      console.log('masuk')
       removeAccessToken()
       router.push({ name: 'login' })
     }

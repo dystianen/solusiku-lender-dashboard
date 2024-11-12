@@ -369,7 +369,6 @@ onMounted(() => {
   mutateBank(undefined, {
     onSuccess: (res) => {
       optionsBank.value = res
-      console.log({ res })
     }
   })
 })
