@@ -6,7 +6,7 @@ import InputField from '@/components/atoms/input/InputField.vue'
 import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
 import useTimer from '@/composables/useTimer'
 import useEmailStore from '@/stores/email.store'
-import useVerificationToken from '@/stores/verificationToken.store'
+import verificationTokenStore from '@/stores/verificationToken.store'
 import type { TReqRegister } from '@/types/verification'
 import { ElNotification, type FormInstance, type FormRules } from 'element-plus'
 import { h, reactive, ref, watchEffect } from 'vue'
@@ -15,7 +15,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const { setEmail } = useEmailStore()
 const { setTimerCookies } = useTimer()
-const { setVerificationToken } = useVerificationToken()
+const { setVerificationToken } = verificationTokenStore()
 
 // Queries
 const { data: userType } = useUser.getUserType()

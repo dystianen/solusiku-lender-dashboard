@@ -2,12 +2,12 @@
 import useVerification from '@/api/queries/verification/useVerification'
 import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
 import validatorPassword from '@/helpers/password'
-import useVerificationToken from '@/stores/verificationToken.store'
+import verificationTokenStore from '@/stores/verificationToken.store'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import { reactive, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 const router = useRouter()
-const { verificationToken } = useVerificationToken()
+const { verificationToken } = verificationTokenStore()
 
 const isLengthValid = ref(false)
 const isComplexValid = ref(false)

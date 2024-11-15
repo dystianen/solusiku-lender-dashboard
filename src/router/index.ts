@@ -1,7 +1,7 @@
 import RegistrationFundingIndividual from '@/components/pages/registration/RegistrationFundingIndividual.vue'
 import RegistrationFundingInstitution from '@/components/pages/registration/RegistrationFundingInstitution.vue'
 import { BaseLayout, DashboardLayout } from '@/layouts/layouts'
-import useAccessToken from '@/stores/accessToken.store'
+import accessTokenStore from '@/stores/accessToken.store'
 import AccountSetting from '@/views/AccountSetting.vue'
 import DashboardView from '@/views/DashboardView.vue'
 import LoginView from '@/views/LoginView.vue'
@@ -208,7 +208,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const { accessToken } = useAccessToken()
+  const { accessToken } = accessTokenStore()
 
   // Pages that cannot be accessed if logged in
   const restrictedAfterLogin = ['/login']

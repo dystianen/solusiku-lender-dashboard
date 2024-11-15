@@ -4,14 +4,14 @@ import VerificationLayout from '@/components/templates/verification/Verification
 import useScreenType from '@/composables/useScreenType'
 import useTimer from '@/composables/useTimer'
 import useEmailStore from '@/stores/email.store'
-import useVerificationToken from '@/stores/verificationToken.store'
+import verificationTokenStore from '@/stores/verificationToken.store'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import { reactive, ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 const router = useRouter()
 const { isMobile } = useScreenType()
 const { setTimerCookies } = useTimer()
-const { setVerificationToken } = useVerificationToken()
+const { setVerificationToken } = verificationTokenStore()
 
 const emailStore = useEmailStore()
 

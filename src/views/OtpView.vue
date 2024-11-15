@@ -3,13 +3,13 @@ import useVerification from '@/api/queries/verification/useVerification'
 import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
 import useTimer from '@/composables/useTimer'
 import useEmailStore from '@/stores/email.store'
-import useVerificationToken from '@/stores/verificationToken.store'
+import verificationTokenStore from '@/stores/verificationToken.store'
 import { ElMessage } from 'element-plus'
 import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import VOtpInput from 'vue3-otp-input'
 
-const { verificationToken, setVerificationToken } = useVerificationToken()
+const { verificationToken, setVerificationToken } = verificationTokenStore()
 const { getTimerCookies, removeTimerCookies, setTimerCookies } = useTimer()
 const { email } = useEmailStore()
 const router = useRouter()

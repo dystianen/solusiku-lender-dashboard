@@ -1,4 +1,4 @@
-import useAccessToken from '@/stores/accessToken.store'
+import accessTokenStore from '@/stores/accessToken.store'
 import axios, { AxiosError, type AxiosInstance, type AxiosResponse } from 'axios'
 
 const api = axios.create({
@@ -15,7 +15,7 @@ const api = axios.create({
 const addAuthInterceptor = (instance: AxiosInstance) => {
   instance.interceptors.request.use(
     (config) => {
-      const { accessToken } = useAccessToken()
+      const { accessToken } = accessTokenStore()
       if (accessToken) {
         config.headers.Authorization = `Bearer ${accessToken}`
       }
@@ -37,7 +37,7 @@ const addAuthInterceptor = (instance: AxiosInstance) => {
       ) {
         const pathname = window.location.pathname
         if (pathname !== '/login') {
-          const { removeAccessToken } = useAccessToken()
+          const { removeAccessToken } = accessTokenStore()
           removeAccessToken()
           window.location.href = '/login'
         }
