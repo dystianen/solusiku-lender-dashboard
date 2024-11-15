@@ -4,6 +4,7 @@ import VerificationLayout from '@/components/templates/verification/Verification
 import useScreenType from '@/composables/useScreenType'
 import useTimer from '@/composables/useTimer'
 import useVerificationToken from '@/composables/useVerificationToken'
+import useEmailStore from '@/stores/email'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import { reactive, ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
@@ -11,6 +12,8 @@ const router = useRouter()
 const { isMobile } = useScreenType()
 const { setTimerCookies } = useTimer()
 const { setVerificationToken } = useVerificationToken()
+
+const emailStore = useEmailStore()
 
 // Queries
 const { mutate: submitForgotPassword, isPending } = useVerification.postForgotPassword()
@@ -45,6 +48,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         onSuccess: (res) => {
           setTimerCookies()
           setVerificationToken(res.token)
+          emailStore.setEmail(form.email)
           router.push({ name: 'forgot-password-otp' })
         },
         onError: (res: any) => {
