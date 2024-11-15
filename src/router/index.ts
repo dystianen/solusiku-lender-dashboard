@@ -1,25 +1,5 @@
-import RegistrationFundingIndividual from '@/components/pages/registration/RegistrationFundingIndividual.vue'
-import RegistrationFundingInstitution from '@/components/pages/registration/RegistrationFundingInstitution.vue'
 import { BaseLayout, DashboardLayout } from '@/layouts/layouts'
 import accessTokenStore from '@/stores/accessToken.store'
-import AccountSetting from '@/views/AccountSetting.vue'
-import DashboardView from '@/views/DashboardView.vue'
-import LoginView from '@/views/LoginView.vue'
-import Notification from '@/views/Notification.vue'
-import OtpView from '@/views/OtpView.vue'
-import ProfileLender from '@/views/ProfileLender.vue'
-import DeleteBookWO from '@/views/funding-management/DeleteBookWO.vue'
-import FundingHistory from '@/views/funding-management/FundingHistory.vue'
-import FundingOpportunities from '@/views/funding-management/FundingOpportunities.vue'
-import PaymentHistory from '@/views/funding-management/PaymentHistory.vue'
-import Restructuring from '@/views/funding-management/restructuring/Restructuring.vue'
-// import RestructuringDetail from '@/views/funding-management/restructuring/RestructuringDetail.vue'
-import ChangePassword from '@/views/password/ChangePassword.vue'
-import ForgotPassword from '@/views/password/ForgotPassword.vue'
-import SuccessUpdatePassword from '@/views/password/SuccessUpdatePassword.vue'
-import RegistrationBorrower from '@/views/registration/RegistrationBorrower.vue'
-import RegistrationLender from '@/views/registration/RegistrationLender.vue'
-import RegistrationType from '@/views/registration/RegistrationType.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -37,7 +17,7 @@ const router = createRouter({
       meta: {
         layout: BaseLayout
       },
-      component: RegistrationType
+      component: () => import('@/views/registration/RegistrationType.vue')
     },
     {
       path: '/register',
@@ -45,7 +25,7 @@ const router = createRouter({
       meta: {
         layout: BaseLayout
       },
-      component: RegistrationLender
+      component: () => import('@/views/registration/RegistrationLender.vue')
     },
     {
       path: '/register/otp',
@@ -53,7 +33,7 @@ const router = createRouter({
       meta: {
         layout: BaseLayout
       },
-      component: OtpView
+      component: () => import('@/views/OtpView.vue')
     },
     {
       path: '/login',
@@ -61,7 +41,7 @@ const router = createRouter({
       meta: {
         layout: BaseLayout
       },
-      component: LoginView
+      component: () => import('@/views/LoginView.vue')
     },
     {
       path: '/forgot-password',
@@ -69,7 +49,7 @@ const router = createRouter({
       meta: {
         layout: BaseLayout
       },
-      component: ForgotPassword
+      component: () => import('@/views/password/ForgotPassword.vue')
     },
     {
       path: '/forgot-password/otp',
@@ -77,7 +57,7 @@ const router = createRouter({
       meta: {
         layout: BaseLayout
       },
-      component: OtpView
+      component: () => import('@/views/OtpView.vue')
     },
     {
       path: '/change-password',
@@ -85,7 +65,7 @@ const router = createRouter({
       meta: {
         layout: BaseLayout
       },
-      component: ChangePassword
+      component: () => import('@/views/password/ChangePassword.vue')
     },
     {
       path: '/success-update-password',
@@ -93,7 +73,7 @@ const router = createRouter({
       meta: {
         layout: BaseLayout
       },
-      component: SuccessUpdatePassword
+      component: () => import('@/views/password/SuccessUpdatePassword.vue')
     },
     {
       path: '/register-borrower',
@@ -101,7 +81,7 @@ const router = createRouter({
       meta: {
         layout: BaseLayout
       },
-      component: RegistrationBorrower
+      component: () => import('@/views/registration/RegistrationBorrower.vue')
     },
 
     // DASHBOARD LAYOUT
@@ -112,7 +92,7 @@ const router = createRouter({
         layout: DashboardLayout,
         requiresAuth: true
       },
-      component: DashboardView
+      component: () => import('@/views/DashboardView.vue')
     },
     {
       path: '/funding-management',
@@ -125,17 +105,17 @@ const router = createRouter({
         {
           path: 'funding-opportunities',
           name: 'funding-opportunities',
-          component: FundingOpportunities
+          component: () => import('@/views/funding-management/FundingOpportunities.vue')
         },
         {
           path: 'funding-history',
           name: 'funding-history',
-          component: FundingHistory
+          component: () => import('@/views/funding-management/FundingHistory.vue')
         },
         {
           path: 'payment-history',
           name: 'payment-history',
-          component: PaymentHistory
+          component: () => import('@/views/funding-management/PaymentHistory.vue')
         },
         {
           path: 'restructuring',
@@ -143,19 +123,14 @@ const router = createRouter({
             {
               path: '',
               name: 'restructuring',
-              component: Restructuring
+              component: () => import('@/views/funding-management/restructuring/Restructuring.vue')
             }
-            // {
-            //   path: ':id',
-            //   name: 'restructuring-detail',
-            //   component: RestructuringDetail
-            // }
           ]
         },
         {
           path: 'delete-book-wo',
           name: 'delete-book-wo',
-          component: DeleteBookWO
+          component: () => import('@/views/funding-management/DeleteBookWO.vue')
         }
       ]
     },
@@ -166,7 +141,7 @@ const router = createRouter({
         layout: DashboardLayout,
         requiresAuth: true
       },
-      component: ProfileLender
+      component: () => import('@/views/ProfileLender.vue')
     },
     {
       path: '/account-setting',
@@ -175,7 +150,7 @@ const router = createRouter({
         layout: DashboardLayout,
         requiresAuth: true
       },
-      component: AccountSetting
+      component: () => import('@/views/AccountSetting.vue')
     },
     {
       path: '/notification',
@@ -184,7 +159,7 @@ const router = createRouter({
         layout: DashboardLayout,
         requiresAuth: true
       },
-      component: Notification
+      component: () => import('@/views/Notification.vue')
     },
     {
       path: '/register-funding-individual',
@@ -193,7 +168,7 @@ const router = createRouter({
         layout: DashboardLayout,
         requiresAuth: true
       },
-      component: RegistrationFundingIndividual
+      component: () => import('@/components/pages/registration/RegistrationFundingIndividual.vue')
     },
     {
       path: '/register-funding-institution',
@@ -202,7 +177,7 @@ const router = createRouter({
         layout: DashboardLayout,
         requiresAuth: true
       },
-      component: RegistrationFundingInstitution
+      component: () => import('@/components/pages/registration/RegistrationFundingInstitution.vue')
     }
   ]
 })
