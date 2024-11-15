@@ -189,7 +189,7 @@ watchEffect(() => {
       status-icon
       :model="form"
       :rules="rules"
-      @keydown.enter="submitForm(ruleFormRef)"
+      @keydown.enter.prevent="submitForm(ruleFormRef)"
     >
       <h5 class="tw-font-semibold">Daftar Sebagai</h5>
       <el-form-item prop="userTypeId">
@@ -289,7 +289,7 @@ watchEffect(() => {
         size="large"
         style="width: 100%"
         :loading="isPending"
-        @click="submitForm(ruleFormRef)"
+        @click.prevent="submitForm(ruleFormRef)"
       >
         Daftar Sekarang
       </el-button>

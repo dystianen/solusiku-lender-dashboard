@@ -76,7 +76,7 @@ watch(() => form.password, verifyPassword)
       status-icon
       :model="form"
       :rules="rules"
-      @keydown.enter="submitForm(ruleFormRef)"
+      @keydown.enter.prevent="submitForm(ruleFormRef)"
     >
       <el-form-item prop="password">
         <InputField
