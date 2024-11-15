@@ -3,7 +3,7 @@ import type { TSize } from '@/types/general'
 import { useAttrs, type PropType } from 'vue'
 
 const attrs = useAttrs()
-const props = defineProps({
+defineProps({
   label: {
     type: String,
     default: ''
@@ -21,10 +21,11 @@ const props = defineProps({
 
 <template>
   <div class="input-container">
-    <label :for="props.label" class="input-label">{{ label }}</label>
+    <label :for="label" class="input-label">{{ label }}</label>
     <el-autocomplete
       v-bind="attrs"
       popper-class="my-autocomplete"
+      :id="label"
       :placeholder="placeholder"
       :size="size"
     >

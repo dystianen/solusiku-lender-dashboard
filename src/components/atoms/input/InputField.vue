@@ -2,7 +2,7 @@
 import type { TSize } from '@/types/general'
 import { useAttrs, type PropType } from 'vue'
 
-const props = defineProps({
+defineProps({
   label: {
     type: String,
     default: ''
@@ -22,13 +22,14 @@ const attrs = useAttrs()
 
 <template>
   <div class="input-container">
-    <label :for="props.label" class="input-label tw-max-w-48 tw-truncate md:tw-max-w-full">
-      {{ props.label }}
+    <label :for="label" class="input-label tw-max-w-48 tw-truncate md:tw-max-w-full">
+      {{ label }}
     </label>
     <el-input
       v-bind="attrs"
-      :placeholder="props.placeholder"
-      :size="props.size"
+      :id="label"
+      :placeholder="placeholder"
+      :size="size"
       style="border-radius: 15px"
     >
       <template #prefix>

@@ -2,7 +2,7 @@
 import IcCalendar from '@/assets/icons/ic_calander2.svg'
 import { h, shallowRef, useAttrs } from 'vue'
 
-const props = defineProps({
+defineProps({
   label: {
     type: String,
     default: ''
@@ -27,11 +27,12 @@ const customPrefix = shallowRef({
 
 <template>
   <div class="input-container">
-    <label :for="props.label" class="input-label">{{ props.label }}</label>
+    <label :for="label" class="input-label">{{ label }}</label>
     <el-date-picker
       v-bind="attrs"
       type="date"
-      :placeholder="props.placeholder"
+      :id="label"
+      :placeholder="placeholder"
       size="large"
       class="custom-date"
       style="width: 100%"
