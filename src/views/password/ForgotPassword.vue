@@ -2,13 +2,15 @@
 import useVerification from '@/api/queries/verification/useVerification'
 import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
 import useScreenType from '@/composables/useScreenType'
-import { setTimerCookies } from '@/cookies/timer'
-import { setVerificationToken } from '@/cookies/verificationToken'
+import useTimer from '@/composables/useTimer'
+import useVerificationToken from '@/composables/useVerificationToken'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import { reactive, ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 const router = useRouter()
 const { isMobile } = useScreenType()
+const { setTimerCookies } = useTimer()
+const { setVerificationToken } = useVerificationToken()
 
 // Queries
 const { mutate: submitForgotPassword, isPending } = useVerification.postForgotPassword()

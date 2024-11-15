@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 import useVerification from '@/api/queries/verification/useVerification'
 import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
-import { verificationToken } from '@/cookies/verificationToken'
+import useVerificationToken from '@/composables/useVerificationToken'
 import validatorPassword from '@/helpers/password'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import { reactive, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 const router = useRouter()
+const { verificationToken } = useVerificationToken()
 
 const isLengthValid = ref(false)
 const isComplexValid = ref(false)

@@ -1,4 +1,4 @@
-import { accessToken, removeAccessToken } from '@/cookies/accessToken'
+import useAccessToken from '@/composables/useAccessToken'
 import axios, { AxiosError, type AxiosInstance, type AxiosResponse } from 'axios'
 
 const api = axios.create({
@@ -11,6 +11,8 @@ const api = axios.create({
   timeout: 3000000,
   withCredentials: true
 })
+
+const { accessToken, removeAccessToken } = useAccessToken()
 
 const addAuthInterceptor = (instance: AxiosInstance) => {
   instance.interceptors.request.use(

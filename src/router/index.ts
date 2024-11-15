@@ -1,6 +1,6 @@
 import RegistrationFundingIndividual from '@/components/pages/registration/RegistrationFundingIndividual.vue'
 import RegistrationFundingInstitution from '@/components/pages/registration/RegistrationFundingInstitution.vue'
-import { accessToken } from '@/cookies/accessToken'
+import useAccessToken from '@/composables/useAccessToken'
 import { BaseLayout, DashboardLayout } from '@/layouts/layouts'
 import AccountSetting from '@/views/AccountSetting.vue'
 import DashboardView from '@/views/DashboardView.vue'
@@ -13,7 +13,7 @@ import FundingHistory from '@/views/funding-management/FundingHistory.vue'
 import FundingOpportunities from '@/views/funding-management/FundingOpportunities.vue'
 import PaymentHistory from '@/views/funding-management/PaymentHistory.vue'
 import Restructuring from '@/views/funding-management/restructuring/Restructuring.vue'
-import RestructuringDetail from '@/views/funding-management/restructuring/RestructuringDetail.vue'
+// import RestructuringDetail from '@/views/funding-management/restructuring/RestructuringDetail.vue'
 import ChangePassword from '@/views/password/ChangePassword.vue'
 import ForgotPassword from '@/views/password/ForgotPassword.vue'
 import SuccessUpdatePassword from '@/views/password/SuccessUpdatePassword.vue'
@@ -21,6 +21,8 @@ import RegistrationBorrower from '@/views/registration/RegistrationBorrower.vue'
 import RegistrationLender from '@/views/registration/RegistrationLender.vue'
 import RegistrationType from '@/views/registration/RegistrationType.vue'
 import { createRouter, createWebHistory } from 'vue-router'
+
+const { accessToken } = useAccessToken()
 
 const router = createRouter({
   linkActiveClass: 'tw-bg-primary tw-text-white',
@@ -139,17 +141,17 @@ const router = createRouter({
         },
         {
           path: 'restructuring',
-          name: 'restructuring',
           children: [
             {
               path: '',
+              name: 'restructuring',
               component: Restructuring
-            },
-            {
-              path: ':id',
-              name: 'restructuring-detail',
-              component: RestructuringDetail
             }
+            // {
+            //   path: ':id',
+            //   name: 'restructuring-detail',
+            //   component: RestructuringDetail
+            // }
           ]
         },
         {

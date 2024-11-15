@@ -1,11 +1,10 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 
-function useScreenType() {
+export default function useScreenType() {
   const isMobile = ref(false)
   const isTablet = ref(false)
   const isDesktop = ref(false)
 
-  // Function to check the window width and update device type
   const updateDeviceType = () => {
     const width = window.innerWidth
 
@@ -35,5 +34,3 @@ function useScreenType() {
 
   return { isMobile, isTablet, isDesktop }
 }
-
-export default useScreenType

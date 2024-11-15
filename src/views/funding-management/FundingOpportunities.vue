@@ -2,13 +2,15 @@
 import useOffering from '@/api/queries/offering/useOffering'
 import IcSuccessfull from '@/assets/icons/ic_successful.svg'
 import useScreenType from '@/composables/useScreenType'
-import { getTimerCookies, setTimerCookies } from '@/cookies/timer'
+import useTimer from '@/composables/useTimer'
 import filters from '@/helpers/filters'
 import type { TFundingOpportunities } from '@/types/funding'
 import { useDebounce } from '@vueuse/core'
 import { dayjs, ElMessage, ElTable } from 'element-plus'
 import { computed, onMounted, reactive, ref, watch } from 'vue'
 import VuePdfEmbed from 'vue-pdf-embed'
+
+const { getTimerCookies, setTimerCookies } = useTimer()
 const { isMobile } = useScreenType()
 const widthDialog = computed(() => (isMobile.value ? 360 : 550))
 

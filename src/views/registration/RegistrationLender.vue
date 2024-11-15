@@ -4,8 +4,8 @@ import useVerification from '@/api/queries/verification/useVerification'
 import IcFlagIDN from '@/assets/icons/ic_flag_idn.svg'
 import InputField from '@/components/atoms/input/InputField.vue'
 import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
-import { setTimerCookies } from '@/cookies/timer'
-import { setVerificationToken } from '@/cookies/verificationToken'
+import useTimer from '@/composables/useTimer'
+import useVerificationToken from '@/composables/useVerificationToken'
 import useEmailStore from '@/stores/email'
 import type { TReqRegister } from '@/types/verification'
 import { ElNotification, type FormInstance, type FormRules } from 'element-plus'
@@ -14,6 +14,8 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const emailStore = useEmailStore()
+const { setTimerCookies } = useTimer()
+const { setVerificationToken } = useVerificationToken()
 
 // Queries
 const { data: userType } = useUser.getUserType()

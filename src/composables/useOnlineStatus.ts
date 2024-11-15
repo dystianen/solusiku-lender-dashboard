@@ -1,6 +1,6 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 
-const useOnlineStatus = () => {
+export default function useOnlineStatus() {
   const isOnline = ref(navigator.onLine)
 
   const updateOnlineStatus = () => {
@@ -19,5 +19,3 @@ const useOnlineStatus = () => {
 
   return isOnline
 }
-
-export default useOnlineStatus

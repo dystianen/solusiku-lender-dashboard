@@ -1,14 +1,15 @@
 <script lang="ts" setup>
 import useVerification from '@/api/queries/verification/useVerification'
 import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
+import useAccessToken from '@/composables/useAccessToken'
 import useScreenType from '@/composables/useScreenType'
-import { setAccessToken } from '@/cookies/accessToken'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import { reactive, ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 
 const router = useRouter()
 const { isMobile } = useScreenType()
+const { setAccessToken } = useAccessToken()
 
 // Queries
 const { mutate: login, isPending } = useVerification.postLogin()

@@ -1,14 +1,16 @@
 <script lang="ts" setup>
 import useVerification from '@/api/queries/verification/useVerification'
 import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
-import { getTimerCookies, removeTimerCookies, setTimerCookies } from '@/cookies/timer'
-import { setVerificationToken, verificationToken } from '@/cookies/verificationToken'
+import useTimer from '@/composables/useTimer'
+import useVerificationToken from '@/composables/useVerificationToken'
 import useEmailStore from '@/stores/email'
 import { ElMessage } from 'element-plus'
 import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import VOtpInput from 'vue3-otp-input'
 
+const { verificationToken, setVerificationToken } = useVerificationToken()
+const { getTimerCookies, removeTimerCookies, setTimerCookies } = useTimer()
 const router = useRouter()
 const route = useRoute()
 const isForgotPassword = route.name === 'forgot-password-otp'

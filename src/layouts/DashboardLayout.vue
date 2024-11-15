@@ -10,15 +10,16 @@ import IcUser from '@/assets/icons/ic_user.svg'
 import IcUserWhite from '@/assets/icons/ic_user_white.svg'
 import Avatar from '@/assets/images/avatar.svg'
 import LogoSolusiku from '@/assets/images/logo_solusiku.svg'
+import useAccessToken from '@/composables/useAccessToken'
 import useOnlineStatus from '@/composables/useOnlineStatus'
 import useScreenType from '@/composables/useScreenType'
-import { removeAccessToken } from '@/cookies/accessToken'
 import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
 const router = useRouter()
 const { isDesktop } = useScreenType()
+const { removeAccessToken } = useAccessToken()
 const isOpen = computed(() => isDesktop.value)
 const isOnline = useOnlineStatus()
 

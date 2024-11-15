@@ -1,27 +1,4 @@
-<script setup>
-const column = [
-  {
-    label: 'ID Peminjam',
-    value: 'CDBT3Y24'
-  },
-  {
-    label: 'Nilai Pinjaman',
-    value: 2000000
-  },
-  {
-    label: 'ID Peminjam',
-    value: 'CDBT3Y24'
-  },
-  {
-    label: 'ID Peminjam',
-    value: 'CDBT3Y24'
-  },
-  {
-    label: 'ID Peminjam',
-    value: 'CDBT3Y24'
-  }
-]
-</script>
+<script setup></script>
 
 <template>
   <Card>
