@@ -5,15 +5,15 @@ import IcFlagIDN from '@/assets/icons/ic_flag_idn.svg'
 import InputField from '@/components/atoms/input/InputField.vue'
 import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
 import useTimer from '@/composables/useTimer'
-import useVerificationToken from '@/composables/useVerificationToken'
-import useEmailStore from '@/stores/email'
+import useEmailStore from '@/stores/email.store'
+import useVerificationToken from '@/stores/verificationToken.store'
 import type { TReqRegister } from '@/types/verification'
 import { ElNotification, type FormInstance, type FormRules } from 'element-plus'
 import { h, reactive, ref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const emailStore = useEmailStore()
+const { setEmail } = useEmailStore()
 const { setTimerCookies } = useTimer()
 const { setVerificationToken } = useVerificationToken()
 
@@ -148,7 +148,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         onSuccess: (res) => {
           setTimerCookies()
           setVerificationToken(res.token)
-          emailStore.setEmail(form.email)
+          setEmail(form.email)
           router.push({ name: 'register-otp' })
         },
         onError: (res: any) => {

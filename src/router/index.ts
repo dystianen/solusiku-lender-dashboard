@@ -1,7 +1,7 @@
 import RegistrationFundingIndividual from '@/components/pages/registration/RegistrationFundingIndividual.vue'
 import RegistrationFundingInstitution from '@/components/pages/registration/RegistrationFundingInstitution.vue'
-import useAccessToken from '@/composables/useAccessToken'
 import { BaseLayout, DashboardLayout } from '@/layouts/layouts'
+import useAccessToken from '@/stores/accessToken.store'
 import AccountSetting from '@/views/AccountSetting.vue'
 import DashboardView from '@/views/DashboardView.vue'
 import LoginView from '@/views/LoginView.vue'
@@ -21,8 +21,6 @@ import RegistrationBorrower from '@/views/registration/RegistrationBorrower.vue'
 import RegistrationLender from '@/views/registration/RegistrationLender.vue'
 import RegistrationType from '@/views/registration/RegistrationType.vue'
 import { createRouter, createWebHistory } from 'vue-router'
-
-const { accessToken } = useAccessToken()
 
 const router = createRouter({
   linkActiveClass: 'tw-bg-primary tw-text-white',
@@ -210,7 +208,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const token = accessToken.value
+  const { accessToken } = useAccessToken()
 
   // Pages that cannot be accessed if logged in
   const restrictedAfterLogin = ['/login']
@@ -218,7 +216,7 @@ router.beforeEach((to, from, next) => {
   // Check if route exists
   if (to.matched.length === 0) {
     // Route not found
-    if (token) {
+    if (accessToken) {
       next('/dashboard') // If logged in, go to dashboard
     } else {
       next('/login') // If not logged in, go to login
@@ -226,7 +224,7 @@ router.beforeEach((to, from, next) => {
     return
   }
 
-  if (token) {
+  if (accessToken) {
     if (restrictedAfterLogin.includes(to.path)) {
       next('/dashboard')
     } else {

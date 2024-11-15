@@ -2,8 +2,8 @@
 import useVerification from '@/api/queries/verification/useVerification'
 import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
 import useTimer from '@/composables/useTimer'
-import useVerificationToken from '@/composables/useVerificationToken'
-import useEmailStore from '@/stores/email'
+import useEmailStore from '@/stores/email.store'
+import useVerificationToken from '@/stores/verificationToken.store'
 import { ElMessage } from 'element-plus'
 import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -11,6 +11,7 @@ import VOtpInput from 'vue3-otp-input'
 
 const { verificationToken, setVerificationToken } = useVerificationToken()
 const { getTimerCookies, removeTimerCookies, setTimerCookies } = useTimer()
+const { email } = useEmailStore()
 const router = useRouter()
 const route = useRoute()
 const isForgotPassword = route.name === 'forgot-password-otp'
@@ -20,7 +21,6 @@ const otpCode = ref('')
 const isSend = ref(true)
 const isSuccessOtp = ref(false)
 const hasError = ref(false)
-const emailStore = useEmailStore()
 
 // Timer
 const timerCookies = computed(() => getTimerCookies())
@@ -40,7 +40,7 @@ const { mutate: resendOTPForgotPassword, isPending: isLoadingResendFP } =
 
 const handleSubmitOTP = () => {
   const payload = {
-    token: verificationToken.value,
+    token: verificationToken,
     otpCode: otpCode.value
   }
 
@@ -75,7 +75,7 @@ const handleOnComplete = (value: string) => {
 
 const handleResendOtp = () => {
   if (isForgotPassword) {
-    resendOTPForgotPassword(verificationToken.value, {
+    resendOTPForgotPassword(verificationToken, {
       onSuccess: (res) => {
         isSend.value = true
         setVerificationToken(res.token)
@@ -86,7 +86,7 @@ const handleResendOtp = () => {
       }
     })
   } else {
-    resendOTPRegister(verificationToken.value, {
+    resendOTPRegister(verificationToken, {
       onSuccess: (res) => {
         setVerificationToken(res.token)
         isSend.value = true
@@ -144,7 +144,7 @@ const transformSlotProps = (props: Record<string, number>): Record<string, strin
     <h1 class="tw-text-4xl tw-font-semibold">Masukan Kode OTP</h1>
     <p class="tw-text-neutral-desc">
       Kami telah mengirim kode OTP via e-mail ke <br />
-      <span class="tw-font-semibold tw-text-primary">{{ emailStore.email }}</span>
+      <span class="tw-font-semibold tw-text-primary">{{ email }}</span>
     </p>
 
     <VOtpInput

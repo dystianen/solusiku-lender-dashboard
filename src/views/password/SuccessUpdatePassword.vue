@@ -1,12 +1,15 @@
 <script lang="ts" setup>
 import IcChecked2 from '@/assets/icons/ic_checked2.svg'
 import VerificationLayout from '@/components/templates/verification/VerificationLayout.vue'
+import verificationTokenStore from '@/stores/verificationToken.store'
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
+const { removeVerificationToken } = verificationTokenStore()
 
 const redirectToLogin = () => {
+  removeVerificationToken()
   setTimeout(() => {
     router.push({ name: 'login' })
   }, 3000)

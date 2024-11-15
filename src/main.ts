@@ -57,11 +57,11 @@ addIcons(
 )
 
 const app = createApp(App)
+const pinia = createPinia()
 
 app.component('v-icon', OhVueIcon)
 app.component('v-countdown', VueCountdown)
 
-const pinia = createPinia()
 app.use(pinia)
 app.use(VueApexCharts)
 app.use(router)
