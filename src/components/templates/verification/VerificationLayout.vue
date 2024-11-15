@@ -25,10 +25,10 @@ const { isDesktop } = useScreenType()
 
       <div class="tw-flex tw-flex-col tw-justify-between tw-gap-12">
         <div class="tw-flex tw-items-center tw-justify-center tw-gap-4 tw-py-3 lg:tw-hidden">
-          <h5 class="tw-text-[8px] tw-font-semibold">
+          <p class="tw-text-[8px] tw-font-semibold">
             Solusiku Berizin dan Diawasi oleh <br />
             Otoritas Jasa Keuangan (OJK)
-          </h5>
+          </p>
           <img alt="Logo AFPI" :src="LogoAfpi" :width="122" :height="32" />
           <img
             alt="Logo Asosiasi Fintech"

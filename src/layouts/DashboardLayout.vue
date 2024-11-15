@@ -183,7 +183,7 @@ onMounted(() => {
         class="tw-flex tw-w-full tw-flex-shrink-0 tw-items-center tw-justify-between tw-p-2 tw-z-10"
       >
         <div class="tw-flex tw-items-center tw-gap-4">
-          <img :src="LogoSolusiku" />
+          <img :src="LogoSolusiku" alt="Logo Solusiku" :width="30" :height="30" />
           <span :class="{ 'lg:tw-hidden': !isSidebarOpen }" class="tw-text-2xl tw-text-primary">
             SOLUSIKU
           </span>
@@ -265,6 +265,9 @@ onMounted(() => {
                   v-if="item.icon"
                   :src="isActiveMenu(item.path) ? item.activeIcon : item.icon"
                   class="tw-fill-white tw-stroke-white"
+                  :alt="item.icon"
+                  :width="24"
+                  :height="24"
                 />
                 <span
                   :class="{ 'lg:tw-hidden': !isSidebarOpen }"
@@ -332,7 +335,7 @@ onMounted(() => {
                 :offset="[-8, 35]"
                 :color="isOnline ? '#72E128' : '#de4f3f'"
               >
-                <el-avatar :size="40" :src="Avatar" />
+                <el-avatar :size="40" :src="Avatar" alt="avatar" />
               </el-badge>
               <template #dropdown>
                 <el-dropdown-menu>

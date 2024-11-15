@@ -39,10 +39,10 @@ const reasonData = [
     class="tw-relative tw-bg-[linear-gradient(157.87deg,#FB7B4A_-25.28%,#DE4F3F_94.25%)] tw-px-20 tw-py-10"
   >
     <div class="tw-flex tw-max-w-[600px] tw-flex-col tw-gap-6">
-      <img :src="ParticleWay" class="tw-absolute tw-right-0 tw-top-2" />
-      <img :src="ParticleDot" class="tw-absolute tw-bottom-2 tw-left-2" />
+      <img :src="ParticleWay" class="tw-absolute tw-right-0 tw-top-2" alt="Particle Way" />
+      <img :src="ParticleDot" class="tw-absolute tw-bottom-2 tw-left-2" alt="Particle Dot" />
 
-      <img :src="LogoSolusikuLight" :width="146" :height="30" />
+      <img :src="LogoSolusikuLight" :width="146" :height="30" alt="LogoSolusikuLight" />
 
       <h1 class="tw-text-3xl tw-font-semibold tw-text-white">
         Alasan Kenapa Anda Harus Memilih SOLUSIKU?
